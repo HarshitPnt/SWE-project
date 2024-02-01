@@ -1,0 +1,99 @@
+\documentclass[11pt]{article}
+\usepackage[left= 1.55cm, right = 1.55cm,top = 1.2cm, bottom = 1.5cm]{geometry}
+\usepackage{enumerate}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\pagenumbering{gobble}
+\usepackage{mathtools}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage[utf8]{inputenc}
+\usepackage[usestackEOL]{stackengine}
+\setlength{\abovedisplayskip}{0in}
+\setlength{\columnsep}{3em}
+\newcommand{\blue}{\color{Blue}}
+\newcommand{\green}{\color{Green}}
+\usepackage[inkscapeformat=png]{svg}
+\newcommand{\red}{\color{Red}}
+\newcommand{\black}{\color{Black}}
+\newcommand{\Name}{Communities }
+\title{Software Requirements Analysis\\\Name : A Social Media Platform\\ SM02}
+\author{Harshit Pant \\ CS21BTECH11021 \and Satpute Aniket Tukaram \\ CS21BTECH11056 \and Mahin Bansal \\ CS21BTECH11034 \and Burra Vishal Mathews \\ CS21BTECH11010}
+\date{}
+\begin{document}
+\maketitle
+\begin{center}
+    \tableofcontents
+\end{center}
+\newpage
+\section{Context Diagram}
+\begin{figure}[H]
+    \centering
+    \makebox[\linewidth][c]{\hspace{5cm}
+        \includegraphics[width = 0.8\textwidth]{./images/context_diagram.jpeg}
+    }
+    \caption{Context Diagram}
+    \label{fig:context_diagram}
+\end{figure}
+\newpage
+\section{Data Flow Diagrams}
+\subsection{DFD Descriptions}
+Below are two possible DFDs for the system.
+
+\begin{figure}[H]
+    \centering
+    \makebox[\linewidth][c]{
+        \includegraphics[width = 0.8\textwidth]{./images/dfd_correct.jpeg}
+    }
+    \caption{DFD-1}
+\end{figure}
+\begin{itemize}
+    \item The red line marks the man-machine boundary in the DFD design.
+\end{itemize}
+\newpage
+\begin{figure}[H]
+    \centering
+    \makebox[\linewidth][c]{\hspace{1cm}
+        \includegraphics[width = \textwidth]{./images/dfd_correct.jpeg}
+    }
+    \caption{DFD-2}
+\end{figure}
+
+\begin{itemize}
+    \item The red line marks the man-machine boundary in the DFD design.
+\end{itemize}
+\newpage
+\subsection{Comparing the two DFDs}
+\newpage
+\section{Function Point Analysis}
+\end{document}

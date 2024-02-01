@@ -1,0 +1,2326 @@
+
+\documentclass[conference,compsoc]{IEEEtran}
+\usepackage[hidelinks]{hyperref}
+\usepackage{float}
+\newcounter{UC}
+\setcounter{UC}{0}
+
+% *** CITATION PACKAGES ***
+%
+\ifCLASSOPTIONcompsoc
+% IEEE Computer Society needs nocompress option
+  % requires cite.sty v4.0 or later (November 2003)
+  \usepackage[nocompress]{cite}
+\else
+  % normal IEEE
+  \usepackage{cite}
+\fi
+\usepackage{enumitem}
+\setlist[itemize]{itemsep=1.5mm}
+%
+\ifCLASSINFOpdf
+  % \usepackage[pdftex]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../pdf/}{../jpeg/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.pdf,.jpeg,.png}
+\else
+  % or other class option (dvipsone, dvipdf, if not using dvips). graphicx
+  % will default to the driver specified in the system graphics.cfg if no
+  % driver is specified.
+  % \usepackage[dvips]{graphicx}
+  % declare the path(s) where your graphic files are
+  % \graphicspath{{../eps/}}
+  % and their extensions so you won't have to specify these with
+  % every instance of \includegraphics
+  % \DeclareGraphicsExtensions{.eps}
+  \fi
+
+% correct bad hyphenation here
+\hyphenation{op-tical net-works semi-conduc-tor}
+\newcommand{\U}{\theUC}
+\newcommand{\nextU}{\stepcounter{UC}\theUC}
+
+\newcommand{\Name}{Communities }
+\setlength{\parindent}{0cm}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{multirow,hhline,graphicx,array}
+\newcolumntype{M}[1]{>{\centering\arraybackslash}m{#1}}
+
+% Set the vertical padding for all cells in the table
+\renewcommand{\arraystretch}{1.5}
+
+\usepackage{titlesec}
+
+\titlespacing\section{0pt}{12pt plus 4pt minus 2pt}{10pt plus 2pt minus 2pt}
+\titlespacing\subsection{0pt}{12pt plus 4pt minus 2pt}{5pt plus 2pt minus 2pt}
+\titlespacing\subsubsection{0pt}{12pt plus 4pt minus 2pt}{0pt plus 2pt minus 2pt}
+\begin{document}
+\title{Software Requirements Specification\\\Name: An Online Social Media Platform\\(SM02)}
+
+\author{\IEEEauthorblockN{Harshit Pant}
+    \IEEEauthorblockA{CS21BTECH11021}
+    \and
+    \IEEEauthorblockN{Satpute Aniket Tukaram}
+    \IEEEauthorblockA{CS21TEBCH11056}
+    \and
+    \IEEEauthorblockN{Mahin Bansal}
+    \IEEEauthorblockA{CS21BTECH11034}
+    \and
+    \IEEEauthorblockN{Burra Vishal Mathews}
+    \IEEEauthorblockA{CS21BTECH11010}}
+\maketitle
+\IEEEpeerreviewmaketitle
+
+\tableofcontents
+
+\section{Introduction}
+\subsection{Purpose}
+The purpose of \Name is to provide a platform where users can create communities of their choice and induldge in communities of similar interests.
+
+This document is meant to delineate the features of \Name and serve as a guide to the developers on one hand and a software validation document for the prospective client on the other.
+
+\subsection{Scope}
+We describe what features are in-scope nad what are not in-scope for the software product.
+
+\subsection*{In-scope:}
+\begin{itemize}
+    \item \textbf{Guest Users} can view public communities, posts and other registered users with public profiles.
+    \item Guest Users can view the Trending page.
+    \item User authentication including login and signup and a referral system.
+    \item \textbf{Registered users} can create communities with different visibilities and can join communities.
+    \item Users can create posts in communities and perform other CRUD operations. They can comment on posts.
+    \item Users can upvote and downvote posts and comments.
+    \item Users can report posts and comments.
+    \item Users can search for communities, users and posts.
+    \item Users can follow other users.
+    \item Users can view their user-specific-feed and their notifications.
+    \item Users can use a direct messaging system to communicate with other users
+    \item \textbf{Community moderators} can moderate posts and comments in their communities.
+    \item Community moderators can ban users from their communities.
+    \item Community moderators can issue warnings to members of their communities.
+    \item \textbf{Community admins} can add and remove moderators from their communities.
+    \item Community admins can delete their communities.
+    \item Community admins can revoke user-bans.
+    \item \textbf{Platform admins}/\textbf{superusers} can delete users and communities.
+\end{itemize}
+
+\subsection*{Out-of-scope:}
+\begin{itemize}
+    \item Interface specific for group chats. Group chats can be indirectly achieved by creating a community with visibility set to private.
+    \item Any real-time features like live chat, live feed, etc.
+\end{itemize}
+
+\subsection{Overview}
+The rest of this SRS document is organized as follows:
+\begin{itemize}
+    \item Section 2 describes the overall description of the product.
+    \item Section 3 describes the specific requirements of the product and the functional requirements of the product using use-case analysis.
+    \item Section 4 gives some further extensions.
+    \item Section 5 is the Appendix for the document.
+\end{itemize}
+\section{Overall Description}
+\subsection{Product Perspective}
+This product intends to be a social media platform where users can create communities of their choice with different visibilities and induldge in communities of similar interests. Users can also interact with other users through direct messaging.
+
+Inorder to prevent malicious users, the platform also employs a moderation system where users can report posts and comments and moderators can moderate posts and comments in their communities.
+
+The product also intends to employ a recommender system to recommend communities and create a user-specific feed for each user.
+
+The product is a web application and hence is intended to be independent of any underlying operating system.
+\subsection{Product Functions}
+\Name supports the following use cases
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|M{2cm}|p{2.3cm}|p{3.2cm}|}
+        \hline
+        \textbf{Class of use case}         & \textbf{Use case}                                              & \textbf{Description of use case}                                                                                                                                                \\\hline
+        \multirow{7}{*}{Authentication}    & Signup                                                         & Signup a user using username and password                                                                                                                                       \\\cline{2-3}
+                                           & Signup using referral code. Join via link                      & Signup a user using referral code.                                                                                                                                              \\\cline{2-3}
+                                           & Login via username and password                                & Login a user using username and password                                                                                                                                        \\\cline{2-3}
+                                           & Login via Google OAuth                                         & Login a user using Google OAuth                                                                                                                                                 \\\cline{2-3}
+                                           & Forgot password                                                & Reset password of a user by sending an email to registered email id.                                                                                                            \\\cline{2-3}
+                                           & Change Password                                                & Change password of a user                                                                                                                                                       \\\cline{2-3}
+                                           & Logout                                                         & Logout a user                                                                                                                                                                   \\\hline
+        \multirow{7}{*}{Guest Users }      & Signup                                                         & Signup a user using one of the above methods                                                                                                                                    \\\cline{2-3}
+                                           & Search for public or request only communities, users and posts & Search for communities, users and posts                                                                                                                                         \\\cline{2-3}
+                                           & Fuzzy search                                                   & Search for communities, users and posts using fuzzy search                                                                                                                      \\
+
+                                           & View communities                                               & View public community pages and posts                                                                                                                                           \\\cline{2-3}
+                                           & View posts                                                     & View public posts                                                                                                                                                               \\\cline{2-3}
+                                           & View users                                                     & View public user profiles                                                                                                                                                       \\\cline{2-3}
+                                           & View trending page                                             & View trending posts                                                                                                                                                             \\\hline
+        \multirow{25}{*}{Registered Users} & Create community                                               & Create a community based on provided community settings.                                                                                                                        \\\cline{2-3}
+                                           & Join community                                                 & Join a public community                                                                                                                                                         \\\cline{2-3}
+                                           & Send join request                                              & Send a join request to a community which is set to request only                                                                                                                 \\\cline{2-3}
+                                           & Accept a community invite                                      & Accept a private community invite sent by a community admin/moderator.                                                                                                          \\\cline{2-3}
+                                           & Search for communities, users and posts                        & Applicable for public communities, request only community, public user profiles, follower profiles and posts in public communities and posts in communities joined by the user. \\\cline{2-3}
+                                           & Create posts                                                   & Create a post in a community joined by the user if the user has the privilege.                                                                                                  \\\cline{2-3}
+                                           & Comment on posts                                               & Comment on posts in communities joined by the user if the post has comments on.                                                                                                 \\\cline{2-3}
+                                           & Reply to comment                                               & Reply to comments on posts in communities joined by the user                                                                                                                    \\\cline{2-3}
+    \end{tabular}
+\end{table}
+\begin{table}[H]
+    \begin{tabular}{|M{2cm}|p{2.3cm}|p{3.2cm}|}
+        \multirow{25}{*}{Registered Users} & Receive comment notifications & Receive notifications when a user replies to a comment made by the user or a comment is made on a post made by the user.                 \\\cline{2-3}
+                                           & Upvote/Downvote               & Upvote/Downvote posts and comments in communities joined by the user.                                                                    \\\cline{2-3}
+                                           & Edit Post                     & Edit post created by the same user.                                                                                                      \\\cline{2-3}
+                                           & Edit comment                  & Edit comment created by the same user.                                                                                                   \\\cline{2-3}
+                                           & Delete post                   & Delete post created by the same user.                                                                                                    \\\cline{2-3}
+                                           & Delete comment                & Delete comment created by the same user.                                                                                                 \\\cline{2-3}
+                                           & Report                        & Report posts and comments in public communities or communities joined by the user.                                                       \\\cline{2-3}
+                                           & Follow/Unfollow profile       & Follow/Unfollow a user profile.                                                                                                          \\\cline{2-3}
+                                           & Block user                    & Block all direct-messages and posts by a user                                                                                            \\\cline{2-3}
+                                           & Edit Profile                  & Edit user profile                                                                                                                        \\\cline{2-3}
+                                           & Edit profile visibility       & Edit user profile visibility. Toggle between public and private.                                                                         \\\cline{2-3}
+                                           & View Followers                & View followers of a public user profile or your own profile.                                                                             \\\cline{2-3}
+
+                                           & Send Chat request             & Send chat request to a private profile which is does not follows the user                                                                \\\cline{2-3}
+                                           & Accept Chat request           & Accept chat request from a user profile                                                                                                  \\\cline{2-3}
+                                           & Chat                          & Chat with mutual followers directly                                                                                                      \\\cline{2-3}
+                                           & Send direct message           & send message to mutual follower and profiles which have accepted chat request                                                            \\\cline{2-3}
+                                           & Receive direct message        & Receive direct message from mutual follower and profiles from which the user has accepted the chat request                               \\\cline{2-3}
+                                           & View user-specific-feed       & View posts from communities joined by the user and posts from profiles followed by the user in any public community or mutula community. \\\cline{2-3}
+                                           & Schedule post                 & Schedule a post to be posted at a later time.                                                                                            \\\cline{2-3}
+                                           & Save Posts                    & Save posts to view later                                                                                                                 \\\cline{2-3}
+                                           & View saved posts              & View saved posts                                                                                                                         \\\cline{2-3}
+                                           & Send unban request            & Send unban request to a community admin if the user is banned from the community.                                                        \\\hline
+    \end{tabular}
+\end{table}
+\begin{table}[H]
+    \begin{tabular}{|M{2cm}|p{2.3cm}|p{3.2cm}|}
+        \multirow{15}{*}{Moderators} & Moderate posts                      & Moderate posts in communities where the user is a moderator                                 \\\cline{2-3}
+                                     & Moderate comments                   & Moderate comments in communities where the user is a moderator                              \\\cline{2-3}
+                                     & Ban user                            & Ban a user from a community where the user is a moderator                                   \\\cline{2-3}
+                                     & Issue warning                       & Issue warning to a user in a community where the user is a moderator                        \\\cline{2-3}
+                                     & Give/revoke post/comment privileges & Give/revoke post/comment privileges to a user in a community where the user is a moderator. \\\hline
+        \multirow{5}{*}{Admins}      & Delete community                    & Delete a community where the user is an admin                                               \\\cline{2-3}
+                                     & Appoint/Remove moderators           & Appoint/Remove moderators in a community where the user is an admin                         \\\cline{2-3}
+                                     & Revoke user-ban                     & Revoke user-ban in a community where the user is an admin                                   \\\cline{2-3}
+                                     & Give/revoke moderator privileges    & Give/revoke moderator privileges to a user in a community where the user is an admin.       \\\hline
+        \multirow{7}{*}{Superuser}   & Ban user                            & Ban a user from the platform.                                                               \\\cline{2-3}
+                                     & Delete community                    & Delete a community from the platform.                                                       \\\cline{2-3}
+                                     & Accept community reports            & Accept community reports and delete the community.                                          \\\cline{2-3}
+                                     & Revoke user-ban                     & Revoke user-ban from the platform.                                                          \\\hline
+    \end{tabular}
+\end{table}
+\subsection{User Characteristics}
+\begin{itemize}
+    \item Users are advised to be familiar with the basic features of a social media platform.
+\end{itemize}
+\subsection{Principal Actors}
+The principal actors in the system are:
+\begin{itemize}
+    \item Guest Users: Users which have not created an account on the platform.
+    \item Registered Users: Users which have created an account on the platform.
+    \item Community Admins: Users which have created a community on the platform.
+    \item Community Moderators: Users which have been appointed as moderators in a community.
+    \item Superuser: Users which have the highest privileges on the platform.
+    \item System: The system is also an actor in the system.
+\end{itemize}
+\subsection{Assumptions and Dependencies}
+\begin{itemize}
+    \item The platform assumes that the user has a stable internet connection.
+    \item The platform assumes that the user has a device with an updated web browser.
+    \item The platform assumes that a registered user has a valid email id.
+    \item The platform depends on Google OAuth services for authentication in some cases.
+\end{itemize}
+\section{Specific Requirements}
+\subsection{Functional Requirements}
+\subsubsection{\underline{Authentication:}}
+\vspace{0.2cm}
+\subsubsection*{\underline{Use-case \nextU: Signup}}
+\vspace{0.2cm}
+\underline{Primary Actor:} Guest User\\
+
+\underline{PreCondition:} Stable internet Connection and a valid email Id\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Guest User clicks on the signup button.
+    \item Guest User enters the username, email id and password.
+    \item Guest User re-enters the password in confirm password field.
+    \item Guest User clicks on create account.
+    \item System checks if the username is unique.
+    \item System checks if the email id is valid by sending a confirmation email.
+    \item System checks if the email id is already registered.
+    \item User is logged into platform.
+    \item User information is stored in the database.
+    \item A default user profile is created.
+\end{enumerate}
+\underline{Alternate Scenario:}
+\begin{enumerate}
+    \item [3a.] Guest User enters the password and confirm password fields differently.
+    \item [5a.] System displays an error message that the username is already taken.
+    \item [6a.] System displays an error message that the email id is invalid.
+    \item [7a.] System displays an error message that the email id is already registered.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Join Via Link:}}\\
+
+\underline{Primary Actor:} Guest User\\
+
+\underline{PreCondition:} Stable internet connection, valid email Id and a join invite email from a registered user.\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Gues User receives a join invite email from a registered user.
+    \item Guest User clicks on the join button in the email.
+    \item Guest User is redirected to the signup page.
+    \item Guest User enters the username and password. The email field is already filled.
+    \item Guest User re-enters the password in confirm password field.
+    \item Guest User clicks on create account.
+    \item System checks if the username is unique.
+    \item Guest User is logged into platform.
+    \item User information is stored in the database.
+    \item A default user profile is created.
+    \item Referral points are added to the user who sent the invite.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [5a.] Guest User enters the password and confirm password fields differently.
+    \item [7a.] System displays an error message that the username is already taken.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Login via Google OAuth:}}\\
+
+\underline{Primary Actor:} Guest User or Registered User\\
+
+\underline{PreCondition:} Stable internet connection and a valid Google account.\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the login button.
+    \item User clicks on the Google login button.
+    \item User is redirected to the Google login page.
+    \item User enters the Google account credentials and verified by Google OAuth API
+    \item User is redirected to the platform.
+    \item If the email id is not already registered, the user is redirected to the signup page.
+    \item After succefful signup, the user is logged into the platform.
+    \item User information is stored in the database.
+    \item A default user profile is created.
+    \item If the email id is already registered, the user is logged into the platform.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User enters the wrong Google account credentials. User is redirected to the login page.
+    \item [7a.] User enters the wrong username or different passwords. User is redirected to the signup page.
+\end{enumerate}\vspace{0.2cm}
+\underline{\textbf{Use-case \nextU: Login via username and password:}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the login button.
+    \item User enters the username and password.
+    \item User clicks on the login button.
+    \item User is logged into the platform.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User enters the wrong username or password. User is redirected to the login page.
+\end{enumerate}\vspace{0.2cm}
+\underline{\textbf{Use-case \nextU: Forgot Password:}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and a registered email ID\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the forgot password button.
+    \item User enters the registered email id.
+    \item User clicks on the send email button.
+    \item User may click on resend email after 30 seconds.
+    \item System sends an email to the registered email id with a link to reset password.
+    \item User clicks on the link.
+    \item User is redirected to the reset password page.
+    \item User enters the new password and confirm password.
+    \item User clicks on the reset password button.
+    \item User is redirected to the login page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [3a.] User enters an unregistered email id. System displays an error message that the email id is not registered.
+    \item [8a.] User enters the password and confirm password fields differently.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Change Password:}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the profile button.
+    \item User clicks on the change password button.
+    \item User enters the old password, new password and confirm password.
+    \item User clicks on the change password button.
+    \item User is redirected to the login page.
+    \item User logs in with the new password.
+    \item User is redirected to the home page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [3a.] User enters the new password and confirm password fields differently.
+    \item [5b.] User enters the wrong old password. System displays an error message that the old password is wrong.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Logout:}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the logout button in the dashboard.
+    \item User is redirected to the login page.
+\end{enumerate}
+
+\subsubsection{\underline{User Profiles:}}
+\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Edit Profile:}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the profile button.
+    \item User clicks on the edit profile button.
+    \item User can edit the following fields
+          \begin{itemize}
+              \item Username
+              \item Name
+              \item Gender
+              \item Email Id
+              \item Bio
+              \item Profile Picture
+              \item Preferences:
+                    \begin{itemize}
+                        \item Privacy Settings (Public/Private)
+                        \item Notification settings (notification on comments/replies/messages/mentions/follows)
+                        \item Chat Settings (Allow direct chat from all users/only following/only mutual followers/no chat requests)
+                    \end{itemize}
+          \end{itemize}
+    \item User clicks on the save button.
+    \item User is redirected to the profile page.
+    \item User profile information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [3a.] User enters the username which is already taken. System displays an error message that the username is already taken.
+    \item [3b.] User enters the email id which is already registered or an invalid email id. System displays an error message that the email id is already registered.
+    \item [3g1.] User toggles privacy settings. Confirmation message is displayed.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use-case \nextU: Edit Profile Visibility}}
+\vspace{0.2cm}
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is editing his/her profile\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User toggles the privacy settings.
+          \begin{itemize}
+              \item \textbf{Public:}
+                    \begin{enumerate}
+                        \item User profile is visible to all users.
+                        \item User profile is visible to all users in search results.
+                        \item Any user can view the user's following/follower list.
+                        \item Posts made by the user on public communities and mutual communities are visible to all users on the user profile.
+                    \end{enumerate}
+              \item \textbf{Private:}
+                    \begin{enumerate}
+                        \item User profile is visible to only mutual followers/following.
+                        \item User profile is visible in search results.
+                        \item Only profiles that the user follows can view the user's following/follower list.
+                        \item Posts made by the user on public communities and mutual communities are visible to only mutual followers on the user profile.
+                    \end{enumerate}
+          \end{itemize}
+    \item User clicks on the save button.
+    \item User is redirected to the profile page.
+    \item User profile information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [1a.] User toggles privacy settings. Confirmation message is displayed.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Chat Settings}}
+\vspace{0.2cm}
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is editing his/her profile\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User toggles the chat settings.
+          \begin{itemize}
+              \item \textbf{Allow direct chat from all users:}
+                    \begin{enumerate}
+                        \item Any user can send a direct message to the user.
+                    \end{enumerate}
+              \item \textbf{Allow direct chat from only following:}
+                    \begin{enumerate}
+                        \item Only profiles that the user follows can send a direct message to the user.
+                        \item Other profiles can send a chat request to the user.
+                    \end{enumerate}
+              \item \textbf{Allow direct chat from only mutual followers:}
+                    \begin{enumerate}
+                        \item Only mutual followers can send a direct message to the user.
+                        \item Other profiles can send a chat request to the user.
+                    \end{enumerate}
+              \item \textbf{No chat requests:}
+                    \begin{enumerate}
+                        \item Only mutual followers can send a direct message to the user.
+                        \item Other profiles cannot send a chat request/direct message to the user.
+                    \end{enumerate}
+          \end{itemize}
+    \item User clicks on the save button.
+    \item User is redirected to the profile page.
+    \item User profile information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+
+\begin{enumerate}
+    \item [1a.] User toggles chat settings. Confirmation message is displayed.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Notification Settings}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is editing his/her profile\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User toggles the notification settings. The user can turn on/off the following notifications:
+          \begin{itemize}
+              \item \textbf{Notification on comments/replies:}
+                    \begin{enumerate}
+                        \item User receives notifications when a user comments on a post made by the user.
+                        \item User receives notifications when a user replies to a comment made by the user.
+                    \end{enumerate}
+              \item \textbf{Notification on messages:}
+                    \begin{enumerate}
+                        \item User receives notifications when a user sends a direct message to the user.
+                    \end{enumerate}
+              \item \textbf{Notification on mentions:}
+                    \begin{enumerate}
+                        \item User receives notifications when a user mentions the user in a post or comment in a public/mutual community.
+                    \end{enumerate}
+              \item \textbf{Notification on follows:}
+                    \begin{enumerate}
+                        \item User receives notifications when a user follows the user.
+                    \end{enumerate}
+          \end{itemize}
+    \item User clicks on the save button.
+    \item User is redirected to the profile page.
+    \item User profile information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [1a.] User toggles notification settings. Confirmation message is displayed.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: View Followers}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the followers button.
+    \item User is redirected to the followers page.
+    \item User can view a list of followers.
+    \item User can click on the profile of a follower to view the profile.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: View Following}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the following button.
+    \item User is redirected to the following page.
+    \item User can view a list of following.
+    \item User can click on the profile of a following to view the profile according to the visibility set by the other user.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User clicks on the profile of a following which is set to private. User can only view the contents of the profile if the user is a mutual follower.
+    \item [4b.] User clicks on the profile of a following which is set to public. User can view the profile.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Follow/Unfollow Profile}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is viewing a profile\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the follow/unfollow button.
+    \item User profile information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: View Other User-Profiles}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on a profile
+    \item User can view the profile of the user according to the visibility set by the other user.
+    \item Irrespective of the visibility set by the user, anyone can see the reports that were accepted against the user on their profile.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User clicks on a profile which is set to private. User can only view the contents of the profile if the user is a mutual follower.
+    \item [2b.] User clicks on a profile which is set to public. User can view the profile.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Block User}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is viewing a profile\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the block button.
+    \item User can no longer
+          \begin{itemize}
+              \item View posts made by the blocked user.
+              \item View comments made by the blocked user.
+              \item Send/Receive direct messages to the blocked user.
+              \item Receive chat requests from the blocked user.
+              \item Receive notifications from the blocked user.
+          \end{itemize}
+    \item User profile information is updated in the database.
+    \item User is redirected to the profile page.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Report Profile}}
+\vspace{0.2cm}
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is viewing a profile\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the report button.
+    \item User can select the reason for reporting the profile.
+    \item User can enter a description for reporting the profile.
+    \item User clicks on the report button.
+    \item Report is sent to the superuser.
+    \item Report information is updated in the database.
+    \item User is redirected to the profile page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User clicks on the report button. System displays an error message that the user has already reported the profile.
+    \item [0a.] User can select one/multiple messages to report.
+    \item [0b.] User can select one/multiple comments to report.
+    \item [0c.] User can select one/multiple posts to report.
+    \item [0d.] User can select communities to report the community admin.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Sending Join via link}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection and the user is logged in\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the invite button.
+    \item User can select the following options:
+          \begin{itemize}
+              \item Copy link
+              \item Share link via email
+              \item Share link via other social media platforms
+          \end{itemize}
+    \item User clicks on the copy link button.
+    \item Link is copied to the clipboard.
+    \item User can paste the link to share.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User clicks on the share link via email button. User is redirected to the email page.
+    \item [2b.] User clicks on the share link via other social media platforms button. User is redirected to the social media platform.
+\end{enumerate}\vspace{0.2cm}
+
+\subsubsection{\underline{Communities:}}
+
+\underline{\textbf{Use Case \nextU: Create Community}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the create community button.
+    \item User enters the following community details:
+          \begin{itemize}
+              \item Community Name
+              \item Community description
+              \item Community type (public/request only/invite only)
+                    \begin{itemize}
+                        \item \textbf{Public}
+                              \begin{itemize}
+                                  \item Anyone can join the community.
+                                  \item Anyone can view the community page.
+                                  \item Anyone can view the posts in the community.
+                                  \item Anyone can view the comments in the community.
+                                  \item Community is visible in search results.
+                              \end{itemize}
+                        \item \textbf{Request only}
+                              \begin{itemize}
+                                  \item Anyone can send a join request to the community.
+                                  \item Requests can be accepted/rejected by the community admin/moderator.
+                                  \item Only community members can view the community page.
+                                  \item Only community members can view the posts in the community.
+                                  \item Only community members can view the comments in the community.
+                                  \item Community is visible in search results.
+                              \end{itemize}
+                        \item \textbf{Invite onl}y
+                              \begin{itemize}
+                                  \item Only community members can view the community page.
+                                  \item Only community members can view the posts in the community.
+                                  \item Only community members can view the comments in the community.
+                                  \item Community is not visible in search results.
+                                  \item Only community admin/moderator(s) can invite other users to the community.
+                              \end{itemize}
+                    \end{itemize}
+              \item Allowed post types
+                    \begin{itemize}
+                        \item Text
+                        \item Image
+                        \item Video
+                        \item Link
+                        \item Poll
+                    \end{itemize}
+              \item Community Rules
+              \item Community Profile Picture
+              \item Post and comment privileges for community members.
+              \item Community categories and other fields to help with search results and recommendations.
+          \end{itemize}
+    \item User clicks on the create community button.
+    \item Community is created.
+    \item Community information is stored in the database.
+    \item User is redirected to the community page.
+    \item User becomes the community admin.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User enters the community name which is already taken. System displays an error message that the community name is already taken.
+    \item [1a.] User has been banned from creating communities. System displays an error message that the user has been banned from creating communities.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Edit Community}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is the community admin\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the edit community button.
+    \item User can edit the following community details:
+          \begin{itemize}
+              \item Community description
+              \item Community type (public/request only/invite only)
+              \item Community Rules
+              \item Community Profile Picture
+              \item Community categories and other fields to help with search results and recommendations.
+          \end{itemize}
+    \item User clicks on the save button.
+    \item Community information is updated in the database.
+    \item User is redirected to the community page.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete Community}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is the community admin\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the delete community button.
+    \item User clicks on the confirm delete button.
+    \item Community is deleted.
+    \item Community information is marked as deleted in the database.
+    \item Community posts are marked as deleted in the database.
+    \item Community comments are marked as deleted in the database.
+    \item Community members are removed from the community.
+    \item User information is updated in the database.
+    \item User information of the community members is updated in the database.
+    \item User is redirected to the home page.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Join Community}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the community is public\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the join community button.
+    \item User is added to the community.
+    \item User information is updated in the database.
+    \item Community information is updated in the database.
+    \item User is redirected to the community page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [1a.] User has been banned from this community. System displays an error message that the user has been banned from this community.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Leave Community}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a member of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the leave community button.
+    \item User is removed from the community.
+    \item User information is updated in the database.
+    \item Community information is updated in the database.
+    \item User is redirected to the home page.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: View Public Community}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the Community
+    \item User is redirected to the community page.
+    \item User can view the community details.
+    \item User can view the community posts.
+    \item User can view the community comments.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Sending Join Request}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the community is request only\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the join community button.
+    \item User is added to the join request list.
+    \item Any community admin/moderator can accept/reject the join request.
+    \item User information is updated in the database.
+    \item Community information is updated in the database.
+    \item A notification is sent to the community admin/moderator.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [1a.] User has been banned from this community. System displays an error message that the user has been banned from this community.
+    \item [1b.] User has already sent a join request. System displays an error message that the user has already sent a join request.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Accept/Reject Join Request}}\\
+
+\underline{Primary Actor:} Community Admin/Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the community is request only\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User visits the community request page.
+    \item System checks for privileges.
+    \item User can view the list of join requests.
+    \item User can accept/reject the join request.
+    \item Community-memebers information is updated in the database.
+    \item Community information is updated in the database.
+    \item A notification is sent to the user.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Invite User to Community}}\\
+
+\underline{Primary Actor:} Community Admin/Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the community is invite only\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the invite user button.
+    \item System checks for privileges.
+    \item User can enter the username of the user to invite.
+    \item User clicks on the invite button.
+    \item User is added to the invite list.
+    \item Community information is updated in the database.
+    \item A notification is sent to the user.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User enters the username which is not registered. System displays an error message that the username is not registered.
+    \item [4b.] User enters the username which is already a member of the community. System displays an error message that the username is already a member of the community.
+    \item [4c.] User enters the username which is already invited to the community. System displays an error message that the username is already invited to the community.
+    \item [4d.] User enters the username which is already banned from the community. System displays an error message that the username is already banned from the community.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: View Community Members}}\\
+
+\underline{Primary Actor:} Community Admin/Moderators\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin/moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the community members button.
+    \item System checks for privileges.
+    \item User is redirected to the community members page.
+    \item User can view a list of community members.
+    \item User can click on the profile of a community member to view the profile.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Ban User from Community}}\\
+
+\underline{Primary Actor:} Community Admin/Moderators\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin/moderator of the community\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User selects a user from the community members list and selects ban user option.
+    \item System checks for privileges.
+    \item User is added to the ban list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+    \item A notification is sent to the user.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Send unban-request from Community}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is banned from the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the unban-request button.
+    \item User adds a description for the unban-request.
+    \item User clicks on the send unban-request button.
+    \item Unban-request is sent to the community admin.
+    \item A notification is sent to the community admin/moderator.
+\end{enumerate}
+
+\underline{Alternate Scenario}
+\begin{enumerate}
+    \item [3a.] User has already sent 3 unban requests which have been rejected. System displays an error message that the user has already sent 3 unban requests which have been rejected.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Unban User from Community}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects a user from the ban list and selects unban user option.
+    \item System checks for privileges.
+    \item User is removed from the ban list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+    \item A notification is sent to the user.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User accepts the unban request in the community-admin notification page.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Report Community}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is viewing a community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the report button.
+    \item User can select the reason for reporting the community.
+    \item User can enter a description for reporting the community.
+    \item User clicks on the report button.
+    \item Report is sent to the superuser.
+    \item Report information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User has already reported the community 3 times all of which have been rejected.
+\end{enumerate}\vspace{0.2cm}
+
+
+\subsubsection{\underline{Posts:}}
+
+\underline{\textbf{Use Case \nextU: Create Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a member of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the create post button.
+    \item User enters the following post details:
+          \begin{itemize}
+              \item Post Title
+              \item Post Description
+              \item The post can be one of the following.
+                    \begin{itemize}
+                        \item Text
+                        \item Image
+                        \item Video
+                        \item URLs
+                        \item Polls
+                    \end{itemize}
+              \item Post Categories and other fields to help with search results and recommendations.
+          \end{itemize}
+    \item System checks for privileges.
+    \item System checks for allowed post types.
+    \item User can add spoiler tags to portions of the post.
+    \item User can select schedule post option and set the date and time.
+    \item User can toggle comments on/off.
+    \item User previews the post.
+    \item User clicks on the create post button.
+    \item Post is created.
+    \item Post information is stored in the database.
+    \item User is redirected to the post page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User has been banned from creating posts. System displays an error message that the user has been banned from creating posts.
+    \item [2b.] The post privileges of community is set to only selected users. System displays an error message that the user does not have the privileges to create posts.
+    \item [3a.] User selects a post type which is not allowed. System displays an error message that the post type is not allowed.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Edit Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is the creator of the post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the edit post button.
+    \item User can edit the following post details:
+          \begin{itemize}
+              \item Post Title
+              \item Post Description
+              \item The post can be one of the following.
+                    \begin{itemize}
+                        \item Text
+                        \item Image
+                        \item Video
+                        \item URLs
+                        \item Polls
+                    \end{itemize}
+              \item Post Categories and other fields to help with search results and recommendations.
+          \end{itemize}
+    \item System checks for privileges.
+    \item System checks for allowed post types.
+    \item User can add spoiler tags to portions of the post.
+    \item User can deselect schedule post option or change the date and time if the post is already scheduled and has not been posted.
+    \item User can toggle comments on/off.
+    \item User previews the post.
+    \item User clicks on the save button.
+    \item Post information is updated in the database.
+    \item User is redirected to the post page.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [3a.] User selects a post type which is not allowed. System displays an error message that the post type is not allowed.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is the creator of the post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the delete post button.
+    \item User clicks on the confirm delete button.
+    \item Post is deleted.
+    \item Post information is marked as deleted in the database.
+    \item Post comments are marked as deleted in the database.
+    \item User information is updated in the database.
+    \item User is redirected to the home page.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Report Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is viewing a post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects the post.
+    \item User can select the reason for reporting the post.
+    \item User can enter a description for reporting the post.
+    \item User clicks on the report button.
+    \item Report is sent to the community admin.
+    \item Report information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User has already reported the post 3 times all of which have been rejected.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: View Post}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the post.
+    \item User is redirected to the post page.
+    \item If the post has spoiler tags then the user can double click on the spoiler tags to view the content.
+    \item User can view the post details.
+    \item User can view the post comments.
+    \item User can upvote the post.
+    \item User can downvote the post.
+    \item Post information is updated in the database.
+    \item User can save the post.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Save Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and is a member of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the save post button.
+    \item Post is added to the user-saved posts list.
+    \item Post information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: View Saved Posts}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item In the user profile, the user clicks on the saved posts button.
+    \item User is redirected to the saved posts page.
+    \item User can view a list of saved posts.
+    \item User can click on the post to view the post.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Upvote Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and is a member of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the upvote post button.
+    \item If the user has previously downvoted the post, the downvotes decrease by 1.
+    \item Post upvote count is incremented.
+    \item Post information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Downvote Post}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and is a member of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the downvote post button.
+    \item If the user has previously upvoted the post, the upvotes decrease by 1.
+    \item Post downvote count is incremented.
+    \item Post information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Mention a user in post/comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User enters the @ symbol followed by the username in the post/comment.
+    \item User clicks on the send button.
+    \item User is redirected to the post/comment page.
+    \item The mentioned user is notified that the user has been mentioned in the post/comment.
+    \item User can click on the notification to view the post/comment.
+\end{enumerate}
+
+\subsubsection{\underline{Comments:}}
+
+\underline{\textbf{Use Case \nextU: Create new comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and is a member of the community and the comments are turned on for that post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the comment in the comment box.
+    \item User clicks on the send button.
+    \item A new discussion thread is created.
+    \item The new comment is added to the discussion thread.
+    \item If the user has mentioned another user in the comment, the mentioned user is notified that the user has been mentioned in the comment.
+    \item If the comment is of size greater than a certain threshold then the comment is truncated and a read more button is displayed.
+    \item Comment information is stored in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User has been banned from creating comments. System displays an error message that the user has been banned from creating comments.
+    \item [2b.] Comments are turned off for the post. System does not display the comment box.
+    \item If some comments were previously added when the comments were turned on, then those comments are displayed.
+    \item Network error. The system discards the comment.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Edit comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has already commented\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the edit comment button.
+    \item User can edit the comment.
+    \item User clicks on the save button.
+    \item Edited is displayed in the discussion thread next to the comment.
+    \item If the edited comment contains a new mention then a notification is sent to the mentioned user.
+    \item Comment information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User has been banned from creating comments. The user may have created a comment when he had the privileges but currently does not have the permission.
+    \item [2b.] Comments are turned off for the post. System does not display the edit comment button.
+    \item Network error. The system discards the edit to the comment.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Reply to a comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a member of the community and there exists some comment for that post.\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects some comment to reply to.
+    \item User enters the reply in the comment box.
+    \item Check if user has the privileges to comment.
+    \item User clicks on the send button.
+    \item A new discussion thread is created under the selected comment.
+    \item The new comment is added to the discussion thread.
+    \item If the user has mentioned another user in the comment, the mentioned user is notified that the user has been mentioned in the comment.
+    \item A notification is sent to the user who is being replied to.
+    \item If the comment is of size greater than a certain threshold then the comment is truncated and a read more button is displayed.
+    \item Comment information is stored in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User has been banned from creating comments. System displays an error message that the user has been banned from creating comments.
+    \item [4b.] Comments are turned off for the post. System does not display the comment box.
+    \item If some comments were previously added when the comments were turned on, then those comments are displayed.
+    \item Network error. The system discards the comment.
+\end{enumerate}\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Delete comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has already commented\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item User clicks on the delete comment button.
+    \item User clicks on the confirm delete button.
+    \item Comment is deleted.
+    \item If no reply exists for the comment then the discussion thread is deleted.
+    \item If the comment has replies then the comment is viewed as deleted and the replies remain visible.
+    \item Comment information is marked as deleted in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] User has been banned from creating comments. The user may have created a comment when he had the privileges but currently does not have the permission.
+    \item [2b.] Comments are turned off for the post. System does not display the delete comment button.
+    \item Network error. The system discards the delete to the comment.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Report comment}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is viewing a comment\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects the comment.
+    \item User can select the reason for reporting the comment.
+    \item User can enter a description for reporting the comment.
+    \item User clicks on the report button.
+    \item Report is sent to the community admin.
+    \item A notification is sent to the community admin/moderator.
+    \item A notification is sent to the user who is being reported.
+    \item Report information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [4a.] User has already reported the comment 3 times all of which have been rejected.
+    \item Network error. The system discards the report to the comment.
+\end{enumerate}\vspace{0.2cm}
+
+\subsubsection{\underline{Notifications:}}
+
+\underline{\textbf{Use Case \nextU: View Notifications}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification button.
+    \item User is redirected to the notification page.
+    \item User can view a list of notifications. Following are the list of notifications a user can receive.
+          \begin{itemize}
+              \item New post in a community the user is a member of.
+              \item New comment in a post the user has created.
+              \item New reply to a comment the user has created.
+              \item New mention in a post/comment.
+              \item New community invite from a community the user is not a member of.
+              \item New join request accepted by a community the user is a member of.
+              \item Referral points earned.
+              \item New chat request.
+              \item New direct message.
+              \item New follower.
+              \item Reports on posts/comments.
+              \item Unban request accepted by the community admin/moderator.
+              \item Unban request accepted by the superuser.
+              \item Warnings from the superuser.
+              \item Warnings from the community admin/moderator.
+              \item Post ban, comment ban, community bans, platform bans from the superuser/community admin/moderator.
+          \end{itemize}
+    \item User can click on the notification to view the contents.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Notification Settings}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification settings button.
+    \item User can select the following options:
+          \begin{itemize}
+              \item Turn on/off notifications for posts.
+              \item Turn on/off notifications for comments.
+              \item Turn on/off notifications for replies.
+              \item Turn on/off notifications for referral points.
+              \item Turn on/off notifications for chat requests.
+              \item Turn on/off notifications for direct messages.
+              \item Turn on/off notifications for followers.
+          \end{itemize}
+    \item User clicks on the save button.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Community Notification}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification button.
+    \item User is redirected to the notification page.
+    \item User can view a list of notifications. Following are the list of notifications a user can receive.
+          \begin{itemize}
+              \item Reports on posts/comments in the community.
+              \item Unban requests from the community members.
+              \item Reports on community.
+          \end{itemize}
+    \item User can click on the notification to view the contents.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Superuser Notification}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification button.
+    \item User is redirected to the notification page.
+    \item User can view a list of notifications. Following are the list of notifications specific to a superuser.
+          \begin{itemize}
+              \item Reports on posts/comments.
+              \item Reports on community.
+              \item Unban requests from the platform users.
+          \end{itemize}
+    \item User can click on the notification to view the contents.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Community Moderator Notifications}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification button.
+    \item User is redirected to the notification page.
+    \item User can view a list of notifications. Following are the list of notifications specific to a community moderator.
+          \begin{itemize}
+              \item Reports on posts/comments in the community.
+              \item Unban requests from the community members.
+              \item Notifications from the community admin regarding
+                    \begin{itemize}
+                        \item Delete post privileges.
+                        \item Delete comment privileges.
+                        \item Ban user privileges.
+                        \item Unban user privileges.
+                        \item Warning privileges.
+                        \item Issuing post privilege to community users.
+                        \item Stopping comments on a post.
+                        \item Removing post privileges from community users.
+                        \item Removing comment privileges from community users.
+                        \item Appointment as moderator.
+                        \item Removal as moderator.
+                    \end{itemize}
+          \end{itemize}
+    \item User can click on the notification to view the contents.
+\end{enumerate}
+
+\subsubsection{\underline{Admin privileges:}}
+
+\underline{\textbf{Use Case \nextU: Community privileges}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Admin has the following community privileges:
+          \begin{itemize}
+              \item Change community settings.
+              \item Appointing/removing moderators.
+              \item Granting post privileges to community members.
+              \item Granting select moderator privileges.
+          \end{itemize}
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Cascading privileges to moderators}}\\
+
+\underline{Primary Actor:} Community Admin\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a admin of the community\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item Admin can grant the following privileges to moderators:
+          \begin{itemize}
+              \item Delete post privileges.
+              \item Delete comment privileges.
+              \item Ban user privileges.
+              \item Unban user privileges.
+              \item Warning privileges.
+              \item Issuing post privilege to community users.
+              \item Stopping comments on a post.
+              \item Removing post privileges from community users.
+              \item Removing comment privileges from community users.
+          \end{itemize}
+    \item Admin can also remove the above privileges from moderators.
+\end{enumerate}
+
+\subsubsection{\underline{Moderator privileges:}}
+
+\underline{\textbf{Use Case \nextU: Community privileges}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator can receive the following community privileges:
+          \begin{itemize}
+              \item Delete post privileges.
+              \item Delete comment privileges.
+              \item Ban user privileges.
+              \item Unban user privileges.
+              \item Warning privileges.
+              \item Issuing post privilege to community users.
+              \item Stopping comments on a post.
+              \item Removing post privileges from community users.
+              \item Removing comment privileges from community users.
+          \end{itemize}
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete Post (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator clicks on the delete post button.
+    \item Moderator clicks on the confirm delete button.
+    \item Notification is sent to the post creator that the post has been deleted.
+    \item Post is deleted.
+    \item Post information is marked as deleted in the database.
+    \item Post comments are marked as deleted in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete Comment (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator clicks on the delete comment button.
+    \item Moderator clicks on the confirm delete button.
+    \item Notification is sent to the comment creator that the comment has been deleted.
+    \item Comment is deleted.
+    \item If the comment has replies then the comment is viewed as deleted and the replies remain visible.
+    \item Comment information is marked as deleted in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Ban User (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the community members list and selects ban user option.
+    \item Moderator selects the ban duration and enters the reason for banning the user.
+    \item Moderator clicks on the confirm ban button.
+    \item Notification is sent to the user that the user has been banned from the community.
+    \item User is added to the ban list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Unban User (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the ban list and selects unban user option.
+    \item Moderator clicks on the confirm unban button.
+    \item Notification is sent to the user that the user has been unbanned from the community.
+    \item User is removed from the ban list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Warning User (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator selects a post/comment.
+    \item Moderator clicks on the warn button.
+    \item Moderator enters the reason for warning the user.
+    \item Moderator clicks on the confirm send button.
+    \item Notification is sent to the user that the user has been warned.
+    \item User information is updated in the database.
+    \item User is added to the warning list.
+    \item Community information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario}\\
+\begin{enumerate}
+    \item [4a.] Moderator can view the members list and select a user to warn.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Remove Post Privileges (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the user has post privileges\\
+
+\underline{Main Scenario:}\\
+
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the community members list and selects remove post privileges option.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the user that the user has been removed from the post privileges list.
+    \item User is removed from the post privileges list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Remove Comment Privileges (Moderator)}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the user has comment privileges\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the community members list and selects remove comment privileges option.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the user that the user has been removed from the comment privileges list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Issuing post privileges}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the user does not have post privileges\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the community members list and selects issue post privileges option.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the user that the user has been issued post privileges.
+    \item User is added to the post privileges list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Pause comments on a post}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the comments are turned on for the post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the post.
+    \item Moderator clicks on the pause comments button.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the post creator that the comments have been paused.
+    \item Comments are turned off for the post.
+    \item Post information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Resume comments on a post}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the comments are turned off for the post\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the post.
+    \item Moderator clicks on the resume comments button.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the post creator that the comments have been resumed.
+    \item Comments are turned on for the post.
+    \item Post information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [2a.] Comments are already turned off for the post. System displays an error message that the comments are already turned off for the post.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Remove comment privileges from users}}\\
+
+\underline{Primary Actor:} Community Moderator\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a moderator of the community and the user has comment privileges\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Moderator views the community members list.
+    \item Moderator selects a user from the community members list and selects remove comment privileges option.
+    \item Moderator clicks on the confirm button.
+    \item Notification is sent to the user that the user has been removed from the comment privileges list.
+    \item Community information is updated in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\subsubsection{\underline{Search:}}
+
+\underline{\textbf{Use Case \nextU: Search for a community}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the 'c/' followed by the community name in the search bar.
+    \item User clicks on the search button.
+    \item User is redirected to the search results page.
+    \item User can view a list of communities.
+    \item The results are communities which are either
+          \begin{enumerate}
+              \item Public.
+              \item Request only.
+              \item Private and the user is a member of the community.
+          \end{enumerate}
+    \item The list contains the following communities:
+          \begin{itemize}
+              \item Communities with the same name as the search query.
+              \item Communities with names close to the search query.
+          \end{itemize}
+    \item Results can be sorted and filtered.
+    \item User can click on the community to view the community.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Search for a user}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the '@/' followed by the username in the search bar.
+    \item User clicks on the search button.
+    \item User is redirected to the search results page.
+    \item User can view a list of users.
+    \item The list contains the following users:
+          \begin{itemize}
+              \item Users with the same username as the search query.
+              \item Users with usernames close to the search query.
+          \end{itemize}
+    \item Results can be sorted and filtered.
+    \item User can click on the user to view the user profile.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Search for a post}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the post title in the search bar.
+    \item User clicks on the search button.
+    \item User is redirected to the search results page.
+    \item User can view a list of posts.
+    \item The posts belong to the following communities.
+          \begin{itemize}
+              \item Public.
+              \item Communities which the user is a member of.
+          \end{itemize}
+    \item The list contains the following posts:
+          \begin{itemize}
+              \item Posts with the same title as the search query.
+              \item Posts with titles close to the search query.
+          \end{itemize}
+    \item Results can be sorted and filtered.
+    \item User can click on the post to view the post.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Search for a combination of above search types}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the search query in the search bar.
+    \item A general search query is of the form 'c/community\_name @/username post\_title'.
+    \item Any of the above search types can be used/omitted in the search query.
+          \begin{enumerate}
+              \item 'c/community\_name @/username post\_title' searches for posts with the title 'post\_title' in the community 'community\_name' by the user 'username'.
+              \item 'c/community\_name @/username' searches for posts in the community 'community\_name' by the user 'username'.
+              \item 'c/community\_name post\_title' searches for posts with the title 'post\_title' in the community 'community\_name'.
+              \item '@/username post\_title' searches for posts with the title 'post\_title' by the user 'username' in public/mutual communities.
+          \end{enumerate}
+    \item Results are fuzzy matched.
+    \item Results can be sorted and filtered.
+    \item User can click on the search result to view the search result.
+\end{enumerate}
+
+\subsubsection{\underline{Recommendations/User Feed:}}
+\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: View User Feed}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the user feed button.
+    \item User is redirected to the user feed page which is specific to the user.
+    \item User can view a list of posts.
+    \item User can also view a list of 'recommended' communities (request-only/public).
+    \item User can also view a list of 'recommended' users.
+    \item The posts belong to the following communities.
+          \begin{itemize}
+              \item Public.
+              \item Communities which the user is a member of.
+          \end{itemize}
+    \item The posts/communities/users are suggested by some recommender system
+    \item Results can be sorted and filtered.
+    \item User can click on the post to view the post.
+\end{enumerate}
+
+
+\subsubsection{\underline{Trending Page:}}
+\vspace{0.2cm}
+\underline{\textbf{Use Case \nextU: View Trending Page}}\\
+
+\underline{Primary Actor:} General User\\
+
+\underline{PreCondition:} Stable internet connection\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the trending button.
+    \item User is redirected to the trending page which is common for all users.
+    \item User can view a list of posts.
+    \item The posts belong to public communities.
+    \item Posts are based on different parameters.
+    \item Results can be sorted and filtered.
+    \item User can click on the post to view the post.
+\end{enumerate}
+
+\subsubsection{\underline{Direct-messages:}}
+\vspace{0.2cm}
+\underline{\textbf{Use Case \nextU: Send Chat Request}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User views the user profile.
+    \item Send Chat request is visible only if the user is not already a mutual follower/ followed by the other user or the profile is private.
+    \item User clicks on the send chat request button.
+    \item User adds the reason for sending the chat request.
+    \item Notification is sent to the user that the user has received a chat request.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Accept Chat Request}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has received a chat request\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User clicks on the notification button.
+    \item The use can view the profile of the user who has sent the chat request.
+    \item User clicks on the accept chat request button.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [3a.] User clicks on the reject chat request button. Notification is sent to the user that the user has rejected the chat request.
+    \item [3b.] User clicks on the block user button. Notification is sent to the user that the user has blocked the user.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Send Direct Message}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has accepted the chat request and the user is in the chat interface\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User enters the message in the message box.
+    \item User clicks on the send button.
+    \item Message is sent to the user.
+    \item Message information is stored in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario}
+\begin{enumerate}
+    \item [2a.] Network error. The system discards the message.
+    \item [2b.] User has blocked the user. The system discards the message.
+    \item [2c.] Message is empty. The system displays an error message that the message is empty.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Reply to a message}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has accepted the chat request and the user is in the chat interface\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects the message to reply to.
+    \item User enters the reply in the message box.
+    \item User clicks on the send button.
+    \item Message is sent to the user.
+    \item Message information is stored in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario}
+\begin{enumerate}
+    \item [3a.] Network error. The system discards the message.
+    \item [3b.] User has blocked the user. The system discards the message.
+    \item [3c.] Message is empty. The system displays an error message that the message is empty.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete a message}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has accepted the chat request and the user is in the chat interface\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects the message to delete.
+    \item User clicks on the delete message button.
+    \item The message can be deleted in two ways, either only for the user or for both the users.
+    \item Message is deleted.
+    \item Message information is marked as deleted in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario}
+
+\begin{enumerate}
+    \item [2a.] Network error. The system discards the delete to the message.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Report a message}}\\
+
+\underline{Primary Actor:} Registered User\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user has accepted the chat request and the user is in the chat interface\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item User selects the message to report.
+    \item User clicks on the report message button.
+    \item User can select the reason for reporting the message.
+    \item User can enter a description for reporting the message.
+    \item User clicks on the report button.
+    \item Report is sent to the superuser.
+    \item A notification is sent to the superuser.
+    \item A notification is sent to the user who is being reported.
+    \item Report information is updated in the database.
+\end{enumerate}
+
+\underline{Alternate Scenario:}\\
+\begin{enumerate}
+    \item [5a.] User has already reported the message 3 times all of which have been rejected.
+    \item Network error. The system discards the report to the message.
+\end{enumerate}
+
+\subsubsection{\underline{Superuser privileges:}}
+\vspace{0.2cm}
+
+\underline{\textbf{Use Case \nextU: Make a user a superuser}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Superuser views the user profile.
+    \item Superuser clicks on the make superuser button.
+    \item Superuser clicks on the confirm make superuser button.
+    \item Notification is sent to the user that the user has been made a superuser.
+    \item User is made a superuser.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Ban User (Superuser)}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Superuser views the user profile.
+    \item Superuser clicks on the ban user button.
+    \item Superuser selects the ban duration and enters the reason for banning the user.
+    \item Superuser clicks on the confirm ban button.
+    \item Notification is sent to the user that the user has been banned from the platform.
+    \item User is added to the ban list.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Unban User (Superuser)}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Superuser views the ban list.
+    \item Superuser selects a user from the ban list and selects unban user option.
+    \item Superuser clicks on the confirm unban button.
+    \item Notification is sent to the user that the user has been unbanned from the platform.
+    \item User is removed from the ban list.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Warning User (Superuser)}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Superuser views the user profile.
+    \item Superuser clicks on the warn button.
+    \item Superuser enters the reason for warning the user.
+    \item Superuser clicks on the confirm send button.
+    \item Notification is sent to the user that the user has been warned.
+    \item User information is updated in the database.
+    \item User is added to the warning list.
+\end{enumerate}
+
+\underline{\textbf{Use Case \nextU: Delete Community (Superuser)}}\\
+
+\underline{Primary Actor:} Superuser\\
+
+\underline{PreCondition:} Stable internet connection, the user is logged in and the user is a superuser\\
+
+\underline{Main Scenario:}\\
+\begin{enumerate}
+    \item Superuser views the community.
+    \item Superuser clicks on the delete community button.
+    \item Superuser clicks on the confirm delete button.
+    \item Notification is sent to the community admin that the community has been deleted.
+    \item Community is deleted.
+    \item Community information is marked as deleted in the database.
+    \item Community posts are marked as deleted in the database.
+    \item Community comments are marked as deleted in the database.
+    \item User information is updated in the database.
+\end{enumerate}
+
+\subsection{Performance Requirements}
+\begin{itemize}
+    \item The system should be able to handle concurrent access.
+    \item The user feed and search results should be displayed within 2 seconds.
+    \item The system should have a user friendly interface.
+\end{itemize}
+\subsection{Design Constraints}
+\begin{itemize}
+    \item Security
+          \begin{itemize}
+              \item The system should be secure against SQL injection,XSS,CSRF attacks,etc.
+              \item The system should keep the user data in an encrypted format.
+              \item The system should exchange data over a secure connection.
+              \item The system should have a secure login system.
+              \item The system should have a secure password reset system.
+              \item The system should have a secure session management system.
+              \item The system should have a secure file upload system.
+          \end{itemize}
+    \item Fault Tolerance
+          \begin{itemize}
+              \item The system should be able to handle network errors.
+              \item The system should be able to handle server errors.
+              \item The system should be able to handle database errors.
+              \item The system should be able to handle file upload errors.
+          \end{itemize}
+    \item Maintainability
+          \begin{itemize}
+              \item The system should be easy to maintain.
+              \item The system should be easy to update.
+              \item The system should be easy to scale.
+          \end{itemize}
+\end{itemize}
+\subsection{External Interface Requirements}
+\subsubsection{Login Screen}
+\vspace{0.2cm}
+\begin{itemize}
+    \item The login screen has two buttons: \textbf{login via username} and \textbf{login via Google}
+    \item The default login method is \textbf{login via username}
+    \item The user can switch to \textbf{login via Google} by clicking on the \textbf{login via Google} button.
+    \item Login via username has the following fields:
+          \begin{itemize}
+              \item Username
+              \item Password
+          \end{itemize}
+    \item Login via username also has a \textbf{forgot password} button and the \textbf{Create an account} link which takes the user to the signup screen.
+    \item Login via Google launches the Google login page.
+    \item The user can login via Google by entering the Google credentials.
+\end{itemize}
+
+\subsubsection{Signup Screen}
+\vspace{0.2cm}
+\begin{itemize}
+    \item The signup screen has the following fields:
+          \begin{itemize}
+              \item Username
+              \item Email
+              \item Password
+              \item Confirm Password
+          \end{itemize}
+    \item The signup screen also has a \textbf{login} link which takes the user to the login screen.
+\end{itemize}
+
+\subsubsection{Home Screen-Registered User}
+\vspace{0.2cm}
+
+\begin{itemize}
+    \item The home screen has the following panes:
+
+    \item A top-navbar with the following fields:
+          \begin{itemize}
+              \item Home
+              \item Communities-joined/admin/moderator
+              \item Chat
+              \item Notifications
+              \item Profile
+              \item Logout
+              \item Search bar
+          \end{itemize}
+    \item A left-sidebar with the following fields:
+          \begin{itemize}
+              \item Home
+              \item Joined community list
+              \item Create community
+              \item Trending
+          \end{itemize}
+    \item The central pane has the following fields:
+          \begin{itemize}
+              \item User feed
+              \item Community recommendations
+              \item User recommendations
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Home Screen-Guest User}
+\vspace{0.2cm}
+
+\begin{itemize}
+    \item The home screen has the following panes:
+
+    \item A top-navbar with the following fields:
+          \begin{itemize}
+              \item Home
+              \item Login
+              \item Signup
+              \item Search bar
+          \end{itemize}
+    \item A left-sidebar with the following fields:
+          \begin{itemize}
+              \item Home
+              \item Trending
+          \end{itemize}
+    \item The central pane has the following fields:
+          \begin{itemize}
+              \item User feed
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Notification Screen}
+\vspace{0.2cm}
+The notification screen has the following panes:
+\begin{itemize}
+    \item A top-navbar
+    \item A left-sidebar
+    \item The central pane lists notifications related to the user/admin/moderator/superuser:
+\end{itemize}
+
+\subsubsection{Community Screen}
+\vspace{0.2cm}
+The community screen has the following panes:
+\begin{itemize}
+    \item A top-navbar
+    \item A left-sidebar
+    \item The central pane lists the posts in the community
+    \item The right-sidebar lists the community information
+\end{itemize}
+
+\subsubsection{Community Creation Screen}
+\vspace{0.2cm}
+Along with the usual navbar and left-sidebar, the community creation screen has the following fields:
+\begin{itemize}
+    \item Community name
+    \item Community description
+    \item Community rules
+    \item Community tags
+    \item Community profile picture
+    \item Community cover picture
+    \item Community settings including
+          \begin{itemize}
+              \item Community type
+              \item Allowed post types
+              \item Post and comment privileges
+          \end{itemize}
+\end{itemize}
+
+\subsubsection{Post Creation Screen}
+\vspace{0.2cm}
+Along with the usual navbar and left-sidebar, the post creation screen has the following fields:
+\begin{itemize}
+    \item Post title
+    \item Post description
+    \item Post tags
+    \item Post content
+    \item Spoiler tags
+    \item Scheduling information
+    \item Comments on/off
+\end{itemize}
+
+\subsubsection{Chat Screen}
+\vspace{0.2cm}
+The chat screen has the following panes:
+\begin{itemize}
+    \item A top-navbar
+    \item A left-sidebar
+    \item The central pane lists the chats from different users in minimized form.
+    \item On clicking the chat, the central pane displays the chat interface.
+    \item The right-sidebar lists the chat requests.
+    \item The right-sidebar also lists the blocked users.
+    \item On expanding a chat, the right-sidebar lists the chat options.
+    \item The chat interface has the following fields:
+          \begin{itemize}
+              \item Message box
+              \item Send button
+              \item Chat options for censoring.
+          \end{itemize}
+    \item The chat layout is similar to a messaging app with the user's messages on the right and the other user's messages on the left each of which are color coded.
+    \item The chat interface has options to edit/delete/reply-to/report messages.
+\end{itemize}
+
+\subsubsection{Profile Screen-Own}
+\vspace{0.2cm}
+The profile screen has the following panes:
+\begin{itemize}
+    \item A top-navbar
+    \item A left-sidebar
+    \item The central pane has two buttons, posts and commnets. Pressing posts lists the user's posts and pressing comments lists all comments and replies.
+    \item The right-sidebar lists the user information.
+    \item Along with user information other fields includes all the reports that were accepted by the superuser or any community admin.
+\end{itemize}
+
+\subsubsection{Profile Screen-Other}
+\vspace{0.2cm}
+The profile screen has the following panes:
+\begin{itemize}
+    \item A top-navbar
+    \item A left-sidebar
+    \item The central pane has two buttons, posts and commnets. Pressing posts lists the user's posts and pressing comments lists all comments and replies.
+    \item Contents of central pane are subject to the user's privacy settings.
+    \item The right-sidebar lists the user information, followers and following.
+    \item Along with user information other fields includes all the reports that were accepted by the superuser or any community admin.
+    \item The right-sidebar also lists the chat request button.
+\end{itemize}
+\section{Further Extensions}
+\vspace{0.2cm}
+Some of the possible future extensions are:
+\begin{itemize}
+    \item \textbf{User profile badges:} Users can earn badges based on their activity on the platform.
+    \item \textbf{User profile achievements:} Users can earn achievements based on their activity on the platform.
+    \item \textbf{User profile levels:} Users can level up based on their activity on the platform.
+    \item \textbf{User profile reputation:} Users can earn reputation based on their activity on the platform.
+    \item \textbf{Video/Voice chats:} Users can video/voice chat with other users.
+    \item \textbf{Custom layouts for communities:} Community admins can customize the layout of the community.
+    \item \textbf{Integration with Machine Learning:} The system can use machine learning to recommend communities/posts/users to the user, as well as moderation.
+    \item \textbf{Events:} Users can create events and invite other users to the event.
+\end{itemize}
+\end{document}
