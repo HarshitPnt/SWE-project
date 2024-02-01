@@ -32,6 +32,7 @@
 }
 \lstset{style=mystyle}
 \pagenumbering{gobble}
+\renewcommand{\arraystretch}{1.5}
 \usepackage{mathtools}
 \usepackage{longtable}
 \usepackage{graphicx}
@@ -55,7 +56,6 @@
 \begin{center}
     \tableofcontents
 \end{center}
-\newpage
 \section{Context Diagram}
 \begin{figure}[H]
     \centering
@@ -73,9 +73,9 @@ Below are two possible DFDs for the system.
 \begin{figure}[H]
     \centering
     \makebox[\linewidth][c]{
-        \includegraphics[width = 0.8\textwidth]{./images/dfd_correct.jpeg}
+        \includegraphics[width = 0.8\textwidth]{./images/dfd_wrong.png}
     }
-    \caption{DFD-1}
+    \caption{Incorrect DFD}
 \end{figure}
 \begin{itemize}
     \item The red line marks the man-machine boundary in the DFD design.
@@ -84,9 +84,9 @@ Below are two possible DFDs for the system.
 \begin{figure}[H]
     \centering
     \makebox[\linewidth][c]{\hspace{1cm}
-        \includegraphics[width = \textwidth]{./images/dfd_correct.jpeg}
+        \includegraphics[width = \textwidth]{./images/dfd_correct.png}
     }
-    \caption{DFD-2}
+    \caption{Correct DFD}
 \end{figure}
 
 \begin{itemize}
@@ -96,4 +96,42 @@ Below are two possible DFDs for the system.
 \subsection{Comparing the two DFDs}
 \newpage
 \section{Function Point Analysis}
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|p{3cm}|p{3cm}|p{3cm}|p{3cm}|}
+        \hline
+        \textbf{Function Type}  & \textbf{Simple} & \textbf{Medium} & \textbf{Complex} \\
+        \hline
+        External Input          & 3               & 4               & 6                \\
+        \hline
+        External Output         & 4               & 5               & 7                \\
+        \hline
+        External Inquiry        & 3               & 4               & 6                \\
+        \hline
+        Internal Logical File   & 7               & 10              & 15               \\
+        \hline
+        External Interface File & 5               & 7               & 10               \\
+        \hline
+    \end{tabular}
+    \caption{Function Point Complexity Weights}
+\end{table}
+
+\subsection{UFP Caluculation}
+
+\begin{itemize}
+    \item \textbf{External Input:} Data or control information that comes from outside the application's boundary.
+    \item \textbf{External Output:} Data or control information that is sent to outside the application's boundary.
+    \item \textbf{External Inquiry:} Input-output combination, where input causes and immediate output and leaves the data intact.
+    \item \textbf{Internal Logical File:} A user identifiable group of logically related data that resides entirely within the application boundary and is maintained through external inputs.
+    \item \textbf{External Interface File:} A user identifiable group of logically related data that is used for reference purposes only.
+\end{itemize}
+
+Now we need to count the number of each of these in our system.\\
+
+\begin{itemize}
+    \item \textbf{External Input:}
+          \begin{enumerate}
+              \item
+          \end{enumerate}
+\end{itemize}
 \end{document}
