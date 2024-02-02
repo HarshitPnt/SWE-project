@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.5.31)  1 FEB 2024 19:27
+This is pdfTeX, Version 3.141592653-2.6-1.40.22 (TeX Live 2022/dev/Debian) (preloaded format=pdflatex 2023.5.31)  1 FEB 2024 21:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -590,6 +590,7 @@ Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
 LaTeX Info: Redefining \ref on input line 54.
 LaTeX Info: Redefining \pageref on input line 54.
 LaTeX Info: Redefining \nameref on input line 54.
+ (./draft.out) (./draft.out)
 \@outlinefile=\write4
 \openout4 = `draft.out'.
 
@@ -601,17 +602,97 @@ File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 LaTeX Font Info:    Trying to load font information for U+msb on input line 56.
  (/usr/share/texlive/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
-)
+) (./draft.toc)
 \tf@toc=\write5
 \openout5 = `draft.toc'.
 
-<./images/context_diagram.jpeg, id=7, 783.92876pt x 603.25375pt>
+<./images/context_diagram.jpeg, id=47, 783.92876pt x 603.25375pt>
 File: ./images/context_diagram.jpeg Graphic file (type jpg)
 <use ./images/context_diagram.jpeg>
-Package pdftex.def Info: ./images/context_diagram.jpeg  used on input line 64.
-(pdftex.def)             Requested size: 420.87463pt x 323.87437pt.
+Package pdftex.def Info: ./images/context_diagram.jpeg  used on input line 65.
+(pdftex.def)             Requested size: 394.56847pt x 303.6328pt.
  [1
 
-{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map} <./images/context_diagram.jpeg>]
-!pdfTeX error: pdflatex (file ./images/dfd_wrong.png): libpng: internal error
- ==> Fatal error occurred, no output PDF file produced!
+{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}]
+<./images/dfd_correct.jpeg, id=59, 1583.9175pt x 1490.56876pt>
+File: ./images/dfd_correct.jpeg Graphic file (type jpg)
+<use ./images/dfd_correct.jpeg>
+Package pdftex.def Info: ./images/dfd_correct.jpeg  used on input line 88.
+(pdftex.def)             Requested size: 420.87463pt x 396.06783pt.
+File: ./images/dfd_correct.jpeg Graphic file (type jpg)
+<use ./images/dfd_correct.jpeg>
+Package pdftex.def Info: ./images/dfd_correct.jpeg  used on input line 95.
+(pdftex.def)             Requested size: 526.0913pt x 495.09615pt.
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.97 \end{figure}
+                  [2 <./images/context_diagram.jpeg>]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.99     \item T
+                he below DFD contains the data flow in the system with a man... [3 <./images/dfd_correct.jpeg>]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.106     \item T
+                 he data flow from community admin occurs in creating commun... [4]
+Underfull \hbox (badness 10000) in paragraph at lines 132--132
+[]\OT1/cmr/m/n/10.95 Internal Log-i-cal
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 134--134
+[]\OT1/cmr/m/n/10.95 External In-ter-
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.148 \end{itemize}
+                    [5]
+Underfull \hbox (badness 10000) in paragraph at lines 150--151
+
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.199               \item D
+                           isplaying followers/following list. (Medium) [6]
+Underfull \hbox (badness 10000) in paragraph at lines 228--228
+[]\OT1/cmr/bx/n/10.95 External In-
+ []
+
+
+Underfull \hbox (badness 5504) in paragraph at lines 230--230
+[]\OT1/cmr/bx/n/10.95 External In-ter-
+ []
+
+pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.261 
+       [7]pdfTeX warning (ext4): destination with the same identifier (name{page.}) has been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.274 \end{document}
+                     [8] (./draft.aux)
+Package rerunfilecheck Info: File `draft.out' has not changed.
+(rerunfilecheck)             Checksum: 9AE20EF12AD6C88904CAE6BF93C75EF1;1087.
+ ) 
+Here is how much of TeX's memory you used:
+ 15557 strings out of 480247
+ 255579 string characters out of 5896151
+ 592405 words of memory out of 5000000
+ 33154 multiletter control sequences out of 15000+600000
+ 477312 words of font info for 58 fonts, out of 8000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 94i,10n,92p,396b,488s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/harshit/.texlive2021/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr12.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr17.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on draft.pdf (8 pages, 542062 bytes).
+PDF statistics:
+ 215 PDF objects out of 1000 (max. 8388607)
+ 182 compressed objects within 2 object streams
+ 76 named destinations out of 1000 (max. 500000)
+ 87 words of extra memory for PDF output out of 10000 (max. 10000000)
+
