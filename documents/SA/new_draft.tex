@@ -1,0 +1,153 @@
+\documentclass[11pt]{article}
+\usepackage[left= 1.55cm, right = 1.55cm,top = 1.2cm, bottom = 1.5cm]{geometry}
+\usepackage{enumerate}
+\usepackage{amsmath,amsfonts,amssymb}
+\usepackage{setspace}
+\usepackage{float}
+\usepackage{multicol}
+\usepackage{xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{listings}
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+\lstset{style=mystyle}
+\pagenumbering{gobble}
+\renewcommand{\arraystretch}{1.5}
+\usepackage{mathtools}
+\usepackage{longtable}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage[utf8]{inputenc}
+\usepackage[usestackEOL]{stackengine}
+\setlength{\abovedisplayskip}{0in}
+\setlength{\columnsep}{3em}
+\newcommand{\blue}{\color{Blue}}
+\newcommand{\green}{\color{Green}}
+\usepackage[inkscapeformat=png]{svg}
+\newcommand{\red}{\color{Red}}
+\newcommand{\black}{\color{Black}}
+\newcommand{\Name}{Communities }
+\title{Software Requirements Analysis\\\Name : A Social Media Platform\\ SM02}
+\author{Harshit Pant \\ CS21BTECH11021 \and Satpute Aniket Tukaram \\ CS21BTECH11056 \and Mahin Bansal \\ CS21BTECH11034 \and Burra Vishal Mathews \\ CS21BTECH11010}
+\date{}
+\begin{document}
+\maketitle
+\section{Overview}
+The purpose of this software application is to provide a platform where users can create communities of their choice and induldge in communities of similar interests.This product intends to be a social media platform where users can create communities of their choice with different visibilities and induldge in communities of similar interests. Users can also interact with other users through direct messaging.\\
+Inorder to prevent malicious users, the platform also employs a moderation system where users can report posts and comments and moderators can moderate posts and comments in their communities.
+The product also intends to employ a recommender system to recommend communities and create a user-specific feed for each user.
+
+The product is a web application and hence is intended to be independent of any underlying operating system.
+    
+\subsection{System Overview:}
+ The principal actors in the system are:
+\begin{itemize}
+    \item Guest Users: Users which have not created an account on the platform.
+    \item Registered Users: Users which have created an account on the platform.
+    \item Community Admins: Users which have created a community on the platform.
+    \item Community Moderators: Users which have been appointed as moderators in a community.
+    \item Superuser: Users which have the highest privileges on the platform.
+    \item System: The system is also an actor in the system.
+\end{itemize}
+\subsection{System Context:}
+
+\subsection{Stakeholders of Communities:}
+\begin{itemize}
+    \item \textbf{Guest Users} can view public communities, posts and other registered users with public profiles.
+    \item Guest Users can view the Trending page.
+    \item User authentication including login and signup and a referral system.
+    \item \textbf{Registered users} can create communities with different visibilities and can join communities.
+    \item Users can create posts in communities and perform other CRUD operations. They can comment on posts.
+    \item Users can upvote and downvote posts and comments.
+    \item Users can report posts and comments.
+    \item Users can search for communities, users and posts.
+    \item Users can follow other users.
+    \item Users can view their user-specific-feed and their notifications.
+    \item Users can use a direct messaging system to communicate with other users
+    \item \textbf{Community moderators} can moderate posts and comments in their communities.
+    \item Community moderators can ban users from their communities.
+    \item Community moderators can issue warnings to members of their communities.
+    \item \textbf{Community admins} can add and remove moderators from their communities.
+    \item Community admins can delete their communities.
+    \item Community admins can revoke user-bans.
+    \item \textbf{Platform admins}/\textbf{superusers} can delete users and communities.
+\end{itemize}
+\subsection{Scope of this Document:}
+The this dociment we describe architecture for our software.
+\subsection{Definitions and Acronyms:}
+
+
+\section{ Architecture Design}
+
+\subsection{Architecture 1: The Repository Model}
+
+\begin{itemize}
+    \item This architecture revolves around the data repository, which contains communities data, user data, conversation data, roles data for communities, posts/comments data for communities and authorization data
+    \item All other components are connected to data repository through different connectors
+\end{itemize}
+
+
+
+\begin{table}[H]
+    \centering
+    
+    \begin{tabular}{|p{4cm}|p{4cm}|p{10cm}|}
+        \hline
+        \textbf{Component}           & \textbf{Component Type} & \textbf{Description}
+        \\\hline
+        \textbf{Data Repository}          & Database                   & This module contains communities data, user data, conversation data, roles data for communities, post/comments data for communities, authorization data for users                                       
+        \\\hline
+        \textbf{Create, Update, Delete User Profiles}         & Database Insertion  & This module creates, deletes and updates user profiles for which it deletes data from repository or insert different parameters in data repository                                
+        \\\hline
+        \textbf{Follow/UnFollow Users, View Followers}        & Database Insertion and Database Access    & This module allows user to view followers of other users and follow/unFollow other users in system
+        \\\hline
+        \textbf{Send, Receive Messages}   & Database Access   &  This module provides a messaging interface to users to send and receive messages from different users
+        \\\hline
+        \textbf{Compute and Display user specific home feed} & Processing(database access) & This modules creates home feed specific to each user by using the people and communities they follows.
+        \\\hline
+        \textbf{Compute and Display common trending feed} & Processing(database access) & This modules creates trending feed common for all users by using the recent activity in communities.
+        \\\hline
+        \textbf{Vote in polls, Comment, Up-vote and Down-vote on comments and Posts} & Database Access & This module enables user to vote in polls created by other users, Comment on different posts, up-vote or down-vote on comments  and posts created by other users
+        \\\hline
+        \textbf{Join, Leave Communities} & Database Access & This module enables users to send join requests or join directly to communities and leave communities joined before
+        \\\hline
+        \textbf{Create, View, Update and Delete Posts, Polls and Profiles} & Database Access & This module enables user too to create posts for communities, create polls, delete and update these posts
+        \\\hline
+        \textbf{Assign, Remove Moderator} & Database Access & This module enables community admin to assign new moderators and remove existing moderators
+        \\\hline
+        \textbf{Create and Update Community Guidelines} & Database Access & This module enables community admin to create and update respective community guidelines
+        \\\hline
+        \textbf{Create, Delete Communities} & Database Access & This module enables users to create communities and community admins to delete communities
+        \\\hline
+    \end{tabular}
+    \caption{\textbf{Above Table contains components in the architecture:}}
+\end{table}
+\end{document}
+
+
+
+
+
+
+
