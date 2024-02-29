@@ -1,0 +1,83 @@
+LAYERED ARCHITECTURE
+
+Presentaion layer
+- view
+
+user layer
+- guest user
+- registered user
+- super user
+- admin
+- moderator
+
+buisness layer logic
+- create/update user
+- get feed
+- get notifications
+- get chat
+- search and filter posts/users
+- CRUD posts
+
+api layer
+- api gateway
+
+authentication layer
+- google auth
+- internal signin
+- cookies
+
+microservices layer 
+
+data acess layer
+- get/put/delete user
+- get/put/delete posts/comments/replies/notifications/followers
+- get/put/delete multimedia content
+- get/put/delete 
+
+cache layer
+- cache
+- cache manager
+
+database layer
+- data repository
+- blob storage
+- chat DB
+
+REPOSITORY ARCHITECTURE
+
+All are connected to single repository
+- follow/unfollow, view followers
+- send receive messages
+- vote in polls, comment,up-vote, down-vote
+- join/leave communities
+- create, view, update and delete posts,polls and profiles
+- assign, remove moderator
+- create and update community guidelines
+- create and update communities
+- compute and display common trending feed
+- compute and display user specific home feed
+- create, update, delete user profiles
+
+
+
+_____________________________________
+
+
+
+In a repostitory architecture, Data is stored centrally in a shared repository, with components interacting exclusively through it. Suited for applications with one component generating data and another utilizing it.
+
+Here are the reasons why a layered architecture would be more suitable than a repository architecture for a this application:
+
+Clear Separation of Concerns:
+   - This application involves multiple functionalities such as user interactions, content presentation, and data storage. Layered architecture provides a clear separation of these concerns into distinct layers, making the system easier to understand and maintain.
+
+Scalability of User Interactions:
+   - In this app, the user interaction layer is likely to experience varying levels of demand, such as spikes in posting, commenting, or voting activities. Layered architecture allows for the independent scaling of individual layers. Thus, if there's a surge in user interactions, the corresponding layer can be scaled horizontally without impacting other layers.
+
+Flexibility for Future Changes:
+   - This platform may evolve over time, introducing new features or altering existing ones. Layered architecture facilitates this evolution by allowing changes to one layer without affecting others. For example, if there's a need to revamp the user interface or introduce new functionalities, modifications can be made to the respective layer without disrupting the entire system.
+
+Simplicity in Managing User Interactions:
+   - This applications primarily revolve around managing user interactions, such as posting, commenting, and voting. Layered architecture simplifies the management of these interactions by providing dedicated layers for handling user input, processing business logic, and presenting data. This clarity in design aids in efficient development and maintenance of the application.
+
+A layered architecture is preferred for a this application due to its ability to provide clear separation of concerns, scalability for user interactions, flexibility for future changes, adherence to common web application patterns, and simplicity in managing user interactions.
