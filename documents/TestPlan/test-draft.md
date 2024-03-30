@@ -155,7 +155,7 @@ Performance testing
 caption = {Authentication Module Unit Test},
 label = {tab:test},
 ]{
-colspec = {|X[2]X[2]X[4]X[6]X[6]X[2]|}, % Adjusted to 6 columns
+colspec = {|X[1.5]X[2]X[3]X[3]X[5]X[5]X[1.5]|}, % Adjusted to 6 columns
 rowhead = 1,
 hlines,
 row{even} = {gray9},
@@ -163,26 +163,18 @@ row{1} = {olive9},
 }
 
 \hline
-\textbf{S.No} & \textbf{Module Name} & \textbf{Conditions to be tested} & \textbf{Inputs} & \textbf{Expected Output} & \textbf{Status} \\
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Inputs} & \textbf{Expected Output} & \textbf{Status} \\
 \hline
-UT-1.1.a & Login Module & Incorrect Credentials & user: unknown-username \textbf{o} wrong-password, status: user-not-found \textbf{or} wrong-password (from User Module) & return: invalid-credentials & F \\\hline
-UT-1.1.b & Login Module & Incorrect Credentials (OAuth) & user: incorrect-email \textbf{or} wrong-password, status: user-not-registered \textbf{or} wrong-password (from OAuth) & return: invalid-credentials & F \\\hline
-UT-1.1.c & Login Module & Correct Credentials & user: registered-username \textbf{and} correct-password, status: OK (from User Module or OAuth) & return: OK \textbf{and} JSON Web-token & P \\\hline
-UT-1.1.d & Token Module & Invalid Token & & & F \\\hline
-UT-1.1.e & Signup Module & Invalid Credentials & & & F \\\hline
-UT-1.1.f & Signup Module & Valid Credentials & & & P \\\hline
-UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
+UT-1.1.a & Login Module & Login user using Interanl sign-in &Incorrect Credentials & user: unknown-username \textbf{or} wrong-password, DB-status: user-not-found \textbf{or} wrong-password (from User Module) & return: invalid-credentials & F \\\hline
+UT-1.1.b & Login Module & Login User using Google OAuth &Incorrect Credentials (OAuth) & user: incorrect-email \textbf{or} wrong-password, OAuth-status: user-not-registered \textbf{or} wrong-password (from OAuth) & return: invalid-credentials & F \\\hline
+UT-1.1.c & Login Module& Login User & Correct Credentials & user: registered-username \textbf{and} correct-password, DB-status: OK (from User Module or OAuth) & return: OK \textbf{and} JSON Web-token & P \\\hline
+UT-1.1.d & Token Module & Validate JWT & Invalid Token & cookie: invalid-token & The module extracts the header and the payload from the request and recalculates the signature and matches it with the token, in this case it does not match and hence returns \textbf{returns:} invalid-token & F \\\hline
+UT-1.1.e & Signup Module & Signup User & Username already taken & user: already-taken-username \textbf{and} password \textbf{and} email-id, DB-status: username-taken & return: username-taken & F \\\hline
+UT-1.1.f & Signup Module & Signup User & Unverified email id & user: username \textbf{and} password \textbf{and} unverfied-email-id, email-service-status: email-verification-timeout & return: email-unverified & F \\\hline
+UT-1.1.g & Signup Module & Signup User & Passwords Don't Match & user: username \textbf{and} invalid-password \textbf{and} email-id & return: password-mismatch & F \\\hline
+UT-1.1.h & Signup Module & Signup User & Valid Credentials & user: username \textbf{and} password \textbf{and} email-id, DB-status: user-created & return: user-created \textbf{and} JWT and redirects user to home page & P \\\hline
+UT-1.1.i & E2EE Module & TO-BE-FILLED & Invalid Key & & & F \\\hline
 \end{longtblr}
-
-| S.No     | Module Name   | Conditions to be tested       | Inputs                                                                                                        | Expected Output                   | Status |
-| :------- | :------------ | :---------------------------- | :------------------------------------------------------------------------------------------------------------ | :-------------------------------- | :----- |
-| UT-1.1.a | Login Module  | Incorrect Credentials         | user: unknown-username **or** wrong-password, status: user-not-found **or** wrong-password (from User Module) | return: invalid-credentials       | F      |
-| UT-1.1.b |               | Incorrect Credentials (OAuth) | user: incorrect-email **or** wrong-password, status: user-not-registered **or** wrong-password (from OAuth)   | return: invalid-credentials       | F      |
-| UT-1.1.c |               | Correct Credentials           | user: registered-username **and** correct-password, status: OK (from User Module or OAuth)                    | return: OK **and** JSON Web-token | P      |
-| UT-1.1.d | Token Module  | Invalid Token                 |                                                                                                               |                                   | F      |
-| UT-1.1.e | Signup Module | Invalid Credentials           |                                                                                                               |                                   | F      |
-| UT-1.1.f |               | Valid Credentials             |                                                                                                               |                                   | P      |
-| UT-1.1.g | E2EE Module   | Invalid Key                   |                                                                                                               |                                   | F      |
 
 #### User Module
 
