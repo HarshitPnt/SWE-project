@@ -11,24 +11,36 @@ author:
 title: Communities A Social Media Platform(SM02)
 subtitle: Test Plan
 header-includes:
-  - '\newcommand{\projectName}{Project Name }'
-  - '\newcommand{\coreSystemName}{Core Name }'
-  - '\newcommand{\bt}[1]{\fcolorbox{gray}{lightgray}{#1}}'
-  - '\usepackage{tocloft}'
-  - '\usepackage{graphicx}'
-  - '\usepackage{hyperref}'
-  - '\usepackage{float}'
-  - '\usepackage{glossaries}'
-  - '\setglossarystyle{altlistgroup}'
-  - '\usepackage{xparse}'
-  - '\usepackage{lscape}'
-  - '\makenoidxglossaries'
-  - '\usepackage{etoolbox}'
-  - '\usepackage{xstring}'
-  - '\setlength{\aboverulesep}{0pt}'
-  - '\setlength{\belowrulesep}{0pt}'
-  - '\renewcommand{\arraystretch}{1.3}'
-  - '\makeatletter'
+  - \usepackage{enumerate}
+  - \usepackage{longtable}
+  - \usepackage{amsmath,amsfonts,amssymb}
+  - \usepackage{setspace}
+  - \usepackage{float}
+  - \usepackage{tabularray}
+  - \usepackage{multicol}
+  - \usepackage{xcolor}
+  - \usepackage[hidelinks]{hyperref}
+  - \usepackage{listings}
+  - \definecolor{codegreen}{rgb}{0,0.6,0}
+  - \definecolor{codegray}{rgb}{0.5,0.5,0.5}
+  - \definecolor{codepurple}{rgb}{0.58,0,0.82}
+  - \definecolor{backcolour}{rgb}{0.95,0.95,0.92}
+  - \pagenumbering{gobble}
+  - \renewcommand{\arraystretch}{1.5}
+  - \usepackage{mathtools}
+  - \usepackage{longtable}
+  - \usepackage{graphicx}
+  - \usepackage{multirow}
+  - \usepackage{hhline}
+  - \usepackage[utf8]{inputenc}
+  - \usepackage[usestackEOL]{stackengine}
+  - \setlength{\abovedisplayskip}{0in}
+  - \setlength{\columnsep}{3em}
+  - \newcommand{\blue}{\color{Blue}}
+  - \newcommand{\green}{\color{Green}}
+  - \usepackage[inkscapeformat=png]{svg}
+  - \newcommand{\red}{\color{Red}}
+  - \newcommand{\black}{\color{Black}}
 documentclass: article
 fontsize: 10pt
 secnumdepth: 4
@@ -44,6 +56,30 @@ geometry:
 ---
 
 \renewcommand{\contentsname}{Table of Contents}
+\lstdefinestyle{mystyle}{
+backgroundcolor=\color{backcolour},  
+ commentstyle=\color{codegreen},
+keywordstyle=\color{magenta},
+numberstyle=\tiny\color{codegray},
+stringstyle=\color{codepurple},
+basicstyle=\ttfamily\footnotesize,
+breakatwhitespace=false,  
+ breaklines=true,  
+ captionpos=b,  
+ keepspaces=true,  
+ numbers=left,  
+ numbersep=5pt,  
+ showspaces=false,  
+ showstringspaces=false,
+showtabs=false,  
+ tabsize=2
+}
+
+\SetTblrDefault{%
+stretch = 1.5,
+hlines, vlines,
+columns={c},
+}
 
 \tableofcontents
 
@@ -115,15 +151,38 @@ Performance testing
 
 #### Authentication Module
 
-| S.No     | Module Name   | Conditions to be tested       | Inputs                                                                            | Expected Output     | Status |
-| -------- | ------------- | ----------------------------- | --------------------------------------------------------------------------------- | ------------------- | ------ |
-| UT-1.1.a | Login Module  | Incorrect Credentials         | unknown-username, wrong-password, user-not-found (from DB)                        | Invalid Credentials | F      |
-| UT-1.1.b |               | Incorrect Credentials (OAuth) | incorrect-email, wrong-password, user-not-registered, wrong-password (from OAuth) | Invalid Credentials | F      |
-| UT-1.1.c |               | Correct Credentials           |                                                                                   |                     | P      |
-| UT-1.1.d | Token Module  | Invalid Token                 |                                                                                   |                     | F      |
-| UT-1.1.e | Signup Module | Invalid Credentials           |                                                                                   |                     | F      |
-| UT-1.1.f |               | Valid Credentials             |                                                                                   |                     | P      |
-| UT-1.1.g | E2EE Module   | Invalid Key                   |                                                                                   |                     | F      |
+\begin{longtblr}[
+caption = {Authentication Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[2]X[2]X[4]X[6]X[6]X[2]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Conditions to be tested} & \textbf{Inputs} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-1.1.a & Login Module & Incorrect Credentials & user: unknown-username \textbf{o} wrong-password, status: user-not-found \textbf{or} wrong-password (from User Module) & return: invalid-credentials & F \\\hline
+UT-1.1.b & Login Module & Incorrect Credentials (OAuth) & user: incorrect-email \textbf{or} wrong-password, status: user-not-registered \textbf{or} wrong-password (from OAuth) & return: invalid-credentials & F \\\hline
+UT-1.1.c & Login Module & Correct Credentials & user: registered-username \textbf{and} correct-password, status: OK (from User Module or OAuth) & return: OK \textbf{and} JSON Web-token & P \\\hline
+UT-1.1.d & Token Module & Invalid Token & & & F \\\hline
+UT-1.1.e & Signup Module & Invalid Credentials & & & F \\\hline
+UT-1.1.f & Signup Module & Valid Credentials & & & P \\\hline
+UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
+\end{longtblr}
+
+| S.No     | Module Name   | Conditions to be tested       | Inputs                                                                                                        | Expected Output                   | Status |
+| :------- | :------------ | :---------------------------- | :------------------------------------------------------------------------------------------------------------ | :-------------------------------- | :----- |
+| UT-1.1.a | Login Module  | Incorrect Credentials         | user: unknown-username **or** wrong-password, status: user-not-found **or** wrong-password (from User Module) | return: invalid-credentials       | F      |
+| UT-1.1.b |               | Incorrect Credentials (OAuth) | user: incorrect-email **or** wrong-password, status: user-not-registered **or** wrong-password (from OAuth)   | return: invalid-credentials       | F      |
+| UT-1.1.c |               | Correct Credentials           | user: registered-username **and** correct-password, status: OK (from User Module or OAuth)                    | return: OK **and** JSON Web-token | P      |
+| UT-1.1.d | Token Module  | Invalid Token                 |                                                                                                               |                                   | F      |
+| UT-1.1.e | Signup Module | Invalid Credentials           |                                                                                                               |                                   | F      |
+| UT-1.1.f |               | Valid Credentials             |                                                                                                               |                                   | P      |
+| UT-1.1.g | E2EE Module   | Invalid Key                   |                                                                                                               |                                   | F      |
 
 #### User Module
 
