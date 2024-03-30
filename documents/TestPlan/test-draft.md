@@ -105,7 +105,6 @@ The test plan includes the following sections:
 ## Test Details
 
 ```text
-Unit tests for the modules
 Integrating testing
     The order in which you will integrate your modules and test cases for integrated modules.
 System testing
@@ -114,22 +113,17 @@ Performance testing
 
 ### Unit Tests
 
-```text
-List of all operations/modules that you plan to test
-Table of test cases for each module
-```
-
 #### Authentication Module
 
-| S.No     | Module Name   | Conditions to be tested       | Test Data | Expected Output | Status |
-| -------- | ------------- | ----------------------------- | --------- | --------------- | ------ |
-| UT-1.1.a | Login Module  | Incorrect Credentials         |           |                 |        |
-| UT-1.1.b |               | Incorrect Credentials (OAuth) |           |                 |        |
-| UT-1.1.c |               | Correct Credentials           |           |                 |        |
-| UT-1.1.d | Token Module  | Invalid Token                 |           |                 |        |
-| UT-1.1.e | Signup Module | Invalid Credentials           |           |                 |        |
-| UT-1.1.f |               | Valid Credentials             |           |                 |        |
-| UT-1.1.g | E2EE Module   | Invalid Key                   |           |                 |        |
+| S.No     | Module Name   | Conditions to be tested       | Inputs                                                                            | Expected Output     | Status |
+| -------- | ------------- | ----------------------------- | --------------------------------------------------------------------------------- | ------------------- | ------ |
+| UT-1.1.a | Login Module  | Incorrect Credentials         | unknown-username, wrong-password, user-not-found (from DB)                        | Invalid Credentials | F      |
+| UT-1.1.b |               | Incorrect Credentials (OAuth) | incorrect-email, wrong-password, user-not-registered, wrong-password (from OAuth) | Invalid Credentials | F      |
+| UT-1.1.c |               | Correct Credentials           |                                                                                   |                     | P      |
+| UT-1.1.d | Token Module  | Invalid Token                 |                                                                                   |                     | F      |
+| UT-1.1.e | Signup Module | Invalid Credentials           |                                                                                   |                     | F      |
+| UT-1.1.f |               | Valid Credentials             |                                                                                   |                     | P      |
+| UT-1.1.g | E2EE Module   | Invalid Key                   |                                                                                   |                     | F      |
 
 #### User Module
 
