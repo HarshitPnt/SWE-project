@@ -31,9 +31,58 @@ output: pdf_document
 
 ## Test Overview
 
-```text
-List of all operations/modules that you plan to test
-```
+Communities is an online social media platform that allows users to create and join communities based on their interests. Users can create communities, post content, comment on posts, and interact with other users. The platform also includes other features such as chat, search, and recommendations and certain level of moderation.
+
+This document outlines the test plan for Communities, including the modules to be tested, the types of tests to be conducted, and the test analysis.
+
+The test plan includes the following operations/modules that will be tested:
+
+- Authentication Modules
+  - Login Module
+  - Signup Module
+  - Token Authentication Module
+  - E2EE Module
+- User Modules
+  - Guest User Module
+  - Registered User Module
+  - Admin User Module
+  - Moderator User Module
+  - Superuser Module
+- System Modules
+  - Cache Manager Module
+  - Recommender System Module
+  - Job Scheduler Module
+  - Services Module
+    - Feed Service
+    - Comments Service
+    - Post Service
+    - Search Service
+    - Votes Service
+    - Chat Service
+    - Connections Service
+    - Scoring Service
+- DB Access Modules
+  - User Module
+  - Post Module
+  - Comment Module
+  - Vote Module
+  - Chat Module
+  - Community Module
+- UI Modules
+  - Listing Module
+- Other Modules
+  - Notification Module
+  - Reporting Module
+  - Moderation Module
+
+The test plan includes the following sections:
+
+- Test Overview: A brief overview of the test plan which also lists the operations/modules that will be tested.
+- Test Details: Detailed information about the unit tests, integration testing, system testing, and performance testing.
+- Test Analysis: A summary of the test statistics, functional test report, and performance test report.
+  - Test Statistics: The number of classes, methods, modules tested, test cases, and test cases failed.
+  - Functional Test Report: A summary of the functional test cases for each module, including the type of testing method used.
+  - Performance Test Report: A summary of the performance test plan and report.
 
 ## Test Details
 
