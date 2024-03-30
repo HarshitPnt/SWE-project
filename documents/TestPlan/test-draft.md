@@ -198,9 +198,20 @@ UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
 
 #### DB Access Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-4.1.a |             |                         |           |                 |        |
+| S.No     | Module Name      | Conditions to be tested | Test Data                                                 | Expected Output             | Status |
+| -------- | ---------------- | ----------------------- | --------------------------------------------------------- | --------------------------- | ------ |
+| UT-4.1.a | User Module      | Invalid User            | user: unknown-user, status: user-not-found                | return: user-not-found      | F      |
+| UT-4.1.b |                  | Valid User              | user: registered-user, status: OK                         | return: OK                  | P      |
+| UT-4.1.c | Post Module      | Invalid Post            | post: unknown-post, status: post-not-found                | return: post-not-found      | F      |
+| UT-4.1.d |                  | Valid Post              | post: known-post, status: OK                              | return: OK                  | P      |
+| UT-4.1.e | Comment Module   | Invalid Comment         | comment: unknown-comment, status: comment-not-found       | return: comment-not-found   | F      |
+| UT-4.1.f |                  | Valid Comment           | comment: known-comment, status: OK                        | return: OK                  | P      |
+| UT-4.1.g | Vote Module      | Invalid Vote            | vote: unknown-vote, status: vote-not-found                | return: vote-not-found      | F      |
+| UT-4.1.h |                  | Valid Vote              | vote: known-vote, status: OK                              | return: OK                  | P      |
+| UT-4.1.i | Chat Module      | Invalid Chat            | chat: unknown-chat, status: chat-not-found                | return: chat-not-found      | F      |
+| UT-4.1.j |                  | Valid Chat              | chat: known-chat, status: OK                              | return: OK                  | P      |
+| UT-4.1.k | Community Module | Invalid Community       | community: unknown-community, status: community-not-found | return: community-not-found | F      |
+| UT-4.1.l |                  | Valid Community         | community: known-community, status: OK                    | return: OK                  | P      |
 
 #### UI Module
 
