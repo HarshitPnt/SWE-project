@@ -198,20 +198,44 @@ UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
 
 #### DB Access Module
 
-| S.No     | Module Name      | Conditions to be tested | Test Data                                                 | Expected Output             | Status |
-| -------- | ---------------- | ----------------------- | --------------------------------------------------------- | --------------------------- | ------ |
-| UT-4.1.a | User Module      | Invalid User            | user: unknown-user, status: user-not-found                | return: user-not-found      | F      |
-| UT-4.1.b |                  | Valid User              | user: registered-user, status: OK                         | return: OK                  | P      |
-| UT-4.1.c | Post Module      | Invalid Post            | post: unknown-post, status: post-not-found                | return: post-not-found      | F      |
-| UT-4.1.d |                  | Valid Post              | post: known-post, status: OK                              | return: OK                  | P      |
-| UT-4.1.e | Comment Module   | Invalid Comment         | comment: unknown-comment, status: comment-not-found       | return: comment-not-found   | F      |
-| UT-4.1.f |                  | Valid Comment           | comment: known-comment, status: OK                        | return: OK                  | P      |
-| UT-4.1.g | Vote Module      | Invalid Vote            | vote: unknown-vote, status: vote-not-found                | return: vote-not-found      | F      |
-| UT-4.1.h |                  | Valid Vote              | vote: known-vote, status: OK                              | return: OK                  | P      |
-| UT-4.1.i | Chat Module      | Invalid Chat            | chat: unknown-chat, status: chat-not-found                | return: chat-not-found      | F      |
-| UT-4.1.j |                  | Valid Chat              | chat: known-chat, status: OK                              | return: OK                  | P      |
-| UT-4.1.k | Community Module | Invalid Community       | community: unknown-community, status: community-not-found | return: community-not-found | F      |
-| UT-4.1.l |                  | Valid Community         | community: known-community, status: OK                    | return: OK                  | P      |
+| S.No      | Module Name      | Function               | Conditions to be tested                 | Test Data                                           | Expected Output        | Status |
+| --------- | ---------------- | ---------------------- | --------------------------------------- | --------------------------------------------------- | ---------------------- | ------ |
+| UT-4.1.a  | User Module      | Access User Info       | Invalid User                            | user: unknown-user, status: user-not-found          | return: user-not-found | F      |
+| UT-4.1.b  | User Module      | Access User Info       | Valid User                              | user: known-user, status: OK                        | return: OK             | P      |
+| UT-4.1.c  | User Module      | Access User Followings | Invalid User, Access not available      | user: unknown-user, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.d  | User Module      | Access User Followings | Valid User, Access available            | user: known-user, status: OK                        | return: OK             | P      |
+| UT-4.1.e  | Post Module      | Access Post Info       | Invalid Post, Access not available      | post: unknown-post, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.f  | Post Module      | Access Post Info       | Valid Post, Access available            | post: known-post, status: OK                        | return: OK             | P      |
+| UT-4.1.g  | Post Module      | Access Post Comments   | Invalid Post, Access not available      | post: unknown-post, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.h  | Post Module      | Access Post Comments   | Valid Post, Access available            | post: known-post, status: OK                        | return: OK             | P      |
+| UT-4.1.i  | Post Module      | Access Post Votes      | Invalid Post, Access not available      | post: unknown-post, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.j  | Post Module      | Access Post Votes      | Valid Post, Access available            | post: known-post, status: OK                        | return: OK             | P      |
+| UT-4.1.k  | Post Module      | Access Post Community  | Invalid Post, Access not available      | post: unknown-post, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.l  | Post Module      | Access Post Community  | Valid Post, Access available            | post: known-post, status: OK                        | return: OK             | P      |
+| UT-4.1.m  | Comment Module   | Access Comment Info    | Invalid Comment, Access not available   | comment: unknown-comment, status: access-denied     | return: access-denied  | F      |
+| UT-4.1.n  | Comment Module   | Access Comment Info    | Valid Comment, Access available         | comment: known-comment, status: OK                  | return: OK             | P      |
+| Ut-4.1.o  | Comment Module   | Access Comment Votes   | Invalid Comment, Access not available   | comment: unknown-comment, status: access-denied     | return: access-denied  | F      |
+| UT-4.1.p  | Comment Module   | Access Comment Votes   | Valid Comment, Access available         | comment: known-comment, status: OK                  | return: OK             | P      |
+| UT-4.1.q  | Comment Module   | Access Comment Post    | Invalid Comment, Access not available   | comment: unknown-comment, status: access-denied     | return: access-denied  | F      |
+| UT-4.1.r  | Comment Module   | Access Comment Post    | Valid Comment, Access available         | comment: known-comment, status: OK                  | return: OK             | P      |
+| UT-4.1.s  | Vote Module      | Access Vote Info       | Invalid Vote, Access not available      | vote: unknown-vote, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.t  | Vote Module      | Access Vote Info       | Valid Vote, Access available            | vote: known-vote, status: OK                        | return: OK             | P      |
+| UT-4.1.u  | Vote Module      | Access Vote Post       | Invalid Vote, Access not available      | vote: unknown-vote, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.v  | Vote Module      | Access Vote Post       | Valid Vote, Access available            | vote: known-vote, status: OK                        | return: OK             | P      |
+| UT-4.1.w  | Vote Module      | Access Vote Comment    | Invalid Vote, Access not available      | vote: unknown-vote, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.x  | Vote Module      | Access Vote Comment    | Valid Vote, Access available            | vote: known-vote, status: OK                        | return: OK             | P      |
+| UT-4.1.y  | Chat Module      | Access Chat Info       | Invalid Chat, Access not available      | chat: unknown-chat, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.z  | Chat Module      | Access Chat Info       | Valid Chat, Access available            | chat: known-chat, status: OK                        | return: OK             | P      |
+| UT-4.1.aa | Chat Module      | Access Chat Messages   | Invalid Chat, Access not available      | chat: unknown-chat, status: access-denied           | return: access-denied  | F      |
+| UT-4.1.ab | Chat Module      | Access Chat Messages   | Valid Chat, Access available            | chat: known-chat, status: OK                        | return: OK             | P      |
+| UT-4.1.ac | Community Module | Access Community Info  | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied  | F      |
+| UT-4.1.ad | Community Module | Access Community Info  | Valid Community, Access available       | community: known-community, status: OK              | return: OK             | P      |
+| UT-4.1.ae | Community Module | Access Community Posts | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied  | F      |
+| UT-4.1.af | Community Module | Access Community Posts | Valid Community, Access available       | community: known-community, status: OK              | return: OK             | P      |
+| UT-4.1.ag | Community Module | Access Community Users | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied  | F      |
+| UT-4.1.ah | Community Module | Access Community Users | Valid Community, Access available       | community: known-community, status: OK              | return: OK             | P      |
+| UT-4.1.ai | Community Module | Access Community Mods  | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied  | F      |
+| UT-4.1.aj | Community Module | Access Community Mods  | Valid Community, Access available       | community: known-community, status: OK              | return: OK             | P      |
 
 #### UI Module
 
@@ -222,9 +246,14 @@ UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
 
 #### Other Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-6.1.a |             |                         |           |                 |        |
+| S.No     | Module Name         | Conditions to be tested | Test Data                                                          | Expected Output                | Status |
+| -------- | ------------------- | ----------------------- | ------------------------------------------------------------------ | ------------------------------ | ------ |
+| UT-6.1.a | Notification Module | Invalid Notification    | notification: unknown-notification, status: notification-not-found | return: notification-not-found | F      |
+| UT-6.1.b |                     | Valid Notification      | notification: known-notification, status: OK                       | return: OK                     | P      |
+| UT-6.1.c | Reporting Module    | Invalid Report          | report: unknown-report, status: report-not-found                   | return: report-not-found       | F      |
+| UT-6.1.d |                     | Valid Report            | report: known-report, status: OK                                   | return: OK                     | P      |
+| UT-6.1.e | Moderation Module   | Invalid Moderation      | moderation: unknown-moderation, status: moderation-not-found       | return: moderation-not-found   | F      |
+| UT-6.1.f |                     | Valid Moderation        | moderation: known-moderation, status: OK                           | return: OK                     | P      |
 
 ### Integration Testing
 
