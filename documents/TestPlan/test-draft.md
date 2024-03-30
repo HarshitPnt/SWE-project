@@ -239,10 +239,16 @@ UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
 
 #### UI Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data                                  | Expected Output        | Status |
-| -------- | ----------- | ----------------------- | ------------------------------------------ | ---------------------- | ------ |
-| UT-5.1.a | Listing     | Valid List              | post: known-post, status: OK               | return: OK             | P      |
-| UT-5.1.b |             | Invalid List            | post: unknown-post, status: post-not-found | return: post-not-found | F      |
+| S.No     | Module Name    | Function       | Conditions to be tested                | Test Data                                                 | Expected Output             | Status |
+| -------- | -------------- | -------------- | -------------------------------------- | --------------------------------------------------------- | --------------------------- | ------ |
+| UT-5.1.a | Listing Module | List Community | Invalid Communities                    | community: unknown-community, status: community-not-found | return: community-not-found | F      |
+| UT-5.1.b | Listing Module | List Community | Valid Communities                      | community: known-community, status: OK                    | return: OK                  | P      |
+| UT-5.1.c | Listing Module | List Posts     | Invalid Posts, Access not available    | post: unknown-post, status: access-denied                 | return: access-denied       | F      |
+| UT-5.1.d | Listing Module | List Posts     | Valid Posts, Access available          | post: known-post, status: OK                              | return: OK                  | P      |
+| UT-5.1.e | Listing Module | List Comments  | Invalid Comments, Access not available | comment: unknown-comment, status: access-denied           | return: access-denied       | F      |
+| UT-5.1.f | Listing Module | List Comments  | Valid Comments, Access available       | comment: known-comment, status: OK                        | return: OK                  | P      |
+| UT-5.1.g | Listing Module | List Users     | Invalid Users                          | user: unknown-user, status: user-not-found                | return: user-not-found      | F      |
+| UT-5.1.h | Listing Module | List Users     | Valid Users                            | user: known-user, status: OK                              | return: OK                  | P      |
 
 #### Other Module
 
