@@ -1,33 +1,51 @@
 ---
-geometry: margin=2cm
-output: pdf_document
+author:
+  - Harshit Pant \
+    CS21BTECH11021
+  - Satpute Aniket Tukaram \
+    CS21BTECH11056
+  - Mahin Bansal \
+    CS21BTECH11034
+  - Burra Vishal Mathews \
+    CS21BTECH11010
+title: Communities A Social Media Platform(SM02)
+subtitle: Test Plan
+header-includes:
+  - '\newcommand{\projectName}{Project Name }'
+  - '\newcommand{\coreSystemName}{Core Name }'
+  - '\newcommand{\bt}[1]{\fcolorbox{gray}{lightgray}{#1}}'
+  - '\usepackage{tocloft}'
+  - '\usepackage{graphicx}'
+  - '\usepackage{hyperref}'
+  - '\usepackage{float}'
+  - '\usepackage{glossaries}'
+  - '\setglossarystyle{altlistgroup}'
+  - '\usepackage{xparse}'
+  - '\usepackage{lscape}'
+  - '\makenoidxglossaries'
+  - '\usepackage{etoolbox}'
+  - '\usepackage{xstring}'
+  - '\setlength{\aboverulesep}{0pt}'
+  - '\setlength{\belowrulesep}{0pt}'
+  - '\renewcommand{\arraystretch}{1.3}'
+  - '\makeatletter'
+documentclass: article
+fontsize: 10pt
+secnumdepth: 4
+classoptions:
+  - a4paper
+  - portrait
+mainfont: Arial.ttf
+geometry:
+  - top=2cm
+  - left=1.5cm
+  - right=1.5cm
+  - bottom=2cm
 ---
 
-# Test Plan
+\renewcommand{\contentsname}{Table of Contents}
 
-## Communities : A Social Media Platform(SM02)
-
-- Harshit Pant(CS21BTECH11021)
-- Satpute Aniket Tukaram(CS21BTECH11056)
-- Mahin Bansal(CS21BTECH11034)
-- Burra Vishal Mathews(CS21BTECH11010)
-
-## Table of Contents
-
-- [Test Plan](#test-plan)
-  - [Communities : A Social Media Platform(SM02)](#communities--a-social-media-platformsm02)
-  - [Table of Contents](#table-of-contents)
-  - [Test Overview](#test-overview)
-  - [Test Details](#test-details)
-    - [Unit Tests](#unit-tests)
-      - [Type of Module](#type-of-module)
-    - [Integration Testing](#integration-testing)
-    - [System Testing](#system-testing)
-    - [Performance Testing](#performance-testing)
-  - [Test Analysis](#test-analysis)
-    - [Test Statistics](#test-statistics)
-    - [Functional Test Report](#functional-test-report)
-    - [Performance Test Report](#performance-test-report)
+\tableofcontents
 
 ## Test Overview
 
@@ -101,11 +119,41 @@ List of all operations/modules that you plan to test
 Table of test cases for each module
 ```
 
-#### Type of Module
+#### Authentication Module
 
-| S.No | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| ---- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| 1.1  |             |                         |           |                 |        |
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-1.1.a |             |                         |           |                 |        |
+
+#### User Module
+
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-2.1.a |             |                         |           |                 |        |
+
+#### System Module
+
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-3.1.a |             |                         |           |                 |        |
+
+#### DB Access Module
+
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-4.1.a |             |                         |           |                 |        |
+
+#### UI Module
+
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-5.1.a |             |                         |           |                 |        |
+
+#### Other Module
+
+| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
+| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
+| UT-6.1.a |             |                         |           |                 |        |
 
 ### Integration Testing
 
