@@ -215,9 +215,10 @@ UT-1.1.g & E2EE Module & Invalid Key & & & F \\\hline
 
 #### UI Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-5.1.a |             |                         |           |                 |        |
+| S.No     | Module Name | Conditions to be tested | Test Data                                  | Expected Output        | Status |
+| -------- | ----------- | ----------------------- | ------------------------------------------ | ---------------------- | ------ |
+| UT-5.1.a | Listing     | Valid List              | post: known-post, status: OK               | return: OK             | P      |
+| UT-5.1.b |             | Invalid List            | post: unknown-post, status: post-not-found | return: post-not-found | F      |
 
 #### Other Module
 
