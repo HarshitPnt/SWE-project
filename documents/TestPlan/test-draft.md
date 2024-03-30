@@ -121,9 +121,15 @@ Table of test cases for each module
 
 #### Authentication Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-1.1.a |             |                         |           |                 |        |
+| S.No     | Module Name   | Conditions to be tested       | Test Data | Expected Output | Status |
+| -------- | ------------- | ----------------------------- | --------- | --------------- | ------ |
+| UT-1.1.a | Login Module  | Incorrect Credentials         |           |                 |        |
+| UT-1.1.b |               | Incorrect Credentials (OAuth) |           |                 |        |
+| UT-1.1.c |               | Correct Credentials           |           |                 |        |
+| UT-1.1.d | Token Module  | Invalid Token                 |           |                 |        |
+| UT-1.1.e | Signup Module | Invalid Credentials           |           |                 |        |
+| UT-1.1.f |               | Valid Credentials             |           |                 |        |
+| UT-1.1.g | E2EE Module   | Invalid Key                   |           |                 |        |
 
 #### User Module
 
