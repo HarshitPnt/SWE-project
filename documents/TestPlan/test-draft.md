@@ -247,12 +247,12 @@ UT-4.1.o & User Module & deleteUser & Exisiting username & user: username, DB-st
 
 | S.No     | Module Name | Function              | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
 | -------- | ----------- | --------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.e | Post Module | Access Post Info      | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.f | Post Module | Access Post Info      | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
-| UT-4.1.g | Post Module | Access Post Comments  | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.h | Post Module | Access Post Comments  | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
-| UT-4.1.i | Post Module | Access Post Votes     | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.j | Post Module | Access Post Votes     | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
+| UT-4.1.e | Post Module | getPost               | Invalid PostID                     | post: unknown-post, status: access-denied | return: access-denied | F      |
+| UT-4.1.f | Post Module | getPostByCommunity    | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
+| UT-4.1.g | Post Module | getPostByUser         | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
+| UT-4.1.h | Post Module | getPostByScore        | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
+| UT-4.1.i | Post Module | getPostByTag          | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
+| UT-4.1.j | Post Module | getPostByQueryString  | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
 | UT-4.1.k | Post Module | Access Post Community | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
 | UT-4.1.l | Post Module | Access Post Community | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
 
