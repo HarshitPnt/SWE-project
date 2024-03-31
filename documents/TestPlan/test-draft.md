@@ -868,27 +868,83 @@ UT-4.14.m & Roles Module & delete Role By User-Community & Valid Request & user:
 
 #### UI Module
 
-| S.No     | Module Name    | Function       | Conditions to be tested                | Test Data                                                 | Expected Output             | Status |
-| -------- | -------------- | -------------- | -------------------------------------- | --------------------------------------------------------- | --------------------------- | ------ |
-| UT-5.1.a | Listing Module | List Community | Invalid Communities                    | community: unknown-community, status: community-not-found | return: community-not-found | F      |
-| UT-5.1.b | Listing Module | List Community | Valid Communities                      | community: known-community, status: OK                    | return: OK                  | P      |
-| UT-5.1.c | Listing Module | List Posts     | Invalid Posts, Access not available    | post: unknown-post, status: access-denied                 | return: access-denied       | F      |
-| UT-5.1.d | Listing Module | List Posts     | Valid Posts, Access available          | post: known-post, status: OK                              | return: OK                  | P      |
-| UT-5.1.e | Listing Module | List Comments  | Invalid Comments, Access not available | comment: unknown-comment, status: access-denied           | return: access-denied       | F      |
-| UT-5.1.f | Listing Module | List Comments  | Valid Comments, Access available       | comment: known-comment, status: OK                        | return: OK                  | P      |
-| UT-5.1.g | Listing Module | List Users     | Invalid Users                          | user: unknown-user, status: user-not-found                | return: user-not-found      | F      |
-| UT-5.1.h | Listing Module | List Users     | Valid Users                            | user: known-user, status: OK                              | return: OK                  | P      |
+- One of the UI Module that will be tested is the Listing Service Module which is a module which is present at the client side of the application. This module is responsible for listing the communities, posts, comments and users. The module will be tested for the following functionalities:
+  - List Community (Search Results and Feed)
+  - List Posts (Search Results and Community and Feed)
+  - List Comments
+  - List Users (Search Results and Feed)
+  - List Reports (Admin, Moderator, Superuser(platform related), User(All reports on a User))
+  - List Community Requests (Admin, Moderator)
+  - List Notifications
+  - List User-Community (Admin, Moderator)
+  - List Followers
+  - List Following
+  - List Blocked Users (Admin, Moderator, User(One User bloked by other), Superuser(blocked-from-platform))
 
-#### Other Module
+<!-- Convert into Latex Table -->
 
-| S.No     | Module Name         | Conditions to be tested | Test Data                                                          | Expected Output                | Status |
-| -------- | ------------------- | ----------------------- | ------------------------------------------------------------------ | ------------------------------ | ------ |
-| UT-6.1.a | Notification Module | Invalid Notification    | notification: unknown-notification, status: notification-not-found | return: notification-not-found | F      |
-| UT-6.1.b |                     | Valid Notification      | notification: known-notification, status: OK                       | return: OK                     | P      |
-| UT-6.1.c | Reporting Module    | Invalid Report          | report: unknown-report, status: report-not-found                   | return: report-not-found       | F      |
-| UT-6.1.d |                     | Valid Report            | report: known-report, status: OK                                   | return: OK                     | P      |
-| UT-6.1.e | Moderation Module   | Invalid Moderation      | moderation: unknown-moderation, status: moderation-not-found       | return: moderation-not-found   | F      |
-| UT-6.1.f |                     | Valid Moderation        | moderation: known-moderation, status: OK                           | return: OK                     | P      |
+\begin{longtblr}[
+caption = {Listing Service Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Functionality} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-5.1.a & Listing Service Module & List Community & Some Community Record in the List of Records is Invalid & list: list of community records in JSON & return: invalid-list & F \\\hline
+UT-5.1.b & Listing Service Module & List Community & Valid List of Community Records & list: list of community records in JSON & return: returns HTML & P \\\hline
+UT-5.1.c & Listing Service Module & List Posts & Some Post Record in the List of Records is Invalid & list: list of post records in JSON & return: invalid-list & F \\\hline
+UT-5.1.d & Listing Service Module & List Posts & Valid List of Post Records & list: list of post records in JSON & return: returns HTML & P \\\hline
+UT-5.1.e & Listing Service Module & List Comments & Some Comment Record in the List of Records is Invalid & list: list of comment-tree records in JSON & return: invalid-list & F \\\hline
+UT-5.1.f & Listing Service Module & List Comments & Valid List of Comment Records & list: list of comment-tree records in JSON & return: returns HTML & P \\\hline
+UT-5.1.g & Listing Service Module & List Users & Some User Record in the List of Records is Invalid & list: list of user records in JSON & return: invalid-list & F \\\hline
+UT-5.1.h & Listing Service Module & List Users & Valid List of User Records & list: list of user records in JSON & return: returns HTML & P \\\hline
+UT-5.1.i & Listing Service Module & List Reports & Some Report Record in the List of Records is Invalid & list: list of report records in JSON & return: invalid-list & F \\\hline
+UT-5.1.j & Listing Service Module & List Reports & Valid List of Report Records & list: list of report records in JSON & return: returns HTML & P \\\hline
+UT-5.1.k & Listing Service Module & List Requests & Some Request Record in the List of Records is Invalid & list: list of request records in JSON & return: invalid-list & F \\\hline
+UT-5.1.l & Listing Service Module & List Requests & Valid List of Request Records & list: list of request records in JSON & return: returns HTML & P \\\hline
+UT-5.1.m & Listing Service Module & List Notifications & Some Notification Record in the List of Records is Invalid & list: list of notification records in JSON & return: invalid-list & F \\\hline
+UT-5.1.n & Listing Service Module & List Notifications & Valid List of Notification Records & list: list of notification records in JSON & return: returns HTML & P \\\hline
+UT-5.1.o & Listing Service Module & List User-Community & Some User-Community Record in the List of Records is Invalid & list: list of user-community records in JSON & return: invalid-list & F \\\hline
+UT-5.1.p & Listing Service Module & List User-Community & Valid List of User-Community Records & list: list of user-community records in JSON & return: returns HTML & P \\\hline
+UT-5.1.q & Listing Service Module & List Followers & Some Follower Record in the List of Records is Invalid & list: list of follower records in JSON & return: invalid-list & F \\\hline
+UT-5.1.r & Listing Service Module & List Followers & Valid List of Follower Records & list: list of follower records in JSON & return: returns HTML & P \\\hline
+UT-5.1.s & Listing Service Module & List Following & Some Following Record in the List of Records is Invalid & list: list of following records in JSON & return: invalid-list & F \\\hline
+UT-5.1.t & Listing Service Module & List Following & Valid List of Following Records & list: list of following records in JSON & return: returns HTML & P \\\hline
+UT-5.1.u & Listing Service Module & List Blocked Users & Some Blocked User Record in the List of Records is Invalid & list: list of blocked user records in JSON & return: invalid-list & F \\\hline
+UT-5.1.v & Listing Service Module & List Blocked Users & Valid List of Blocked User Records & list: list of blocked user records in JSON & return: returns HTML & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name            | Functionality       | Conditions to be tested                                      | Test Data                                    | Expected Output      | Status |
+| -------- | ---------------------- | ------------------- | ------------------------------------------------------------ | -------------------------------------------- | -------------------- | ------ |
+| UT-5.1.a | Listing Service Module | List Community      | Some Community Record in the List of Records is Invalid      | list: list of community records in JSON      | return: invalid-list | F      |
+| UT-5.1.b | Listing Service Module | List Community      | Valid List of Community Records                              | list: list of community records in JSON      | return: returns HTML | P      |
+| UT-5.1.c | Listing Service Module | List Posts          | Some Post Record in the List of Records is Invalid           | list: list of post records in JSON           | return: invalid-list | F      |
+| UT-5.1.d | Listing Service Module | List Posts          | Valid List of Post Records                                   | list: list of post records in JSON           | return: returns HTML | P      |
+| UT-5.1.e | Listing Service Module | List Comments       | Some Comment Record in the List of Records is Invalid        | list: list of comment-tree records in JSON   | return: invalid-list | F      |
+| UT-5.1.f | Listing Service Module | List Comments       | Valid List of Comment Records                                | list: list of comment-tree records in JSON   | return: returns HTML | P      |
+| UT-5.1.g | Listing Service Module | List Users          | Some User Record in the List of Records is Invalid           | list: list of user records in JSON           | return: invalid-list | F      |
+| UT-5.1.h | Listing Service Module | List Users          | Valid List of User Records                                   | list: list of user records in JSON           | return: returns HTML | P      |
+| UT-5.1.i | Listing Service Module | List Reports        | Some Report Record in the List of Records is Invalid         | list: list of report records in JSON         | return: invalid-list | F      |
+| UT-5.1.j | Listing Service Module | List Reports        | Valid List of Report Records                                 | list: list of report records in JSON         | return: returns HTML | P      |
+| UT-5.1.k | Listing Service Module | List Requests       | Some Request Record in the List of Records is Invalid        | list: list of request records in JSON        | return: invalid-list | F      |
+| UT-5.1.l | Listing Service Module | List Requests       | Valid List of Request Records                                | list: list of request records in JSON        | return: returns HTML | P      |
+| UT-5.1.m | Listing Service Module | List Notifications  | Some Notification Record in the List of Records is Invalid   | list: list of notification records in JSON   | return: invalid-list | F      |
+| UT-5.1.n | Listing Service Module | List Notifications  | Valid List of Notification Records                           | list: list of notification records in JSON   | return: returns HTML | P      |
+| UT-5.1.o | Listing Service Module | List User-Community | Some User-Community Record in the List of Records is Invalid | list: list of user-community records in JSON | return: invalid-list | F      |
+| UT-5.1.p | Listing Service Module | List User-Community | Valid List of User-Community Records                         | list: list of user-community records in JSON | return: returns HTML | P      |
+| UT-5.1.q | Listing Service Module | List Followers      | Some Follower Record in the List of Records is Invalid       | list: list of follower records in JSON       | return: invalid-list | F      |
+| UT-5.1.r | Listing Service Module | List Followers      | Valid List of Follower Records                               | list: list of follower records in JSON       | return: returns HTML | P      |
+| UT-5.1.s | Listing Service Module | List Following      | Some Following Record in the List of Records is Invalid      | list: list of following records in JSON      | return: invalid-list | F      |
+| UT-5.1.t | Listing Service Module | List Following      | Valid List of Following Records                              | list: list of following records in JSON      | return: returns HTML | P      |
+| UT-5.1.u | Listing Service Module | List Blocked Users  | Some Blocked User Record in the List of Records is Invalid   | list: list of blocked user records in JSON   | return: invalid-list | F      |
+| UT-5.1.v | Listing Service Module | List Blocked Users  | Valid List of Blocked User Records                           | list: list of blocked user records in JSON   | return: returns HTML | P      | -->
 
 ### Integration Testing
 
