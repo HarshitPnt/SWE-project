@@ -427,75 +427,444 @@ UT-4.4.t & Vote Module & update Vote By Post-User & Valid Request & post: post-i
 | UT-4.4.s | Vote Module | update Vote By Post-User | Invalid UserID          | post: post-id **and** user: unknown-user-id, DB-status: user-not-found | return: user-not-found        | F      |
 | UT-4.4.t | Vote Module | update Vote By Post-User | Valid Request           | post: post-id **and** user: user-id, DB-status: OK                     | return: OK                    | P      | -->
 
-##### Chat Record Module
+##### Chat(Private Messages) Record Module
 
-| S.No      | Module Name | Function             | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | -------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.y  | Chat Module | Access Chat Info     | Invalid Chat, Access not available | chat: unknown-chat, status: access-denied | return: access-denied | F      |
-| UT-4.1.z  | Chat Module | Access Chat Info     | Valid Chat, Access available       | chat: known-chat, status: OK              | return: OK            | P      |
-| UT-4.1.aa | Chat Module | Access Chat Messages | Invalid Chat, Access not available | chat: unknown-chat, status: access-denied | return: access-denied | F      |
-| UT-4.1.ab | Chat Module | Access Chat Messages | Valid Chat, Access available       | chat: known-chat, status: OK              | return: OK            | P      |
+<!-- Convert into Latex Table -->
 
-##### Message Record Module
+\begin{longtblr}[
+caption = {Chat Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
 
-| S.No      | Module Name | Function            | Conditions to be tested               | Test Data                                       | Expected Output       | Status |
-| --------- | ----------- | ------------------- | ------------------------------------- | ----------------------------------------------- | --------------------- | ------ |
-| UT-4.1.ac | Chat Module | Access Message Info | Invalid Message, Access not available | message: unknown-message, status: access-denied | return: access-denied | F      |
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.5.a & Chat Module & get Chat & Invalid ChatID & chat: unknown-chat-id, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.5.b & Chat Module & get Chat & Valid Chat & chat: known-chat, DB-status: OK & return: OK & P \\\hline
+UT-4.5.c & Chat Module & delete Chat & Invalid ChatID & chat: unknown-chat-id, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.5.d & Chat Module & delete Chat & Valid Chat & chat: known-chat, DB-status: OK & return: OK & P \\\hline
+UT-4.5.e & Chat Module & delete Message-Chat & Invalid MessageID & message: unknown-message-id \textbf{and} chat: chat-id, DB-status: message-not-found & return: message-not-found & F \\\hline
+UT-4.5.f & Chat Module & delete Message-Chat & Invalid ChatID & message: message-id \textbf{and} chat: invalid-chat-id, DB-status: OK & return: invalid-chat-id & F \\\hline
+UT-4.5.f & Chat Module & delete Message-Chat & Valid Message & message: message-id \textbf{and} chat: chat-id, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name | Function    | Conditions to be tested | Test Data                                        | Expected Output        | Status |
+| -------- | ----------- | ----------- | ----------------------- | ------------------------------------------------ | ---------------------- | ------ |
+| UT-4.5.a | Chat Module | get Chat    | Invalid ChatID          | chat: unknown-chat-id, DB-status: chat-not-found | return: chat-not-found | F      |
+| UT-4.5.b | Chat Module | get Chat    | Valid Chat              | chat: known-chat, DB-status: OK                  | return: OK             | P      |
+| UT-4.5.c | Chat Module | delete Chat | Invalid ChatID          | chat: unknown-chat-id, DB-status: chat-not-found | return: chat-not-found | F      |
+| UT-4.5.d | Chat Module | delete Chat | Valid Chat              | chat: known-chat, DB-status: OK                  | return: OK             | P      | -->
+
+##### Message(Group and Private) Record Module
+
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Message Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.6.a & Message Module & get Message & Invalid MessageID & message: unknown-message, DB-status: message-not-found & return: message-not-found & F \\\hline
+UT-4.6.b & Message Module & get Message & Valid Message & message: known-message, DB-status: OK & return: OK \textbf{and} message & P \\\hline
+UT-4.6.c & Message Module & get Messages By Chat & Invalid ChatID & chat: unknown-chat-id, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.6.d & Message Module & get Messages By Chat & Valid Chat & chat: known-chat-id, DB-status: OK & return: OK \textbf{and} message-list & P \\\hline
+UT-4.6.e & Message Module & get Messages By Group & Invalid GroupID & group: unknown-group-id, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.6.f & Message Module & get Messages By Group & Valid Group & group: known-group-id, DB-status: OK & return: OK \textbf{and} message-list & P \\\hline
+UT-4.6.g & Message Module & update Message & Invalid MessageID & message: unknown-message, DB-status: message-not-found & return: message-not-found & F \\\hline
+UT-4.6.h & Message Module & update Message & Valid Message & message: known-message, DB-status: OK & return: OK & P \\\hline
+UT-4.6.i & Message Module & delete Message & Invalid MessageID & message: unknown-message, DB-status: message-not-found & return: message-not-found & F \\\hline
+UT-4.6.j & Message Module & delete Message & Valid Message & message: known-message, DB-status: OK & return: OK & P \\\hline
+UT-4.6.k & Message Module & delete Messages By Chat & Invalid ChatID & chat: unknown-chat, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.6.l & Message Module & delete Messages By Chat & Valid Chat & chat: known-chat, DB-status: OK & return: OK & P \\\hline
+UT-4.6.m & Message Module & delete Messages By Group & Invalid GroupID & group: unknown-group, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.6.n & Message Module & delete Messages By Group & Valid Group & group: known-group, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name    | Function                 | Conditions to be tested | Test Data                                              | Expected Output                 | Status |
+| -------- | -------------- | ------------------------ | ----------------------- | ------------------------------------------------------ | ------------------------------- | ------ |
+| UT-4.6.a | Message Module | get Message              | Invalid MessageIDe      | message: unknown-message, DB-status: message-not-found | return: message-found           | F      |
+| UT-4.6.b | Message Module | get Message              | Valid Message           | message: known-message, DB-status: OK                  | return: OK **and** message      | P      |
+| UT-4.6.c | Message Module | get Messages By Chat     | Invalid ChatID          | chat: unknown-chat-id, DB-status: chat-not-found       | return: chat-not-found          | F      |
+| UT-4.6.d | Message Module | get Messages By Chat     | Valid Chat              | chat: known-chat-id, DB-status: OK                     | return: OK **and** message-list | P      |
+| UT-4.6.e | Message Module | get Messages By Group    | Invalid GroupID         | group: unknown-group-id, DB-status: group-not-found    | return: group-not-found         | F      |
+| UT-4.6.f | Message Module | get Messages By Group    | Valid Group             | group: known-group-id, DB-status: OK                   | return: OK **and** message-list | P      |
+| UT-4.6.g | Message Module | update Message           | Invalid MessageID       | message: unknown-message, DB-status: message-not-found | return: message-not-found       | F      |
+| UT-4.6.h | Message Module | update Message           | Valid Message           | message: known-message, DB-status: OK                  | return: OK                      | P      |
+| UT-4.6.i | Message Module | delete Message           | Invalid MessageID       | message: unknown-message, DB-status: message-not-found | return: message-not-found       | F      |
+| UT-4.6.j | Message Module | delete Message           | Valid Message           | message: known-message, DB-status: OK                  | return: OK                      | P      |
+| UT-4.6.k | Message Module | delete Messages By Chat  | Invalid ChatID          | chat: unknown-chat, DB-status: chat-not-found          | return: chat-not-found          | F      |
+| UT-4.6.l | Message Module | delete Messages By Chat  | Valid Chat              | chat: known-chat, DB-status: OK                        | return: OK                      | P      |
+| UT-4.6.m | Message Module | delete Messages By Group | Invalid GroupID         | group: unknown-group, DB-status: group-not-found       | return: group-not-found         | F      |
+| UT-4.6.n | Message Module | delete Messages By Group | Valid Group             | group: known-group, DB-status: OK                      | return: OK                      | P      | -->
 
 ##### Group Record Module
 
-| S.No      | Module Name | Function          | Conditions to be tested             | Test Data                                   | Expected Output       | Status |
-| --------- | ----------- | ----------------- | ----------------------------------- | ------------------------------------------- | --------------------- | ------ |
-| UT-4.1.ad | Chat Module | Access Group Info | Invalid Group, Access not available | group: unknown-group, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Group Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.7.a & Group Module & get Group & Invalid GroupID & group: unknown-group, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.7.b & Group Module & get Group & Valid Group & group: known-group, DB-status: OK & return: OK \textbf{and} group & P \\\hline
+UT-4.7.c & Group Module & delete Group & Invalid GroupID & group: unknown-group, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.7.d & Group Module & delete Group & Valid Group & group: known-group, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name  | Function     | Conditions to be tested | Test Data                                        | Expected Output          | Status |
+| -------- | ------------ | ------------ | ----------------------- | ------------------------------------------------ | ------------------------ | ------ |
+| UT-4.7.a | Group Module | get Group    | Invalid GroupID         | group: unknown-group, DB-status: group-not-found | return: group-not-found  | F      |
+| UT-4.7.b | Group Module | get Group    | Valid Group             | group: known-group, DB-status: OK                | return: OK **and** group | P      |
+| UT-4.7.c | Group Module | delete Group | Invalid GroupID         | group: unknown-group, DB-status: group-not-found | return: group-not-found  | F      |
+| UT-4.7.d | Group Module | delete Group | Valid Group             | group: known-group, DB-status: OK                | return: OK               | P      | -->
 
 ##### User_chat Record Module
 
-| S.No      | Module Name | Function              | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | --------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.ae | Chat Module | Access User Chat Info | Invalid User, Access not available | user: unknown-user, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {User-Chat Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.8.a & User-Chat Module & get User and Chat & Invalid UserID & user: unknown-user \textbf{and} chat-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.8.b & User-Chat Module & get User and Chat & Invalid ChatID & user: user-id \textbf{and} chat: unknown-chat, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.8.c & User-Chat Module & get User and Chat & Invalid UserID and ChatID tuple & user: known-user, chat: known-chat, DB-status: unknown-user-chat-tuple & return: user-not-in-chat & F \\\hline
+UT-4.8.d & User-Chat Module & get User and Chat & Valid Request & user: known-user, chat: known-chat, status: OK & return: OK & P \\\hline
+UT-4.8.e & User-Chat Module & delete User and Chat & Invalid UserID & user: unknown-user \textbf{and} chat-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.8.f & User-Chat Module & delete User and Chat & Invalid ChatID & user: user-id \textbf{and} chat: unknown-chat, DB-status: chat-not-found & return: chat-not-found & F \\\hline
+UT-4.8.g & User-Chat Module & delete User and Chat & Invalid UserID and ChatID tuple & user: known-user, chat: known-chat, DB-status: unknown-user-chat-tuple & return: user-not-in-chat & F \\\hline
+UT-4.8.h & User-Chat Module & delete User and Chat & Valid Request & user: known-user, chat: known-chat, status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name      | Function             | Conditions to be tested         | Test Data                                                              | Expected Output          | Status |
+| -------- | ---------------- | -------------------- | ------------------------------- | ---------------------------------------------------------------------- | ------------------------ | ------ |
+| UT-4.8.a | User-Chat Module | get User and Chat    | Invalid UserID                  | user: unknown-user **and** chat-id, DB-status: user-not-found          | return: user-not-found   | F      |
+| UT-4.8.b | User-Chat Module | get User and Chat    | Invalid ChatID                  | user: user-id **and** chat: unknown-chat, DB-status: chat-not-found    | return: chat-not-found   | F      |
+| UT-4.8.c | User-Chat Module | get User and Chat    | Invalid UserID and ChatID tuple | user: known-user, chat: known-chat, DB-status: unknown-user-chat-tuple | return: user-not-in-chat | F      |
+| UT-4.8.d | User-Chat Module | get User and Chat    | Valid Request                   | user: known-user, chat: known-chat, status: OK                         | return: OK               | P      |
+| UT-4.8.e | User-Chat Module | delete User and Chat | Invalid UserID                  | user: unknown-user **and** chat-id, DB-status: user-not-found          | return: user-not-found   | F      |
+| UT-4.8.f | User-Chat Module | delete User and Chat | Invalid ChatID                  | user: user-id **and** chat: unknown-chat, DB-status: chat-not-found    | return: chat-not-found   | F      |
+| UT-4.8.g | User-Chat Module | delete User and Chat | Invalid UserID and ChatID tuple | user: known-user, chat: known-chat, DB-status: unknown-user-chat-tuple | return: user-not-in-chat | F      |
+| UT-4.8.h | User-Chat Module | delete User and Chat | Valid Request                   | user: known-user, chat: known-chat, status: OK                         | return: OK               | P      | -->
 
 ##### User_group Record Module
 
-| S.No      | Module Name | Function               | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | ---------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.af | Chat Module | Access User Group Info | Invalid User, Access not available | user: unknown-user, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {User-Group Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.9.a & User-Group Module & get User and Group & Invalid UserID & user: unknown-user \textbf{and} group-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.9.b & User-Group Module & get User and Group & Invalid GroupID & user: user-id \textbf{and} group: unknown-group, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.9.c & User-Group Module & get User and Group & Invalid UserID and GroupID tuple & user: known-user, group: known-group, DB-status: unknown-user-group-tuple & return: user-not-in-group & F \\\hline
+UT-4.9.d & User-Group Module & get User and Group & Valid Request & user: known-user, group: known-group, status: OK & return: OK & P \\\hline
+UT-4.9.e & User-Group Module & delete User and Group & Invalid UserID & user: unknown-user \textbf{and} group-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.9.f & User-Group Module & delete User and Group & Invalid GroupID & user: user-id \textbf{and} group: unknown-group, DB-status: group-not-found & return: group-not-found & F \\\hline
+UT-4.9.g & User-Group Module & delete User and Group & Invalid UserID and GroupID tuple & user: known-user, group: known-group, DB-status: unknown-user-group-tuple & return: user-not-in-group & F \\\hline
+UT-4.9.h & User-Group Module & delete User and Group & Valid Request & user: known-user, group: known-group, status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name | Function              | Conditions to be tested          | Test Data                                                                   | Expected Output           | Status |
+| -------- | ----------- | --------------------- | -------------------------------- | --------------------------------------------------------------------------- | ------------------------- | ------ |
+| UT-4.9.a | User-Group  | get User and Group    | Invalid UserID                   | user: unknown-user \textbf{and} group-id, DB-status: user-not-found         | return: user-not-found    | F      |
+| UT-4.9.b | User-Group  | get User and Group    | Invalid GroupID                  | user: user-id \textbf{and} group: unknown-group, DB-status: group-not-found | return: group-not-found   | F      |
+| UT-4.9.c | User-Group  | get User and Group    | Invalid UserID and GroupID tuple | user: known-user, group: known-group, DB-status: unknown-user-group-tuple   | return: user-not-in-group | F      |
+| UT-4.9.d | User-Group  | get User and Group    | Valid Request                    | user: known-user, group: known-group, status: OK                            | return: OK                | P      |
+| UT-4.9.e | User-Group  | delete User and Group | Invalid UserID                   | user: unknown-user \textbf{and} group-id, DB-status: user-not-found         | return: user-not-found    | F      |
+| UT-4.9.f | User-Group  | delete User and Group | Invalid GroupID                  | user: user-id \textbf{and} group: unknown-group, DB-status: group-not-found | return: group-not-found   | F      |
+| UT-4.9.g | User-Group  | delete User and Group | Invalid UserID and GroupID tuple | user: known-user, group: known-group, DB-status: unknown-user-group-tuple   | return: user-not-in-group | F      |
+| UT-4.9.h | User-Group  | delete User and Group | Valid Request                    | user: known-user, group: known-group, status: OK                            | return: OK                | P      | -->
 
 ##### Community Record Module
 
-| S.No      | Module Name      | Function               | Conditions to be tested                 | Test Data                                           | Expected Output       | Status |
-| --------- | ---------------- | ---------------------- | --------------------------------------- | --------------------------------------------------- | --------------------- | ------ |
-| UT-4.1.ac | Community Module | Access Community Info  | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied | F      |
-| UT-4.1.ad | Community Module | Access Community Info  | Valid Community, Access available       | community: known-community, status: OK              | return: OK            | P      |
-| UT-4.1.ae | Community Module | Access Community Posts | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied | F      |
-| UT-4.1.af | Community Module | Access Community Posts | Valid Community, Access available       | community: known-community, status: OK              | return: OK            | P      |
-| UT-4.1.ag | Community Module | Access Community Users | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied | F      |
-| UT-4.1.ah | Community Module | Access Community Users | Valid Community, Access available       | community: known-community, status: OK              | return: OK            | P      |
-| UT-4.1.ai | Community Module | Access Community Mods  | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied | F      |
-| UT-4.1.aj | Community Module | Access Community Mods  | Valid Community, Access available       | community: known-community, status: OK              | return: OK            | P      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Community Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.10.a & Community Module & get Community & Invalid CommunityID & community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.10.b & Community Module & get Community & Valid Community & community: known-community, DB-status: OK & return: OK & P \\\hline
+UT-4.10.c & Community Module & delete Community & Invalid CommunityID & community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.10.d & Community Module & delete Community & Valid Community & community: known-community, DB-status: OK & return: OK & P \\\hline
+UT-4.10.e & Community Module & update Community Bio & Invalid CommunityID & community: unknown-community \textbf{and} bio: community-bio, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.10.f & Community Module & update Community Bio & Valid Community & community: known-community \textbf{and} bio: community-bio, DB-status: OK & return: OK & P \\\hline
+UT-4.10.g & Community Module & update Community Settings & Invalid CommunityID & community: unknown-community \textbf{and} settings: setting-tuple, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.10.h & Community Module & update Community Settings & Invalid SettingTuple (Community type, post type, member privileges) & community: known-community \textbf{and} settings: invalid-setting-tuple & return: Invalid-setting-tuple & F \\\hline
+UT-4.10.i & Community Module & update Community Settings & Valid Community & community: known-community \textbf{and} settings: setting-tuple, DB-status: OK & return: OK & P \\\hline
+UT-4.10.j & Community Module & update Community Image & Invalid CommunityID & community: unknown-community \textbf{and} image: community-image, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.10.k & Community Module & update Community Image & Valid Community & community: known-community \textbf{and} image: community-image, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No      | Module Name      | Function                  | Conditions to be tested                                             | Test Data                                                                                    | Expected Output               | Status |
+| --------- | ---------------- | ------------------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------- | ----------------------------- | ------ |
+| UT-4.10.a | Community Module | get Community             | Invalid CommunityID                                                 | community: unknown-community, DB-status: community-not-found                                 | return: community-not-found   | F      |
+| UT-4.10.b | Community Module | get Community             | Valid Community                                                     | community: known-community, DB-status: OK                                                    | return: OK                    | P      |
+| UT-4.10.c | Community Module | delete Community          | Invalid CommunityID                                                 | community: unknown-community, DB-status: community-not-found                                 | return: community-not-found   | F      |
+| UT-4.10.d | Community Module | delete Community          | Valid Community                                                     | community: known-community, DB-status: OK                                                    | return: OK                    | P      |
+| UT-4.10.e | Community Module | update Community Bio      | Invalid CommunityID                                                 | community: unknown-community **and** bio: community-bio, DB-status: community-not-found      | return: community-not-found   | F      |
+| UT-4.10.f | Community Module | update Community Bio      | Valid Community                                                     | community: known-community **and** bio: community-bio, DB-status: OK                         | return: OK                    | P      |
+| UT-4.10.g | Community Module | update Community Settings | Invalid CommunityID                                                 | community: unknown-community **and** settings: setting-tuple, DB-status: community-not-found | return: community-not-found   | F      |
+| UT-4.10.h | Community Module | update Community Settings | Invalid SettingTuple (Community type, post type, member privileges) | community: known-community **and** settings: invalid-setting-tuple                           | return: Invalid-setting-tuple | F      |
+| UT-4.10.i | Community Module | update Community Settings | Valid Community                                                     | community: known-community **and** settings: setting-tuple, DB-status: OK                    | return: OK                    | P      |
+| UT-4.10.j | Community Module | update Community Image    | Invalid CommunityID                                                 | community: unknown-community **and** image: community-image, DB-status: community-not-found  | return: community-not-found   | F      |
+| UT-4.10.k | Community Module | update Community Image    | Valid Community                                                     | community: known-community **and** image: community-image, DB-status: OK                     | return: OK                    | P      | -->
 
 ##### Joined Community Record Module
 
-| S.No      | Module Name      | Function                | Conditions to be tested                 | Test Data                                           | Expected Output       | Status |
-| --------- | ---------------- | ----------------------- | --------------------------------------- | --------------------------------------------------- | --------------------- | ------ |
-| UT-4.1.ak | Community Module | Access Joined Community | Invalid Community, Access not available | community: unknown-community, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Joined Community Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.11.a & Joined Community Module & get User-Community & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.11.b & Joined Community Module & get User-Community & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.11.c & Joined Community Module & get User-Community & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.d & Joined Community Module & get User-Community & Valid Request & user: known-user, community: known-community, status: OK & return: OK & P \\\hline
+UT-4.11.e & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.11.f & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.11.g & Joined Community Module & get User-Community Status (requested, invited, joined) & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.h & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Valid Request & user: known-user, community: known-community, status: OK & return: OK \textbf{and} user-status & P \\\hline
+UT-4.11.i & Joined Community Module & delete User-Community & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.11.j & Joined Community Module & delete User-Community & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.11.k & Joined Community Module & delete User-Community & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.l & Joined Community Module & delete User-Community & Valid Request & user: known-user, community: known-community, status: OK & return: OK & P \\\hline
+UT-4.11.m & Joined Community Module & update User-Community Status (requested, invited, joined, blocked) & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.11.n & Joined Community Module & update User-Community Status (requested, invited, joined, blocked) & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.11.o & Joined Community Module & update User-Community Status (requested, invited, joined, blocked) & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.p & Joined Community Module & update User-Community Status (requested, invited, joined, blocked) & Valid Request & user: known-user, community: known-community, status: (joined / invited/ requested) & return: OK & P \\\hline
+UT-4.11.q & Joined Community Module & update User-Community Status (requested, invited, joined, blocked) & Invalid Status & user: known-user, community: known-community, status: invalid-status & return: invalid-status & F \\\hline
+UT-4.11.r & Joined Community Module & update User-Community privileges & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.11.s & Joined Community Module & update User-Community privileges & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.11.t & Joined Community Module & update User-Community privileges & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.u & Joined Community Module & update User-Community privileges & Invalid Privileges & user: known-user, community: known-community, privileges: invalid-privileges & return: invalid-privileges & F \\\hline
+UT-4.11.v & Joined Community Module & update User-Community privileges & Valid Request & user: known-user, community: known-community, privileges: valid-privileges & return: OK & P \\\hline
+UT-4.11.w & Joined Community Module & update User-Community privileges & Valid Request & user: known-user, community: known-community, privileges: valid-privileges & return: OK & P \\\hline
+UT-4.11.x & Joined Community Module & update User-Community privileges & Valid Request & user: known-user, community: known-community, privileges: valid-privileges & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No      | Module Name      | Function                                                  | Conditions to be tested              | Test Data                                                                             | Expected Output                | Status |
+| --------- | ---------------- | --------------------------------------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------- | ------------------------------ | ------ |
+| UT-4.11.a | Joined Community | get User-Community                                        | Invalid UserID                       | user: unknown-user **and** community: community-id, DB-status: user-not-found         | return: user-not-found         | F      |
+| UT-4.11.b | Joined Community | get User-Community                                        | Invalid CommunityID                  | user: user-id **and** community: unknown-community, DB-status: community-not-found    | return: community-not-found    | F      |
+| UT-4.11.c | Joined Community | get User-Community                                        | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community  | F      |
+| UT-4.11.d | Joined Community | get User-Community                                        | Valid Request                        | user: known-user, community: known-community, status: OK                              | return: OK                     | P      |
+| UT-4.11.e | Joined Community | get User-Community Status (requested, invited, joined)    | Invalid UserID                       | user: unknown-user **and** community: community-id, DB-status: user-not-found         | return: user-not-found         | F      |
+| UT-4.11.f | Joined Community | get User-Community Status (requested, invited, joined)    | Invalid CommunityID                  | user: user-id **and** community: unknown-community, DB-status: community-not-found    | return: community-not-found    | F      |
+| UT-4.11.g | Joined Community | get User-Community Status (requested, invited, joined)    | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community  | F      |
+| UT-4.11.h | Joined Community | get User-Community Status (requested, invited, joined)    | Valid Request                        | user: known-user, community: known-community, status: OK                              | return: OK **and** user-status | P      |
+| UT-4.11.i | Joined Community | delete User-Community                                     | Invalid UserID                       | user: unknown-user **and** community: community-id, DB-status: user-not-found         | return: user-not-found         | F      |
+| UT-4.11.j | Joined Community | delete User-Community                                     | Invalid CommunityID                  | user: user-id **and** community: unknown-community, DB-status: community-not-found    | return: community-not-found    | F      |
+| UT-4.11.k | Joined Community | delete User-Community                                     | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community  | F      |
+| UT-4.11.l | Joined Community | delete User-Community                                     | Valid Request                        | user: known-user, community: known-community, status: OK                              | return: OK                     | P      |
+| UT-4.11.m | Joined Community | update User-Community Status (requested, invited, joined) | Invalid UserID                       | user: unknown-user **and** community: community-id, DB-status: user-not-found         | return: user-not-found         | F      |
+| UT-4.11.n | Joined Community | update User-Community Status (requested, invited, joined) | Invalid CommunityID                  | user: user-id **and** community: unknown-community, DB-status: community-not-found    | return: community-not-found    | F      |
+| UT-4.11.o | Joined Community | update User-Community Status (requested, invited, joined) | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community  | F      |
+| UT-4.11.p | Joined Community | update User-Community Status (requested, invited, joined) | Valid Request                        | user: known-user, community: known-community, status: (joined / invited/ requested)   | return: OK                     | P      |
+| UT-4.11.q | Joined Community | update User-Community Status (requested, invited, joined) | Invalid Status                       | user: known-user, community: known-community, status: invalid-status                  | return: invalid-status         | F      |
+| UT-4.11.r | Joined Community | update User-Community privileges                          | Invalid UserID                       | user: unknown-user **and** community: community-id, DB-status: user-not-found         | return: user-not-found         | F      |
+| UT-4.11.s | Joined Community | update User-Community privileges                          | Invalid CommunityID                  | user: user-id **and** community: unknown-community, DB-status: community-not-found    | return: community-not-found    | F      |
+| UT-4.11.t | Joined Community | update User-Community privileges                          | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community  | F      |
+| UT-4.11.u | Joined Community | update User-Community privileges                          | Invalid Privilege-tuple              | user: known-user, community: known-community, privileges: privilege-tuple             | return: invalid-privileges     | P      |
+| UT-4.11.v | Joined Community | update User-Community privileges                          | Valid Request                        | user: known-user, community: known-community, status: OK                              | return: OK                     | P      |
+| UT-4.11.w | Joined Community | get Users By Community                                    | Invalid CommunityID                  | community: unknown-community, DB-status: community-not-found                          | return: community-not-found    | F      |
+| UT-4.11.x | Joined Community | get Users By Community                                    | Valid Community                      | community: known-community, DB-status: OK                                             | return: OK **and** user-list   | P      | -->
 
 ##### Blocked User Record Module
 
-| S.No      | Module Name | Function            | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | ------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.al | User Module | Access Blocked User | Invalid User, Access not available | user: unknown-user, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Blocked User Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.12.a & Blocked Module & get Blocked Users(1) By UserID(2) & Invalid UserID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.12.b & Blocked Module & get Blocked Users(1) By UserID(2) & Valid Request & user: known-user, DB-status: OK & return: OK \textbf{and} blocked-list & P \\\hline
+UT-4.12.c & Blocked Module & delete Blocked User(1) By UserID(2) & Invalid UserID & user1: unknown-user \textbf{and} user2: user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.12.d & Blocked Module & delete Blocked User(1) By UserID(2) & Invalid UserID & user1: user-id \textbf{and} user2: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.12.e & Blocked Module & delete Blocked User(1) By UserID(2) & Tuple Not Present & user1: user-id \textbf{and} user2: known-user, DB-status: tuple-not-found & return: tuple-not-found & F \\\hline
+UT-4.12.f & Blocked Module & delete Blocked User(1) By UserID(2) & Valid Request & user1: known-user \textbf{and} user2: known-user, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No      | Module Name    | Function                            | Conditions to be tested | Test Data                                                             | Expected Output                 | Status |
+| --------- | -------------- | ----------------------------------- | ----------------------- | --------------------------------------------------------------------- | ------------------------------- | ------ |
+| UT-4.12.a | Blocked Module | get Blocked Users(1) By UserID(2)   | Invalid UserID(2)       | user: unknown-user, DB-status: user-not-found                         | return: user-not-found          | F      |
+| UT-4.12.b | Blocked Module | get Blocked Users(1) By UserID(2)   | Valid Request           | user: known-user, DB-status: OK                                       | return: OK **and** blocked-list | P      |
+| UT-4.12.c | Blocked Module | delete Blocked User(1) By UserID(2) | Invalid UserID(1)       | user1: unknown-user **and** user2: user-id, DB-status: user-not-found | return: user-not-found          | F      |
+| UT-4.12.d | Blocked Module | delete Blocked User(1) By UserID(2) | Invalid UserID(2)       | user1: user-id **and** user2: unknown-user, DB-status: user-not-found | return: user-not-found          | F      |
+| UT-4.12.e | Blocked Module | delete Blocked User(1) By UserID(2) | Tuple Not Present       | user1: user-id **and** user2: known-user, DB-status: tuple-not-found  | return: tuple-not-found         | F      |
+| UT-4.12.f | Blocked Module | delete Blocked User(1) By UserID(2) | Valid Request           | user1: known-user **and** user2: known-user, DB-status: OK            | return: OK                      | P      | -->
 
 ##### Reported User Record Module
 
-| S.No      | Module Name | Function             | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | -------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.am | User Module | Access Reported User | Invalid User, Access not available | user: unknown-user, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Reported User Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.13.a & Reported Module & get By UserID & Invalid UserID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.13.b & Reported Module & get By UserID & Valid Request & user: known-user, DB-status: OK & return: OK \textbf{and} report-list & P \\\hline
+UT-4.13.c & Reported Module & get By ReportID & Invalid ReportID & report: unknown-report, DB-status: report-not-found & return: report-not-found & F \\\hline
+UT-4.13.d & Reported Module & get By ReportID & Valid Request & report: known-report, DB-status: OK & return: OK \textbf{and} report & P \\\hline
+UT-4.13.e & Reported Module & delete By UserID & Invalid UserID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.13.f & Reported Module & delete By UserID & Valid Request & user: known-user, DB-status: OK & return: OK & P \\\hline
+UT-4.13.g & Reported Module & delete By ReportID & Invalid ReportID & report: unknown-report, DB-status: report-not-found & return: report-not-found & F \\\hline
+UT-4.13.h & Reported Module & delete By ReportID & Valid Request & report: known-report, DB-status: OK & return: OK & P \\\hline
+UT-4.13.i & Reported Module & update Report Status By ReportID & Invalid ReportID & report: unknown-report, status: report-status, DB-status: report-not-found & return: report-not-found & F \\\hline
+UT-4.13.j & Reported Module & update Report Status By ReportID & Invalid Report Status & report: known-report, status: invalid-status, DB-status: OK & return: invalid-status & F \\\hline
+UT-4.13.k & Reported Module & update Report Status By ReportID & Valid Request & report: known-report, status: report-status, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No      | Module Name     | Function                         | Conditions to be tested | Test Data                                                                  | Expected Output                | Status |
+| --------- | --------------- | -------------------------------- | ----------------------- | -------------------------------------------------------------------------- | ------------------------------ | ------ |
+| UT-4.13.a | Reported Module | get By ReportID                  | Invalid ReportID        | report: unknown-report, DB-status: report-not-found                        | return: report-not-found       | F      |
+| UT-4.13.b | Reported Module | get By ReportID                  | Valid Request           | report: known-report, DB-status: OK                                        | return: OK **and** report      | P      |
+| UT-4.13.c | Reported Module | get By UserID                    | Invalid UserID          | user: unknown-user, DB-status: user-not-found                              | return: user-not-found         | F      |
+| UT-4.13.d | Reported Module | get By UserID                    | Valid Request           | user: known-user, DB-status: OK                                            | return: OK **and** report-list | P      |
+| UT-4.13.e | Reported Module | delete By ReportID               | Invalid ReportID        | report: unknown-report, DB-status: report-not-found                        | return: report-not-found       | F      |
+| UT-4.13.f | Reported Module | delete By ReportID               | Valid Request           | report: known-report, DB-status: OK                                        | return: OK                     | P      |
+| UT-4.13.g | Reported Module | delete By UserID                 | Invalid UserID          | user: unknown-user, DB-status: user-not-found                              | return: user-not-found         | F      |
+| UT-4.13.h | Reported Module | delete By UserID                 | Valid Request           | user: known-user, DB-status: OK                                            | return: OK                     | P      |
+| UT-4.13.i | Reported Module | update Report Status By ReportID | Invalid ReportID        | report: unknown-report, status: report-status, DB-status: report-not-found | return: report-not-found       | F      |
+| UT-4.13.j | Reported Module | update Report Status By ReportID | Invalid Report Status   | report: known-report, status: invalid-status, DB-status: OK                | return: invalid-status         | F      |
+| UT-4.13.k | Reported Module | update Report Status By ReportID | Valid Request           | report: known-report, status: report-status, DB-status: OK                 | return: OK                     | P      | -->
 
 ##### Roles Record Module
 
-| S.No      | Module Name | Function          | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| --------- | ----------- | ----------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.an | User Module | Access User Roles | Invalid User, Access not available | user: unknown-user, status: access-denied | return: access-denied | F      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Roles Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.14.a & Roles Module & get Role By User-Community & Invalid UserID & user: unknown-user, community: community-id & return: user-not-found & F \\\hline
+UT-4.14.b & Roles Module & get Role By User-Community & Invalid CommunityID & user: user-id, community: unknown-community & return: community-not-found & F \\\hline
+UT-4.14.c & Roles Module & get Role By User-Community & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.14.d & Roles Module & get Role By User-Community & Valid Request & user: known-user, community: known-community, DB-status: OK & return: OK \textbf{and} role & P \\\hline
+UT-4.14.e & Roles Module & update Role By User-Community & Invalid UserID & user: unknown-user, community: community-id & return: user-not-found & F \\\hline
+UT-4.14.f & Roles Module & update Role By User-Community & Invalid CommunityID & user: user-id, community: unknown-community & return: community-not-found & F \\\hline
+UT-4.14.g & Roles Module & update Role By User-Community & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.14.h & Roles Module & update Role By User-Community & Invalid Role & user: known-user, community: known-community, role: invalid-role & return: invalid-role & F \\\hline
+UT-4.14.i & Roles Module & update Role By User-Community & Valid Request & user: known-user, community: known-community, role: valid-role & return: OK & P \\\hline
+UT-4.14.j & Roles Module & delete Role By User-Community & Invalid UserID & user: unknown-user, community: community-id & return: user-not-found & F \\\hline
+UT-4.14.k & Roles Module & delete Role By User-Community & Invalid CommunityID & user: user-id, community: unknown-community & return: community-not-found & F \\\hline
+UT-4.14.l & Roles Module & delete Role By User-Community & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.14.m & Roles Module & delete Role By User-Community & Valid Request & user: known-user, community: known-community, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No      | Module Name  | Function                      | Conditions to be tested              | Test Data                                                                             | Expected Output               | Status |
+| --------- | ------------ | ----------------------------- | ------------------------------------ | ------------------------------------------------------------------------------------- | ----------------------------- | ------ |
+| UT-4.14.a | Roles Module | get Role By User-Community    | Invalid UserID                       | user: unknown-user, community: community-id                                           | return: user-not-found        | F      |
+| UT-4.14.b | Roles Module | get Role By User-Community    | Invalid CommunityID                  | user: user-id, community: unknown-community                                           | return: community-not-found   | F      |
+| UT-4.14.c | Roles Module | get Role By User-Community    | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community | F      |
+| UT-4.14.d | Roles Module | get Role By User-Community    | Valid Request                        | user: known-user, community: known-community, DB-status: OK                           | return: OK **and** role       | P      |
+| UT-4.14.e | Roles Module | update Role By User-Community | Invalid UserID                       | user: unknown-user, community: community-id                                           | return: user-not-found        | F      |
+| UT-4.14.f | Roles Module | update Role By User-Community | Invalid CommunityID                  | user: user-id, community: unknown-community                                           | return: community-not-found   | F      |
+| UT-4.14.g | Roles Module | update Role By User-Community | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community | F      |
+| UT-4.14.h | Roles Module | update Role By User-Community | Invalid Role                         | user: known-user, community: known-community, role: invalid-role                      | return: invalid-role          | F      |
+| UT-4.14.i | Roles Module | update Role By User-Community | Valid Request                        | user: known-user, community: known-community, role: valid-role                        | return: OK                    | P      |
+| UT-4.14.j | Roles Module | delete Role By User-Community | Invalid UserID                       | user: unknown-user, community: community-id                                           | return: user-not-found        | F      |
+| UT-4.14.k | Roles Module | delete Role By User-Community | Invalid CommunityID                  | user: user-id, community: unknown-community                                           | return: community-not-found   | F      |
+| UT-4.14.l | Roles Module | delete Role By User-Community | Invalid UserID and CommunityID tuple | user: known-user, community: known-community, DB-status: unknown-user-community-tuple | return: user-not-in-community | F      |
+| UT-4.14.m | Roles Module | delete Role By User-Community | Valid Request                        | user: known-user, community: known-community, DB-status: OK                           | return: OK                    | P      | -->
 
 #### UI Module
 
