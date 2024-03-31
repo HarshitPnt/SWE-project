@@ -245,38 +245,187 @@ UT-4.1.o & User Module & deleteUser & Exisiting username & user: username, DB-st
 
 ##### Post Record Module
 
-| S.No     | Module Name | Function              | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| -------- | ----------- | --------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.e | Post Module | getPost               | Invalid PostID                     | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.f | Post Module | getPostByCommunity    | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
-| UT-4.1.g | Post Module | getPostByUser         | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.h | Post Module | getPostByScore        | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
-| UT-4.1.i | Post Module | getPostByTag          | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.j | Post Module | getPostByQueryString  | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
-| UT-4.1.k | Post Module | Access Post Community | Invalid Post, Access not available | post: unknown-post, status: access-denied | return: access-denied | F      |
-| UT-4.1.l | Post Module | Access Post Community | Valid Post, Access available       | post: known-post, status: OK              | return: OK            | P      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Post Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.2.a & Post Module & get Post & Invalid PostID/Deleted PostID & post: unknown-post-id, DB-status: post-id-not-found & return: post-not-found & F \\\hline
+UT-4.2.b & Post Module & get Post By Community & Invalid CommunityID/ Deleted Community & community: unknown-community-id \textbf{and} sort: sort-by \textbf{and} filter: filter-by, DB-status: community-not-found & return: community-not-found & F \\\hline
+UT-4.2.c & Post Module & get Post By Community & Invalid Sort-By & community: community-id \textbf{and} sort: invalid-sort-by \textbf{and} filter: filter-by & return: invalid-sort & F \\\hline
+UT-4.2.d & Post Module & get Post By Community & Invalid Filter-by & community: community-id \textbf{and} sort: sort-by \textbf{and} filter: invalid-filter-by & return: invalid-filter-by & F \\\hline
+UT-4.2.e & Post Module & get Post By Community & Valid Request & community: community-id \textbf{and} sort: sort-by \textbf{and} filter: filter-by, DB-status: OK & return: OK \textbf{and} post-list & F \\\hline
+UT-4.2.f & Post Module & get Post By User & Invalid UserID & post: unknown-user-id \textbf{and} sort: sort-by \textbf{and} filer: filter-by, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.2.g & Post Module & get Post By User & Valid Request & post: user-id \textbf{and} sort: sort-by \textbf{and} filer: filter-by, DB-status: OK & return: OK \textbf{and} post-list & P \\\hline
+UT-4.2.h & Post Module & get Post By User & Invalid Sort-By & post: user-id \textbf{and} sort: invalid-sort-by \textbf{and} filer: filter-by & return: invalid-sort & F \\\hline
+UT-4.2.i & Post Module & get Post By User & Invalid Filter-by & post: user-id \textbf{and} sort: sort-by \textbf{and} filer: invalid-filter-by & return: invalid-filter-by & F \\\hline
+UT-4.2.j & Post Module & get Post By Score User & Invalid UserID (Used for user-feed generation) & post: unknown-user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.2.k & Post Module & get Post By Score Trending & Valid Request & no-input & return: post-list & P \\\hline
+UT-4.2.l & Post Module & get Post By Tag & Invalid TagID & tag: unknown-tag-id \textbf{and} sort: sort-by \textbf{and} filter: filter-by, DB-status: tag-not-found & return: tag-not-found & F \\\hline
+UT-4.2.m & Post Module & get Post By Tag & Invalid Sort-By & tag: tag-id \textbf{and} sort: invalid-sort-by \textbf{and} filter: filter-by & return: invalid-sort & F \\\hline
+UT-4.2.n & Post Module & get Post By Tag & Invalid Filter-By & tag: tag-id \textbf{and} sort: sort-by \textbf{and} filter: invalid-filter-by & return: invalid-filter-by & F \\\hline
+UT-4.2.o & Post Module & get Post By Tag & Valid Request & tag: tag-id \textbf{and} sort: sort-by \textbf{and} filter: filter-by, DB-status: OK & return: OK \textbf{and} post-list & P \\\hline
+UT-4.2.p & Post Module & get Post By Query String & Invalid Sort-By & query-string: search-string \textbf{and} sort: invalid-sort-by \textbf{and} filter: filter-by & return: invalid-sort-by & F \\\hline
+UT-4.2.q & Post Module & get Post By Query String & Invalid Filter-By & query-string: search-string \textbf{and} sort: sort-by \textbf{and} filter: invalid-filter-by & return: invalid-filter-by & F \\\hline
+UT-4.2.r & Post Module & get Post By Query String & Valid Request & query-string: search-string \textbf{and} sort: sort-by \textbf{and} filter: filter-by, DB-status: OK & return: OK \textbf{and} post-list & P \\\hline
+UT-4.2.s & Post Module & update Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.2.t & Post Module & delete Post & Invalid PostID & post: post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.2.u & Post Module & delete Post By User & invalid UserID & post: user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.2.v & Post Module & delete Post By User & valid UserID & post: user-id, DB-status: OK & return: OK & P \\\hline
+UT-4.2.w & Post Module & delete Post By Community & invalid CommunityID & post: community-id, DB-status : community-not-found & return: community-not-found & F \\\hline
+UT-4.2.x & Post Module & delete Post By Community & valid CommunityID & post: community-id, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name | Function                 | Conditions to be tested                        | Test Data                                                                                                       | Expected Output              | Status |
+| -------- | ----------- | ------------------------ | ---------------------------------------------- | --------------------------------------------------------------------------------------------------------------- | ---------------------------- | ------ |
+| UT-4.2.a | Post Module | getPost                  | Invalid PostID/Deleted PostID                  | post: unknown-post-id, DB-status: post-id-not-found                                                             | return: post-not-found       | F      |
+| UT-4.2.b | Post Module | getPostByCommunity       | Invalid CommunityID/ Deleted Community         | community: unknown-community-id **and** sort: sort-by **and** filter: filter-by, DB-status: community-not-found | return: community-not-found  | F      |
+| UT-4.2.c | Post Module | getPostByCommunity       | Invalid Sort-By                                | community: community-id **and** sort: invalid-sort-by **and** filter: filter-by                                 | return: invalid-sort         | F      |
+| UT-4.2.d | Post Module | getPostByCommunity       | Invalid Filter-by                              | community: community-id **and** sort: sort-by **and** filter: invalid-filter-by                                 | return: invalid-filter-by    | F      |
+| UT-4.2.e | Post Module | getPostByCommunity       | Valid Request                                  | community: community-id **and** sort: sort-by **and** filter: filter-by, DB-status: OK                          | return: OK **and** post-list | F      |
+| UT-4.2.f | Post Module | getPostByUser            | Invalid UserID                                 | post: unknown-user-id **and** sort: sort-by **and** filer: filter-by, DB-status: user-not-found                 | return: user-not-found       | F      |
+| UT-4.2.g | Post Module | getPostByUser            | Valid Request                                  | post: user-id **and** sort: sort-by **and** filer: filter-by, DB-status: OK                                     | return: OK **and** post-list | P      |
+| UT-4.2.h | Post Module | getPostByUser            | Invalid Sort-By                                | post: user-id **and** sort: invalid-sort-by **and** filer: filter-by                                            | return: invalid-sort         | F      |
+| UT-4.2.i | Post Module | getPostByUser            | Invalid Filter-by                              | post: user-id **and** sort: sort-by **and** filer: invalid-filter-by                                            | return: invalid-filter-by    | F      |
+| UT-4.2.j | Post Module | getPostByScoreUser       | Invalid UserID (Used for user-feed generation) | post: unknown-user-id, DB-status: user-not-found                                                                | return: user-not-found       | F      |
+| UT-4.2.k | Post Module | getPostByScoreTrending   | Valid Request                                  | no-input                                                                                                        | return: post-list            | P      |
+| UT-4.2.l | Post Module | getPostByTag             | Invalid TagID                                  | tag: unknown-tag-id **and** sort: sort-by **and** filter: filter-by, DB-status: tag-not-found                   | return: tag-not-found        | F      |
+| UT-4.2.m | Post Module | getPostByTag             | Invalid Sort-By                                | tag: tag-id **and** sort: invalid-sort-by **and** filter: filter-by                                             | return: invalid-sort         | F      |
+| UT-4.2.n | Post Module | getPostByTag             | Invalid Filter-By                              | tag: tag-id **and** sort: sort-by **and** filter: invalid-filter-by                                             | return: invalid-filter-by    | F      |
+| UT-4.2.o | Post Module | getPostByTag             | Valid Request                                  | tag: tag-id **and** sort: sort-by **and** filter: filter-by, DB-status: OK                                      | return: OK **and** post-list | P      |
+| UT-4.2.p | Post Module | getPostByQueryString     | Invalid Sort-By                                | query-string: search-string **and** sort: invalid-sort-by **and** filter: filter-by                             | return: invalid-sort-by      | F      |
+| UT-4.2.q | Post Module | getPostByQueryString     | Invalid Filter-By                              | query-string: search-string **and** sort: sort-by **and** filter: invalid-filter-by                             | return: invalid-filter-by    | F      |
+| UT-4.2.r | Post Module | getPostByQueryString     | Valid Request                                  | query-string: search-string **and** sort: sort-by **and** filter: filter-by, DB-status: OK                      | return: OK **and** post-list | P      |
+| UT-4.2.s | Post Module | update Post              | Invalid PostID                                 | post: unknown-post-id, DB-status: post-not-found                                                                | return: post-not-found       | F      |
+| UT-4.2.t | Post Module | delete Post              | Invalid PostID                                 | post: post-id, DB-status: post-not-found                                                                        | return: post-not-found       | F      |
+| UT-4.2.u | Post Module | delete Post By User      | invalid UserID                                 | post: user-id, DB-status: user-not-found                                                                        | return: user-not-found       | F      |
+| UT-4.2.v | Post Module | delete Post By User      | valid UserID                                   | post: user-id, DB-status: OK                                                                                    | return: OK                   | P      |
+| UT-4.2.w | Post Module | delete Post By Community | invalid CommunityID                            | post: community-id, DB-status: community-not-found                                                              | return: community-not-found  | F      |
+| UT-4.2.x | Post Module | delete Post By Community | valid CommunityID                              | post: community-id, DB-status: OK                                                                               | return: OK                   | P      | -->
 
 ##### Comment Record Module
 
-| S.No     | Module Name    | Function             | Conditions to be tested               | Test Data                                       | Expected Output       | Status |
-| -------- | -------------- | -------------------- | ------------------------------------- | ----------------------------------------------- | --------------------- | ------ |
-| UT-4.1.m | Comment Module | Access Comment Info  | Invalid Comment, Access not available | comment: unknown-comment, status: access-denied | return: access-denied | F      |
-| UT-4.1.n | Comment Module | Access Comment Info  | Valid Comment, Access available       | comment: known-comment, status: OK              | return: OK            | P      |
-| Ut-4.1.o | Comment Module | Access Comment Votes | Invalid Comment, Access not available | comment: unknown-comment, status: access-denied | return: access-denied | F      |
-| UT-4.1.p | Comment Module | Access Comment Votes | Valid Comment, Access available       | comment: known-comment, status: OK              | return: OK            | P      |
-| UT-4.1.q | Comment Module | Access Comment Post  | Invalid Comment, Access not available | comment: unknown-comment, status: access-denied | return: access-denied | F      |
-| UT-4.1.r | Comment Module | Access Comment Post  | Valid Comment, Access available       | comment: known-comment, status: OK              | return: OK            | P      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Comment Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.3.a & Comment Module & get Comment & Invalid CommentID & comment: unknown-comment-id, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+UT-4.3.b & Comment Module & get Comment & Valid Comment & comment: known-comment, DB-status: OK & return: OK \textbf{and} comment & P \\\hline
+UT-4.3.c & Comment Module & get Comment By Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.3.d & Comment Module & get Comment By Parent & Invalid Parent CommentID & comment: unknown-comment-id, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+UT-4.3.e & Comment Module & get Comment By Parent & Valid Comment & comment: known-comment, status: OK & return: OK \textbf{and} comment & P \\\hline
+UT-4.3.f & Comment Module & get Comments By Ancestor & Invalid Ancestor CommentID & comment: unknown-comment-id, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+UT-4.3.g & Comment Module & get Comments By Ancestor & Valid Ancestor CommentID & comment: known-comment, status: OK & return: OK \textbf{and} comment & P \\\hline
+UT-4.3.h & Comment Module & update Comment & Invalid CommentID & comment: unknown-comment-id, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+UT-4.3.i & Comment Module & update Comment & Valid Comment & comment: known-comment, status: OK & return: OK & P \\\hline
+UT-4.3.j & Comment Module & delete Comment & Invalid CommentID & comment: unknown-comment-id, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+UT-4.3.k & Comment Module & delete Comment & Valid Comment & comment: known-comment, status: OK & return: OK & P \\\hline
+UT-4.3.l & Comment Module & delete Comment By Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.3.m & Comment Module & delete Comment By Post & Valid PostID & post: known-post-id, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!--
+| S.No     | Module Name    | Function                 | Conditions to be tested    | Test Data                                                 | Expected Output            | Status |
+| -------- | -------------- | ------------------------ | -------------------------- | --------------------------------------------------------- | -------------------------- | ------ |
+| UT-4.3.a | Comment Module | get Comment              | Invalid CommentID          | comment: unknown-comment-id, DB-status: comment-not-found | return: comment-not-found  | F      |
+| UT-4.3.b | Comment Module | get Comment              | Valid Comment              | comment: known-comment, DB-status: OK                     | return: OK **and** comment | P      |
+| UT-4.3.c | Comment Module | get Comment By Post      | Invalid PostID             | post: unknown-post-id, DB-status: post-not-found          | return: post-not-found     | F      |
+| Ut-4.3.d | Comment Module | get Comment By Parent    | Invalid Parent CommentID   | comment: unknown-comment-id, DB-status: comment-not-found | return: comment-not-found  | F      |
+| UT-4.3.e | Comment Module | get Comment By Parent    | Valid Comment              | comment: known-comment, status: OK                        | return: OK **and** comment | P      |
+| UT-4.3.f | Comment Module | get Comments By Ancestor | Invalid Ancestor CommentID | comment: unknown-comment-id, DB-status: comment-not-found | return: comment-not-found  | F      |
+| UT-4.3.g | Comment Module | get Comments By Ancestor | Valid Ancestor CommentID   | comment: known-comment, status: OK                        | return: OK **and** comment | P      |
+| UT-4.3.h | Comment Module | update Comment           | Invalid CommentID          | comment: unknown-comment-id, DB-status: comment-not-found | return: comment-not-found  | F      |
+| UT-4.3.i | Comment Module | update Comment           | Valid Comment              | comment: known-comment, status: OK                        | return: OK                 | P      |
+| UT-4.3.j | Comment Module | delete Comment           | Invalid CommentID          | comment: unknown-comment-id, DB-status: comment-not-found | return: comment-not-found  | F      |
+| UT-4.3.k | Comment Module | delete Comment           | Valid Comment              | comment: known-comment, status: OK                        | return: OK                 | P      |
+| UT-4.3.l | Comment Module | delete Comment By Post   | Invalid PostID             | post: unknown-post-id, DB-status: post-not-found          | return: post-not-found     | F      |
+| UT-4.3.m | Comment Module | delete Comment By Post   | Valid PostID               | post: known-post-id, DB-status: OK                        | return: OK                 | P      | -->
 
 ##### Vote Record Module
 
-| S.No     | Module Name | Function            | Conditions to be tested            | Test Data                                 | Expected Output       | Status |
-| -------- | ----------- | ------------------- | ---------------------------------- | ----------------------------------------- | --------------------- | ------ |
-| UT-4.1.s | Vote Module | Access Vote Info    | Invalid Vote, Access not available | vote: unknown-vote, status: access-denied | return: access-denied | F      |
-| UT-4.1.t | Vote Module | Access Vote Info    | Valid Vote, Access available       | vote: known-vote, status: OK              | return: OK            | P      |
-| UT-4.1.u | Vote Module | Access Vote Post    | Invalid Vote, Access not available | vote: unknown-vote, status: access-denied | return: access-denied | F      |
-| UT-4.1.v | Vote Module | Access Vote Post    | Valid Vote, Access available       | vote: known-vote, status: OK              | return: OK            | P      |
-| UT-4.1.w | Vote Module | Access Vote Comment | Invalid Vote, Access not available | vote: unknown-vote, status: access-denied | return: access-denied | F      |
-| UT-4.1.x | Vote Module | Access Vote Comment | Valid Vote, Access available       | vote: known-vote, status: OK              | return: OK            | P      |
+<!-- Convert into Latex Table -->
+
+\begin{longtblr}[
+caption = {Vote Record Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+UT-4.4.a & Vote Module & get Vote & Invalid VoteID & vote: unknown-vote-id, DB-status: vote-not-found & return: vote-not-found & F \\\hline
+UT-4.4.b & Vote Module & get Vote & Valid Vote & vote: known-vote, DB-status: OK & return: OK \textbf{and} vote & P \\\hline
+UT-4.4.c & Vote Module & get Vote By Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.4.d & Vote Module & get Vote-count By Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: vote-not-found & F \\\hline
+UT-4.4.e & Vote Module & get Vote-count By Post & Valid PostID & post: known-post-id, DB-status: OK & return: OK \textbf{and} vote-count & P \\\hline
+UT-4.4.f & Vote Module & get Vote By Post & Valid PostID & post: known-post-id, DB-status: OK & return: OK \textbf{and} vote-list & P \\\hline
+UT-4.4.g & Vote Module & get Vote By Post-User & Invalid PostID & post: unknown-post-id \textbf{and} user: user-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.4.h & Vote Module & get Vote By Post-User & Invalid UserID & post: post-id \textbf{and} user: unknown-user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.4.i & Vote Module & get Vote By Post-User & Valid Request & post: post-id \textbf{and} user: user-id, DB-status: OK & return: OK \textbf{and} vote & P \\\hline
+UT-4.4.j & Vote Module & update Vote & Invalid VoteID & vote: unknown-vote-id, DB-status: vote-not-found & return: vote-not-found & F \\\hline
+UT-4.4.k & Vote Module & update Vote & Valid Vote & vote: known-vote, DB-status: OK & return: OK & P \\\hline
+UT-4.4.l & Vote Module & delete Vote & Invalid VoteID & vote: unknown-vote-id, DB-status: vote-not-found & return: vote-not-found & F \\\hline
+UT-4.4.m & Vote Module & delete Vote & Valid Vote & vote: known-vote, DB-status: OK & return: OK & P \\\hline
+UT-4.4.n & Vote Module & delete Vote By Post & Invalid PostID & post: unknown-post-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.4.o & Vote Module & delete Vote By Post & Valid PostID & post: known-post-id, DB-status: OK & return: OK & P \\\hline
+UT-4.4.p & Vote Module & delete Vote By Post-User & Invalid PostID & post: unknown-post-id \textbf{and} user: user-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.4.q & Vote Module & delete Vote By Post-User & Invalid UserID & post: post-id \textbf{and} user: unknown-user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.4.r & Vote Module & update Vote By Post-User & Invalid PostID & post: unknown-post-id \textbf{and} user: user-id, DB-status: post-not-found & return: post-not-found & F \\\hline
+UT-4.4.s & Vote Module & update Vote By Post-User & Invalid UserID & post: post-id \textbf{and} user: unknown-user-id, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.4.t & Vote Module & update Vote By Post-User & Valid Request & post: post-id \textbf{and} user: user-id, DB-status: OK & return: OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name | Function                 | Conditions to be tested | Test Data                                                              | Expected Output               | Status |
+| -------- | ----------- | ------------------------ | ----------------------- | ---------------------------------------------------------------------- | ----------------------------- | ------ |
+| UT-4.4.a | Vote Module | get Vote                 | Invalid VoteID          | vote: unknown-vote-id, DB-status: vote-not-found                       | return: vote-not-found        | F      |
+| UT-4.4.b | Vote Module | get Vote                 | Valid Vote              | vote: known-vote, DB-status: OK                                        | return: OK **and** vote       | P      |
+| UT-4.4.c | Vote Module | get Vote By Post         | Invalid PostID          | post: unknown-post-id, DB-status: post-not-found                       | return: post-not-found        | F      |
+| UT-4.4.d | Vote Module | get Vote-count By Post   | Invalid PostID          | post: unknown-post-id, DB-status: post-not-found                       | return: vote-not-found        | F      |
+| UT-4.4.e | Vote Module | get Vote-count By Post   | Valid PostID            | post: known-post-id, DB-status: OK                                     | return: OK **and** vote-count | P      |
+| UT-4.4.f | Vote Module | get Vote By Post         | Valid PostID            | post: known-post-id, DB-status: OK                                     | return: OK **and** vote-list  | P      |
+| UT-4.4.g | Vote Module | get Vote By Post-User    | Invalid PostID          | post: unknown-post-id **and** user: user-id, DB-status: post-not-found | return: post-not-found        | F      |
+| UT-4.4.h | Vote Module | get Vote By Post-User    | Invalid UserID          | post: post-id **and** user: unknown-user-id, DB-status: user-not-found | return: user-not-found        | F      |
+| UT-4.4.i | Vote Module | get Vote By Post-User    | Valid Request           | post: post-id **and** user: user-id, DB-status: OK                     | return: OK **and** vote       | P      |
+| UT-4.4.j | Vote Module | update Vote              | Invalid VoteID          | vote: unknown-vote-id, DB-status: vote-not-found                       | return: vote-not-found        | F      |
+| UT-4.4.k | Vote Module | update Vote              | Valid Vote              | vote: known-vote, DB-status: OK                                        | return: OK                    | P      |
+| UT-4.4.l | Vote Module | delete Vote              | Invalid VoteID          | vote: unknown-vote-id, DB-status: vote-not-found                       | return: vote-not-found        | F      |
+| UT-4.4.m | Vote Module | delete Vote              | Valid Vote              | vote: known-vote, DB-status: OK                                        | return: OK                    | P      |
+| UT-4.4.n | Vote Module | delete Vote By Post      | Invalid PostID          | post: unknown-post-id, DB-status: post-not-found                       | return: post-not-found        | F      |
+| UT-4.4.o | Vote Module | delete Vote By Post      | Valid PostID            | post: known-post-id, DB-status: OK                                     | return: OK                    | P      |
+| UT-4.4.p | Vote Module | delete Vote By Post-User | Invalid PostID          | post: unknown-post-id **and** user: user-id, DB-status: post-not-found | return: post-not-found        | F      |
+| UT-4.4.q | Vote Module | delete Vote By Post-User | Invalid UserID          | post: post-id **and** user: unknown-user-id, DB-status: user-not-found | return: user-not-found        | F      |
+| UT-4.4.r | Vote Module | update Vote By Post-User | Invalid PostID          | post: unknown-post-id **and** user: user-id, DB-status: post-not-found | return: post-not-found        | F      |
+| UT-4.4.s | Vote Module | update Vote By Post-User | Invalid UserID          | post: post-id **and** user: unknown-user-id, DB-status: user-not-found | return: user-not-found        | F      |
+| UT-4.4.t | Vote Module | update Vote By Post-User | Valid Request           | post: post-id **and** user: user-id, DB-status: OK                     | return: OK                    | P      | -->
 
 ##### Chat Record Module
 
