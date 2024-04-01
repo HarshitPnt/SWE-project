@@ -334,21 +334,64 @@ UT-2.2.an & reject request & Valid Request & request: known-request-id \textbf{a
 
 ##### Admin User Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-2.3.a |             |                         |           |                 |        |
+| S.No     | Module Name               | Conditions to be tested    | Test Data                                                                                                  | Expected Output                 | Status |
+| -------- | ------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- | ------ |
+| UT-2.3.a | Change Community Settings | Invalid CommunityID        | communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found | return: community-not-found     | F      |
+| UT-2.3.b | Change Community Settings | Valid Community            | communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK                    | return: OK                      | P      |
+| UT-2.3.c | Appointing Moderator      | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found          | F      |
+| UT-2.3.d | Appointing Moderator      | User not in Community      | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                           | return: user-not-in-community   | F      |
+| UT-2.3.e | Appointing Moderator      | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
+| UT-2.3.f | Remove Moderator          | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found          | F      |
+| UT-2.3.g | Remove Moderator          | User not Moderator         | userID: non-moderator-user-id \textbf{and} user-token: valid-token, get User: OK                           | return: user-not-moderator      | F      |
+| UT-2.3.h | Remove Moderator          | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
+| UT-2.3.i | Granting Post Privilege   | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found          | F      |
+| UT-2.3.j | Granting Post Privilege   | User not in Community      | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                           | return: user-not-in-community   | F      |
+| UT-2.3.k | Granting Post Privilege   | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
+| UT-2.3.l | Revoking Post Privilege   | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found          | F      |
+| UT-2.3.m | Revoking Post Privilege   | User do not have privilege | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                           | return: user-not-have-privilege | F      |
+| UT-2.3.n | Revoking Post Privilege   | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
 
 ##### Moderator User Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-2.4.a |             |                         |           |                 |        |
+| S.No     | Module Name              | Conditions to be tested    | Test Data                                                                                        | Expected Output                 | Status |
+| -------- | ------------------------ | -------------------------- | ------------------------------------------------------------------------------------------------ | ------------------------------- | ------ |
+| UT-2.4.a | Remove Post              | Invalid PostID             | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found             | return: post-not-found          | F      |
+| UT-2.4.b | Remove Post              | Post is Not From Community | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                   | return: post-not-from-community | F      |
+| UT-2.4.c | Remove Post              | Valid Post                 | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                           | return: OK                      | P      |
+| UT-2.4.d | Remove Comment           | Invalid CommentID          | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found | return: comment-not-found       | F      |
+| UT-2.4.e | Remove Comment           | Comment is Not From Post   | comment: non-post-comment-id \textbf{and} user-token: valid-token, get Comment: OK               | return: comment-not-from-post   | F      |
+| UT-2.4.f | Remove Comment           | Valid Comment              | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK                  | return: OK                      | P      |
+| UT-2.4.g | Ban User                 | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found           | return: user-not-found          | F      |
+| UT-2.4.h | Ban User                 | User is not in Community   | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                 | return: user-not-in-community   | F      |
+| UT-2.4.i | Ban User                 | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                         | return: OK                      | P      |
+| UT-2.4.j | Unban User               | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found           | return: user-not-found          | F      |
+| UT-2.4.k | Unban User               | User is not banned         | userID: non-banned-user-id \textbf{and} user-token: valid-token, get User: OK                    | return: user-not-banned         | F      |
+| UT-2.4.l | Unban User               | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                         | return: OK                      | P      |
+| UT-2.4.m | Grant Post Privilege     | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found           | return: user-not-found          | F      |
+| UT-2.4.n | Grant Post Privilege     | User is not in Community   | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                 | return: user-not-in-community   | F      |
+| UT-2.4.o | Grant Post Privilege     | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                         | return: OK                      | P      |
+| UT-2.4.p | Revoke Post Privilege    | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found           | return: user-not-found          | F      |
+| UT-2.4.q | Revoke Post Privilege    | User do not have privilege | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                 | return: user-not-have-privilege | F      |
+| UT-2.4.r | Revoke Post Privilege    | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                         | return: OK                      | P      |
+| UT-2.4.s | Remove Comment Privilege | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found           | return: user-not-found          | F      |
+| UT-2.4.t | Remove Comment Privilege | User do not have privilege | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                 | return: user-not-have-privilege | F      |
+| UT-2.4.u | Remove Comment Privilege | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                         | return: OK                      | P      |
+| UT-2.4.v | Comment Disable          | Invalid PostID             | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found             | return: post-not-found          | F      |
+| UT-2.4.w | Comment Disable          | Post is Not From Community | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                   | return: post-not-from-community | F      |
+| UT-2.4.x | Comment Disable          | Valid Post                 | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                           | return: OK                      | P      |
 
 ##### Superuser Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-2.5.a |             |                         |           |                 |        |
+| S.No     | Module Name      | Conditions to be tested | Test Data                                                                                                  | Expected Output             | Status |
+| -------- | ---------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- | ------ |
+| UT-2.5.a | make superuser   | Invalid UserID          | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found      | F      |
+| UT-2.5.b | make superuser   | Valid User              | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                  | P      |
+| UT-2.5.c | ban_c user       | Invalid UserID          | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found      | F      |
+| UT-2.5.d | ban_c user       | Valid User              | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                  | P      |
+| UT-2.5.e | unban_c user     | Invalid UserID          | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found      | F      |
+| UT-2.5.f | unban_c user     | Valid User              | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                  | P      |
+| UT-2.5.g | Delete Community | Invalid CommunityID     | communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found | return: community-not-found | F      |
+| UT-2.5.h | Delete Community | Valid Community         | communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK                    | return: OK                  | P      |
 
 #### System Module
 
