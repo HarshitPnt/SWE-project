@@ -1225,6 +1225,47 @@ Integrating different modules and testing
 Testing of system as a whole
 ```
 
+| S.No | Test Case                   | Description                 | Expected Output          |
+| ---- | --------------------------- | --------------------------- | ------------------------ |
+| 1    | Login                       | User login                  | Login successful         |
+| 2    | Logout                      | User logout                 | Logout successful        |
+| 3    | Register                    | User register               | Registration successful  |
+| 4    | View Profile                | View user profile           | Profile displayed        |
+| 5    | Update Profile              | Update user profile         | Profile updated          |
+| 6    | View Community              | View community              | Community displayed      |
+| 7    | Update Community            | Update community            | Community updated        |
+| 8    | View Post                   | View post                   | Post displayed           |
+| 9    | Update Post                 | Update post                 | Post updated             |
+| 10   | View Comment                | View comment                | Comment displayed        |
+| 11   | Update Comment              | Update comment              | Comment updated          |
+| 12   | Chat                        | Chat with user              | Chat successful          |
+| 13   | View Home                   | View home                   | Home displayed           |
+| 14   | View Reports                | View reports                | Reports displayed        |
+| 15   | View Requests               | View requests               | Requests displayed       |
+| 16   | View Notifications          | View notifications          | Notifications displayed  |
+| 17   | View User-Community         | View user-community         | User-community displayed |
+| 18   | View Followers              | View followers              | Followers displayed      |
+| 19   | View Following              | View following              | Following displayed      |
+| 20   | Create Community            | Create community            | Community created        |
+| 21   | Create Post                 | Create post                 | Post created             |
+| 22   | Create Comment              | Create comment              | Comment created          |
+| 23   | view Reports                | View reports                | Reports displayed        |
+| 24   | Follow User                 | Follow user                 | User followed            |
+| 25   | Block User                  | Block user                  | User blocked             |
+| 26   | Report User                 | Report user                 | User reported            |
+| 27   | Delete Post                 | Delete post                 | Post deleted             |
+| 28   | Delete Comment              | Delete comment              | Comment deleted          |
+| 29   | Delete Community            | Delete community            | Community deleted        |
+| 30   | Delete User                 | Delete user from community  | User deleted             |
+| 31   | View Community Guidelines   | View community guidelines   | Guidelines displayed     |
+| 32   | Update Community Guidelines | Update community guidelines | Guidelines updated       |
+| 33   | Report Post                 | Report post                 | Post reported            |
+| 34   | Report Comment              | Report comment              | Comment reported         |
+| 35   | Report User                 | Report user                 | User reported            |
+| 36   | Get Trending Posts          | Get trending posts          | Trending posts displayed |
+| 37   | Get Home Feed               | Get home feed               | Home feed displayed      |
+| 38   | Get Community Feed          | Get community feed          | Community feed displayed |
+
 ### Performance Testing
 
 ```text
