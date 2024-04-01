@@ -1183,9 +1183,41 @@ Integrating different modules and testing
     Use bottom-up approach for integration of modules
 ```
 
-| S.No | Modules Integrated | Condition to be tested | Test Data | Expected Output | Status |
-| ---- | ------------------ | ---------------------- | --------- | --------------- | ------ |
-| 1.1  |                    |                        |           |                 |        |
+| S.No | Modules Integrated                                            | Condition to be tested | Test Data                                                                                            | Expected Output             | Status |
+| ---- | ------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------- | ------ |
+| 1.1  | View Profile Module & Update Profile Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| 1.2  | View Profile Module & Update Profile Module                   | Invalid Update Data    | user: known-user, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
+| 1.3  | View Profile Module & Update Profile Module                   | Valid Request          | user: known-user, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
+| 2.1  | View Community Module & Update Community Module               | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| 2.2  | View Community Module & Update Community Module               | Invalid Update Data    | community: known-community, update-data: invalid-data, DB-status: OK                                 | return: invalid-data        | F      |
+| 2.3  | View Community Module & Update Community Module               | No Privilege           | community: known-community, update-data: valid-data, DB-status: no-privilege                         | return: no-privilege        | F      |
+| 2.4  | View Community Module & Update Community Module               | Valid Request          | community: known-community, update-data: valid-data, DB-status: OK                                   | return: OK                  | P      |
+| 3.1  | View Post Module & Update Post Module                         | Invalid Post ID        | post: unknown-post, DB-status: post-not-found                                                        | return: post-not-found      | F      |
+| 3.2  | View Post Module & Update Post Module                         | Invalid Update Data    | post: known-post, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
+| 3.3  | View Post Module & Update Post Module                         | No Privilege           | post: known-post, update-data: valid-data, DB-status: no-privilege                                   | return: no-privilege        | F      |
+| 3.4  | View Post Module & Update Post Module                         | Valid Request          | post: known-post, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
+| 4.1  | View Comment Module & Update Comment Module                   | Invalid Comment ID     | comment: unknown-comment, DB-status: comment-not-found                                               | return: comment-not-found   | F      |
+| 4.2  | View Comment Module & Update Comment Module                   | Invalid Update Data    | comment: known-comment, update-data: invalid-data, DB-status: OK                                     | return: invalid-data        | F      |
+| 4.3  | View Comment Module & Update Comment Module                   | No Privilege           | comment: known-comment, update-data: valid-data, DB-status: no-privilege                             | return: no-privilege        | F      |
+| 4.4  | View Comment Module & Update Comment Module                   | Valid Request          | comment: known-comment, update-data: valid-data, DB-status: OK                                       | return: OK                  | P      |
+| 5.1  | View User Profile Module & Chat Module                        | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| 5.2  | View User Profile Module & Chat Module                        | Invalid Chat Data      | user: known-user, chat-data: invalid-data, DB-status: OK                                             | return: invalid-data        | F      |
+| 5.3  | View User Profile Module & Chat Module                        | Blocked User           | user: known-user, chat-data: valid-data, DB-status: blocked-user                                     | return: blocked-user        | F      |
+| 5.4  | View User Profile Module & Chat Module                        | Valid Request          | user: known-user, chat-data: valid-data, DB-status: OK                                               | return: OK                  | P      |
+| 6.1  | View Home Module & view Post Module                           | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| 6.2  | View Home Module & view Post Module                           | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
+| 6.3  | View Home Module & view Post Module                           | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      |
+| 7.1  | View Community Module & View Post Module                      | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| 7.2  | View Community Module & View Post Module                      | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
+| 7.3  | View Community Module & View Post Module                      | Valid Request          | community: known-community, post: known-post, DB-status: OK                                          | return: OK                  | P      |
+| 8.1  | View Community Module, View Post Module & View Comment Module | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| 8.2  | View Community Module, View Post Module & View Comment Module | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
+| 8.3  | View Community Module, View Post Module & View Comment Module | Invalid Comment ID     | community: known-community, post: known-post, comment: unknown-comment, DB-status: comment-not-found | return: comment-not-found   | F      |
+| 8.4  | View Community Module, View Post Module & View Comment Module | Valid Request          | community: known-community, post: known-post, comment: known-comment, DB-status: OK                  | return: OK                  | P      |
+| 9.1  | View User Profile Module & View Post Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| 9.2  | View User Profile Module & View Post Module                   | Private Profile        | user: known-user, post: known-post, DB-status: private-profile                                       | return: private-profile     | F      |
+| 9.3  | View User Profile Module & View Post Module                   | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
+| 9.4  | View User Profile Module & View Post Module                   | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      |
 
 ### System Testing
 
