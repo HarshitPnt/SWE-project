@@ -81,7 +81,45 @@ hlines, vlines,
 columns={c},
 }
 
-\tableofcontents
+- [Test Overview](#test-overview)
+- [Test Details](#test-details)
+  - [Unit Tests](#unit-tests)
+    - [Authentication Module](#authentication-module)
+    - [User Module](#user-module)
+      - [Guest User Module](#guest-user-module)
+      - [Registered User Module](#registered-user-module)
+      - [Admin User Module](#admin-user-module)
+      - [Moderator User Module](#moderator-user-module)
+      - [Superuser Module](#superuser-module)
+    - [System Module](#system-module)
+      - [Cache Module](#cache-module)
+      - [Recommendation Module](#recommendation-module)
+    - [Database Access Module](#database-access-module)
+      - [User Record Module](#user-record-module)
+      - [Post Record Module](#post-record-module)
+      - [Comment Record Module](#comment-record-module)
+      - [Vote Record Module](#vote-record-module)
+      - [Chat(Private Messages) Record Module](#chatprivate-messages-record-module)
+      - [Message(Group and Private) Record Module](#messagegroup-and-private-record-module)
+      - [Group Record Module](#group-record-module)
+      - [User_chat Record Module](#user_chat-record-module)
+      - [User_group Record Module](#user_group-record-module)
+      - [Community Record Module](#community-record-module)
+      - [Joined Community Record Module](#joined-community-record-module)
+      - [Blocked User Record Module](#blocked-user-record-module)
+      - [Reported User Record Module](#reported-user-record-module)
+      - [Roles Record Module](#roles-record-module)
+    - [UI Module](#ui-module)
+  - [Integration Testing](#integration-testing)
+  - [System Testing](#system-testing)
+  - [Performance Testing](#performance-testing)
+    - [Latency](#latency)
+    - [Scalability](#scalability)
+    - [Load Handling/Load Testing](#load-handlingload-testing)
+    - [Cache Performance](#cache-performance)
+    - [Concurrent Access](#concurrent-access)
+- [Test Analysis](#test-analysis)
+  - [Functional Test Report](#functional-test-report)
 
 ## Test Overview
 
@@ -95,7 +133,6 @@ The test plan includes the following operations/modules that will be tested:
   - Login Module
   - Signup Module
   - Token Authentication Module
-  - E2EE Module
 - User Modules
   - Guest User Module
   - Registered User Module
@@ -140,13 +177,6 @@ The test plan includes the following sections:
 
 ## Test Details
 
-```text
-Integrating testing
-    The order in which you will integrate your modules and test cases for integrated modules.
-System testing
-Performance testing
-```
-
 ### Unit Tests
 
 #### Authentication Module
@@ -173,7 +203,6 @@ UT-1.3.a & Signup Module & Signup User & Username already taken & user: already-
 UT-1.3.b & Signup Module & Signup User & Unverified email id & user: username \textbf{and} password \textbf{and} unverfied-email-id, email-service-status: email-verification-timeout & return: email-unverified & F \\\hline
 UT-1.3.c & Signup Module & Signup User & Passwords Don't Match & user: username \textbf{and} invalid-password \textbf{and} email-id & return: password-mismatch & F \\\hline
 UT-1.3.d & Signup Module & Signup User & Valid Credentials & user: username \textbf{and} password \textbf{and} email-id, DB-status: user-created & return: user-created \textbf{and} JWT and redirects user to home page & P \\\hline
-UT-1.3.a & E2EE Module & TO-BE-FILLED & Invalid Key & & & F \\\hline
 \end{longtblr}
 
 #### User Module
@@ -235,6 +264,8 @@ UT-2.2.q & Guest User Module & signup & Valid Credentials & user: valid-username
 
 ##### Registered User Module
 
+<!-- Convert below table into Latex -->
+
 \begin{longtblr}[
 caption = {Registered User Module Unit Test},
 label = {tab:test},
@@ -249,92 +280,208 @@ row{1} = {olive9},
 \hline
 \textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
 \hline
-UT-2.2.a & get Home Feed & Invalid user-token & user: invalid-token, authentication-service: invalid-token & return: invalid-token & F \\\hline
-UT-2.2.b & get Home Feed & Valid user-token & user: valid-token, authentication-service: valid-token & return: OK \textbf{and} feed & P \\\hline
-UT-2.2.c & view Community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.d & view Community & Community not public and user is not a member & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
-UT-2.2.e & view Community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK \textbf{and} community & P \\\hline
-UT-2.2.f & view Profile & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
-UT-2.2.g & view Profile & User Profile(user2) is Not Public and user2 is not following user1 & user: non-public-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-profile-not-public \textbf{and} user2-reports & F \\\hline
-UT-2.2.h & view Profile & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK \textbf{and} user-record & P \\\hline
-UT-2.2.i & view own followers & Invalid user-token & user-token: invalid-token & return: invalid-token & F \\\hline
-UT-2.2.j & view own followers & Valid user-token & user-token: valid-token , get Following: OK & return: OK \textbf{and} followers & P \\\hline
-UT-2.2.k & view own following & Invalid user-token & user-token: invalid-token & return: invalid-token & F \\\hline
-UT-2.2.l & view own following & Valid user-token & user-token: valid-token , get Following: OK & return: OK \textbf{and} following & P \\\hline
-UT-2.2.m & view Post & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
-UT-2.2.n & view Post & Post is Not From Public Community and community not joined by user & post: non-public-post-id \textbf{and} user-token: valid-token, get Post: OK & return: post-not-public & F \\\hline
-UT-2.2.o & view Post & Valid Post & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK & return: OK \textbf{and} post-record & P \\\hline
-UT-2.2.p & view Comment & Invalid CommentID & comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found & return: comment-not-found & F \\\hline
-UT-2.2.q & view Comment & Comment is Not From Public Post and post not joined by user & comment: non-public-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: comment-not-public & F \\\hline
-UT-2.2.r & view Comment & Valid Comment & comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: OK \textbf{and} comment-record & P \\\hline
-UT-2.2.s & make comment & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: post-not-found & return: post-not-found & F \\\hline
-UT-2.2.t & make comment & Post is Not From Public Community and community not joined by user & post: non-public-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: OK & return: post-not-public & F \\\hline
-UT-2.2.u & make comment & Invalid Parent CommentID & post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: unknown-comment-id, get Post: OK & return: parent-comment-not-found & F \\\hline
-UT-2.2.v & make comment & Valid Comment & post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: known-comment-id, get Post: OK & return: OK & P \\\hline
-UT-2.2.w & make post & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.x & make post & Community not public and user is not a member & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
-UT-2.2.y & make post & Post Privilege not present & community: known-community-id \textbf{and} user-token: valid-token, validate Privileges: False OK & return: no-post-privilege & F \\\hline
-UT-2.2.y & make post & Valid Post & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
-UT-2.2.z & make post & post type not allowed & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: post-type-not-allowed & F \\\hline
-UT-2.2.aa & make community & Invalid Community Name & community: invalid-community-name \textbf{and} user-token: valid-token & return: invalid-community & F \\\hline
-UT-2.2.ab & make community & Valid Community Name & community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found & return: OK & P \\\hline
-UT-2.2.ac & join community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.ad & join community & Community not public & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
-UT-2.2.ae & request to join community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
-UT-2.2.af & request to join community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.ag & request to join community & Community not request-only & community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-request-only & F \\\hline
-UT-2.2.ah & request to join community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
-UT-2.2.ai & accept request & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.aj & accept request & Invalid RequestID & request: unknown-request-id \textbf{and} user-token: valid-token, get Request: request-not-found & return: request-not-found & F \\\hline
-UT-2.2.ak & accept request & Valid Request & request: known-request-id \textbf{and} user-token: valid-token, get Request: OK & return: OK & P \\\hline
-UT-2.2.al & reject request & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
-UT-2.2.am & reject request & Invalid RequestID & request: unknown-request-id \textbf{and} user-token: valid-token, get Request: request-not-found & return: request-not-found & F \\\hline
-UT-2.2.an & reject request & Valid Request & request: known-request-id \textbf{and} user-token: valid-token, get Request: OK & return: OK & P \\\hline
+UT-2.2.a &User Module& get Home Feed & Invalid user-token & user: invalid-token, authentication-service: invalid-token & return: invalid-token & F \\\hline
+UT-2.2.b &User Module& get Home Feed & Valid user-token & user: valid-token, authentication-service: valid-token & return: OK \textbf{and} feed & P \\\hline
+UT-2.2.c &User Module& view Community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.d &User Module& view Community & Community not public and user is not a member & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
+UT-2.2.e &User Module& view Community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK \textbf{and} community & P \\\hline
+UT-2.2.f &User Module& view Profile & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.g &User Module& view Profile & User Profile(user2) is Not Public and user2 is not following user1 & user: non-public-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-profile-not-public \textbf{and} user2-reports & F \\\hline
+UT-2.2.h &User Module& view Profile & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK \textbf{and} user-record & P \\\hline
+UT-2.2.i &User Module& view own followers & Invalid user-token & user-token: invalid-token & return: invalid-token & F \\\hline
+UT-2.2.j &User Module& view own followers & Valid user-token & user-token: valid-token , get Following: OK & return: OK \textbf{and} followers & P \\\hline
+UT-2.2.k &User Module& view own following & Invalid user-token & user-token: invalid-token & return: invalid-token & F \\\hline
+UT-2.2.l &User Module& view own following & Valid user-token & user-token: valid-token , get Following: OK & return: OK \textbf{and} following & P \\\hline
+UT-2.2.m &User Module& view Post & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.2.n &User Module& view Post & Post is Not From Public Community and community not joined by user & post: non-public-post-id \textbf{and} user-token: valid-token, get Post: OK & return: post-not-public & F \\\hline
+UT-2.2.o &User Module& view Post & Valid Post & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK & return: OK \textbf{and} post-record & P \\\hline
+UT-2.2.p &User Module& view Comment & Invalid CommentID & comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found & return: comment-not-found & F \\\hline
+UT-2.2.q &User Module& view Comment & Comment is Not From Public Post and post not joined by user & comment: non-public-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: comment-not-public & F \\\hline
+UT-2.2.r &User Module& view Comment & Valid Comment & comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: OK \textbf{and} comment-record & P \\\hline
+UT-2.2.s &User Module& make comment & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.2.t &User Module& make comment & Post is Not From Public Community and community not joined by user & post: non-public-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: OK & return: post-not-public & F \\\hline
+UT-2.2.u &User Module& make comment & Invalid Parent CommentID & post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: unknown-comment-id, get Post: OK & return: parent-comment-not-found & F \\\hline
+UT-2.2.v &User Module& make comment & Valid Comment & post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: known-comment-id, get Post: OK & return: OK & P \\\hline
+UT-2.2.w &User Module& make post & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.x &User Module& make post & Community not public and user is not a member & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
+UT-2.2.y &User Module& make post & Post Privilege not present & community: known-community-id \textbf{and} user-token: valid-token, validate Privileges: False OK & return: no-post-privilege & F \\\hline
+UT-2.2.y &User Module& make post & Valid Post & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+UT-2.2.z &User Module& make post & post type not allowed & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: post-type-not-allowed & F \\\hline
+UT-2.2.aa &User Module& make community & Invalid Community Name & community: invalid-community-name \textbf{and} user-token: valid-token & return: invalid-community & F \\\hline
+UT-2.2.ab &User Module& make community & Valid Community Name & community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found & return: OK & P \\\hline
+UT-2.2.ac &User Module& join community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.ad &User Module& join community & Community not public & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
+UT-2.2.ae &User Module& request to join community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+UT-2.2.af &User Module& request to join community & Community not public & community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-public & F \\\hline
+UT-2.2.ag &User Module& request to join community & User already a member & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: user-already-member & F \\\hline
+UT-2.2.ah &User Module& request to join community & User already requested to join & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: user-already-requested & F \\\hline
+UT-2.2.ai &User Module&accept invite & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.ai & User Module & accept invite & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.aj & User Module & accept invite & Community not invite-only & community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-invite-only & F \\\hline
+UT-2.2.ak & User Module & accept invite & No Invite Found To UserID & request: unknown-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: not-invited & return: invite-not-found & F \\\hline
+UT-2.2.al & User Module & accept invite & Valid Request & request: known-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: invited & return: OK & P \\\hline
+UT-2.2.am & User Module & reject invite & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.an & User Module & reject invite & Community not invite-only & community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK & return: community-not-invite-only & F \\\hline
+UT-2.2.ao & User Module & reject invite & No Invite Found To UserID & request: unknown-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: not-invited & return: invite-not-found & F \\\hline
+UT-2.2.ap & User Module & reject invite & Valid Request & request: known-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: invited & return: OK & P \\\hline
+UT-2.2.aq & User Module & block user & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.ar & User Module & block user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: OK & return: user-already-blocked & F \\\hline
+UT-2.2.as & User Module & block user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: user-not-blocked & return: OK & P \\\hline
+UT-2.2.at & User Module & unblock user & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.au & User Module & unblock user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: user-not-blocked & return: user-not-blocked & F \\\hline
+UT-2.2.av & User Module & unblock user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: OK & return: OK & P \\\hline
+UT-2.2.aw & User Module & follow user & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.ax & User Module & follow user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: OK & return: user-already-followed & F \\\hline
+UT-2.2.ay & User Module & follow user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: user-not-followed & return: OK & P \\\hline
+UT-2.2.az & User Module & unfollow user & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.ba & User Module & unfollow user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: user-not-followed & return: user-not-followed & F \\\hline
+UT-2.2.bb & User Module & unfollow user & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: OK & return: OK & P \\\hline
+UT-2.2.bc & User Module & create community & Invalid Community Name & community: invalid-community-name \textbf{and} user-token: valid-token & return: invalid-community & F \\\hline
+UT-2.2.bd & User Module & create community & Valid Community Name & community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found & return: OK & P \\\hline
+UT-2.2.be & User Module & report user By Post & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token post: post-id, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.bf & User Module & report user By Post & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.2.bg & User Module & report user By Post & reporting user not in community & user: known-user-id \textbf{and} user-token: valid-token, post: known-post-id, get User: OK, get Post: OK, Joined.get User-community Status: user-not-in-community & return: user-not-in-community & F \\\hline
+UT-2.2.bh & User Module & report user By Post & Valid User & user: known-user-id \textbf{and} user-token: valid-token, post: known-post-id, get User: OK, get Post: OK, Joined.get User-community Status: joined & return: OK & P \\\hline
+UT-2.2.bi & User Module & report user By Comment & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token comment: comment-id, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.bj & User Module & report user By Comment & Invalid CommentID & comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found & return: comment-not-found & F \\\hline
+UT-2.2.bk & User Module & report user By Comment & reporting user not in community & user: known-user-id \textbf{and} user-token: valid-token, comment: known-comment-id, get User: OK, get Comment: OK, Joined.get User-community Status: user-not-in-community & return: user-not-in-community & F \\\hline
+UT-2.2.bl & User Module & report user By Comment & Valid User & user: known-user-id \textbf{and} user-token: valid-token, comment: known-comment-id, get User: OK, get Comment: OK, Joined.get User-community Status: joined & return: OK & P \\\hline
+ut-2.2.bm & User Module & report community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.bn & User Module & report community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+UT-2.2.bo & User Module & report to admin by community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.2.bp & User Module & report to admin by community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+UT-2.2.bq & User Module & send chat request & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.br & User Module & send chat request & Receiver has direct chat from all users on & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: all-direct-chat-from-users-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) & return: user-can-receive-all-messages & P \\\hline
+UT-2.2.bs & User Module & send chat request & Receiver has direct chat from all users on & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: all-direct-chat-from-users-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2) & return: user-blocked & F \\\hline
+UT-2.2.bt & User Module & send chat request & Receiver has no-chat-requests-on & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: no-chat-requests-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) & return: user-cannot-receive-chat-requests & F \\\hline
+UT-2.2.bu & User Module & send chat request & Receiver has no-chat-requests-on & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: no-chat-requests-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2) & return: user-blocked & F \\\hline
+UT-2.2.bv & User Module & send chat request & Other chat-settings & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) & return: user-can-receive-chat-requests & P \\\hline
+UT-2.2.bw & User Module & send chat request & Other chat-settings & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2) & return: user-blocked & F \\\hline
+UT-2.2.bx & User Module & send chat & Invalid UserID & user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.2.by & User Module & send chat & Unaccepted chat request & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) & return: chat-request-not-accepted & F \\\hline
+UT-2.2.bz & User Module & send chat & User is blocked by receiver & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2) & return: user-blocked & F \\\hline
+UT-2.2.ca & User Module & send chat & Valid User & user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) & return: OK & P \\\hline
+
 \end{longtblr}
 
-<!-- | S.No      | Module Name               | Conditions to be tested                                            | Test Data                                                                                                           | Expected Output                                       | Status |
-| --------- | ------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | ------ |
-| UT-2.2.a  | get Home Feed             | Invalid user-token                                                 | user: invalid-token, authentication-service: invalid-token                                                          | return: invalid-token                                 | F      |
-| UT-2.2.b  | get Home Feed             | Valid user-token                                                   | user: valid-token, authentication-service: valid-token                                                              | return: OK **and** feed                               | P      |
-| UT-2.2.c  | view Community            | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found            | return: community-not-found                           | F      |
-| UT-2.2.d  | view Community            | Community not public and user is not a member                      | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                          | return: community-not-public                          | F      |
-| UT-2.2.e  | view Community            | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                               | return: OK **and** community                          | P      |
-| UT-2.2.f  | view Profile              | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                | return: user-not-found                                | F      |
-| UT-2.2.g  | view Profile              | User Profile(user2) is Not Public and user2 is not following user1 | user: non-public-user-id \textbf{and} user-token: valid-token, get User: OK                                         | return: user-profile-not-public **and** user2-reports | F      |
-| UT-2.2.h  | view Profile              | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK                                              | return: OK **and** user-record                        | P      |
-| UT-2.2.i  | view own followers        | Invalid user-token                                                 | user-token: invalid-token                                                                                           | return: invalid-token                                 | F      |
-| UT-2.2.j  | view own followers        | Valid user-token                                                   | user-token: valid-token , get Following: OK                                                                         | return: OK **and** followers                          | P      |
-| UT-2.2.k  | view own following        | Invalid user-token                                                 | user-token: invalid-token                                                                                           | return: invalid-token                                 | F      |
-| UT-2.2.l  | view own following        | Valid user-token                                                   | user-token: valid-token , get Following: OK                                                                         | return: OK **and** following                          | P      |
-| UT-2.2.m  | view Post                 | Invalid PostID                                                     | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                | return: post-not-found                                | F      |
-| UT-2.2.n  | view Post                 | Post is Not From Public Community and community not joined by user | post: non-public-post-id \textbf{and} user-token: valid-token, get Post: OK                                         | return: post-not-public                               | F      |
-| UT-2.2.o  | view Post                 | Valid Post                                                         | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                              | return: OK **and** post-record                        | P      |
-| UT-2.2.p  | view Comment              | Invalid CommentID                                                  | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found                    | return: comment-not-found                             | F      |
-| UT-2.2.q  | view Comment              | Comment is Not From Public Post and post not joined by user        | comment: non-public-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                | return: comment-not-public                            | F      |
-| UT-2.2.r  | view Comment              | Valid Comment                                                      | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                     | return: OK **and** comment-record                     | P      |
-| UT-2.2.s  | make comment              | Invalid PostID                                                     | post: unknown-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: post-not-found | return: post-not-found                                | F      |
-| UT-2.2.t  | make comment              | Post is Not From Public Community and community not joined by user | post: non-public-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: OK          | return: post-not-public                               | F      |
-| UT-2.2.u  | make comment              | Invalid Parent CommentID                                           | post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: unknown-comment-id, get Post: OK       | return: parent-comment-not-found                      | F      |
-| UT-2.2.v  | make comment              | Valid Comment                                                      | post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: known-comment-id, get Post: OK         | return: OK                                            | P      |
-| UT-2.2.w  | make post                 | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found            | return: community-not-found                           | F      |
-| UT-2.2.x  | make post                 | Community not public and user is not a member                      | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                          | return: community-not-public                          | F      |
-| UT-2.2.y  | make post                 | Post Privilege not present                                         | community: known-community-id \textbf{and} user-token: valid-token, validate Privileges: False OK                   | return: no-post-privilege                             | F      |
-| UT-2.2.y  | make post                 | Valid Post                                                         | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                               | return: OK                                            | P      |
-| UT-2.2.z  | make post                 | post type not allowed                                              | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                               | return: post-type-not-allowed                         | F      |
-| UT-2.2.aa | make community            | Invalid Community Name                                             | community: invalid-community-name \textbf{and} user-token: valid-token                                              | return: invalid-community                             | F      |
-| UT-2.2.ab | make community            | Valid Community Name                                               | community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found           | return: OK                                            | P      |
-| UT-2.2.ac | join community            | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found            | return: community-not-found                           | F      |
-| UT-2.2.ad | join community            | Community not public                                               | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                          | return: community-not-public                          | F      |
-| UT-2.2.ae | request to join community | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                               | return: OK                                            | P      |
-| UT-2.2.af | request to join community | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found            | return: community-not-found                           | F      |
-| UT-2.2.ag | request to join community | Community not request-only                                         | community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK                         | return: community-not-request-only                    | F      |
-| UT-2.2.ah | request to join community | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                               | return: OK                                            | P      |
-| UT-2.2.ai | accept request            | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found            | return: community-not-found                           | F      |
-| UT-2.2.aj | accept request            | Community not invite-only                                          | community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK                         | return: community-not-request-only                    | F      | -->
+<!-- | S.No      | \*\*\*\* Module Name | Conditions to be tested      | Test Data                                                          | Expected Output                                                                                                                                                                                                                 | Status                                                |
+| --------- | -------------------- | ---------------------------- | ------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- | --- |
+| UT-2.2.a  | User Module          | get Home Feed                | Invalid user-token                                                 | user: invalid-token, authentication-service: invalid-token                                                                                                                                                                      | return: invalid-token                                 | F   |
+| UT-2.2.b  | User Module          | get Home Feed                | Valid user-token                                                   | user: valid-token, authentication-service: valid-token                                                                                                                                                                          | return: OK **and** feed                               | P   |
+| UT-2.2.c  | User Module          | view Community               | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.d  | User Module          | view Community               | Community not public and user is not a member                      | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                      | return: community-not-public                          | F   |
+| UT-2.2.e  | User Module          | view Community               | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK **and** community                          | P   |
+| UT-2.2.f  | User Module          | view Profile                 | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.g  | User Module          | view Profile                 | User Profile(user2) is Not Public and user2 is not following user1 | user: non-public-user-id \textbf{and} user-token: valid-token, get User: OK                                                                                                                                                     | return: user-profile-not-public **and** user2-reports | F   |
+| UT-2.2.h  | User Module          | view Profile                 | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                                                                                                          | return: OK **and** user-record                        | P   |
+| UT-2.2.i  | User Module          | view own followers           | Invalid user-token                                                 | user-token: invalid-token                                                                                                                                                                                                       | return: invalid-token                                 | F   |
+| UT-2.2.j  | User Module          | view own followers           | Valid user-token                                                   | user-token: valid-token , get Following: OK                                                                                                                                                                                     | return: OK **and** followers                          | P   |
+| UT-2.2.k  | User Module          | view own following           | Invalid user-token                                                 | user-token: invalid-token                                                                                                                                                                                                       | return: invalid-token                                 | F   |
+| UT-2.2.l  | User Module          | view own following           | Valid user-token                                                   | user-token: valid-token , get Following: OK                                                                                                                                                                                     | return: OK **and** following                          | P   |
+| UT-2.2.m  | User Module          | view Post                    | Invalid PostID                                                     | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                                                                                                            | return: post-not-found                                | F   |
+| UT-2.2.n  | User Module          | view Post                    | Post is Not From Public Community and community not joined by user | post: non-public-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                                                                                                     | return: post-not-public                               | F   |
+| UT-2.2.o  | User Module          | view Post                    | Valid Post                                                         | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                                                                                                          | return: OK **and** post-record                        | P   |
+| UT-2.2.p  | User Module          | view Comment                 | Invalid CommentID                                                  | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found                                                                                                                                | return: comment-not-found                             | F   |
+| UT-2.2.q  | User Module          | view Comment                 | Comment is Not From Public Post and post not joined by user        | comment: non-public-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                                                                                            | return: comment-not-public                            | F   |
+| UT-2.2.r  | User Module          | view Comment                 | Valid Comment                                                      | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                                                                                                 | return: OK **and** comment-record                     | P   |
+| UT-2.2.s  | User Module          | make comment                 | Invalid PostID                                                     | post: unknown-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: post-not-found                                                                                                             | return: post-not-found                                | F   |
+| UT-2.2.t  | User Module          | make comment                 | Post is Not From Public Community and community not joined by user | post: non-public-post-id \textbf{and} user-token: valid-token, parnet-comment-id: comment-id, get Post: OK                                                                                                                      | return: post-not-public                               | F   |
+| UT-2.2.u  | User Module          | make comment                 | Invalid Parent CommentID                                           | post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: unknown-comment-id, get Post: OK                                                                                                                   | return: parent-comment-not-found                      | F   |
+| UT-2.2.v  | User Module          | make comment                 | Valid Comment                                                      | post: known-post-id \textbf{and} user-token: valid-token, parnet-comment-id: known-comment-id, get Post: OK                                                                                                                     | return: OK                                            | P   |
+| UT-2.2.w  | User Module          | make post                    | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.x  | User Module          | make post                    | Community not public and user is not a member                      | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                      | return: community-not-public                          | F   |
+| UT-2.2.y  | User Module          | make post                    | Post Privilege not present                                         | community: known-community-id \textbf{and} user-token: valid-token, validate Privileges: False OK                                                                                                                               | return: no-post-privilege                             | F   |
+| UT-2.2.y  | User Module          | make post                    | Valid Post                                                         | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK                                            | P   |
+| UT-2.2.z  | User Module          | make post                    | post type not allowed                                              | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: post-type-not-allowed                         | F   |
+| UT-2.2.aa | User Module          | make community               | Invalid Community Name                                             | community: invalid-community-name \textbf{and} user-token: valid-token                                                                                                                                                          | return: invalid-community                             | F   |
+| UT-2.2.ab | User Module          | make community               | Valid Community Name                                               | community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found                                                                                                                       | return: OK                                            | P   |
+| UT-2.2.ac | User Module          | join community               | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.ad | User Module          | join community               | Community not public                                               | community: non-public-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                      | return: community-not-public                          | F   |
+| UT-2.2.ae | User Module          | request to join community    | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK                                            | P   |
+| UT-2.2.af | User Module          | request to join community    | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.ag | User Module          | request to join community    | Community not request-only                                         | community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                     | return: community-not-request-only                    | F   |
+| UT-2.2.ah | User Module          | request to join community    | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK                                            | P   |
+| UT-2.2.ai | User Module          | accept invite                | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.aj | User Module          | accept invite                | Community not invite-only                                          | community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                     | return: community-not-invite-only                     | F   |
+| UT-2.2.ak | User Module          | accept invite                | No Invite Found To UserID                                          | request: unknown-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: not-invited                                                                                                                 | return: invite-not-found                              | F   |
+| UT-2.2.al | User Module          | accept invite                | Valid Request                                                      | request: known-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: invited                                                                                                                       | return: OK                                            | P   |
+| UT-2.2.am | User Module          | reject invite                | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.an | User Module          | reject invite                | Community not invite-only                                          | community: non-request-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                     | return: community-not-invite-only                     | F   |
+| UT-2.2.ao | User Module          | reject invite                | No Invite Found To UserID                                          | request: unknown-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: not-invited                                                                                                                 | return: invite-not-found                              | F   |
+| UT-2.2.ap | User Module          | reject invite                | Valid Request                                                      | request: known-request-id \textbf{and} user-token: valid-token, Joined.get User-community Status: invited                                                                                                                       | return: OK                                            | P   |
+| UT-2.2.aq | User Module          | block user                   | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.ar | User Module          | block user                   | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: OK                                                                                                         | return: user-already-blocked                          | F   |
+| UT-2.2.as | User Module          | block user                   | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: user-not-blocked                                                                                           | return: OK                                            | P   |
+| UT-2.2.at | User Module          | unblock user                 | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.au | User Module          | unblock user                 | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: user-not-blocked                                                                                           | return: user-not-blocked                              | F   |
+| UT-2.2.av | User Module          | unblock user                 | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , blocked.get Blocked user-id by valid-token: OK                                                                                                         | return: OK                                            | P   |
+| UT-2.2.aw | User Module          | follow user                  | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.ax | User Module          | follow user                  | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: OK                                                                                                       | return: user-already-followed                         | F   |
+| UT-2.2.ay | User Module          | follow user                  | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: user-not-followed                                                                                        | return: OK                                            | P   |
+| UT-2.2.az | User Module          | unfollow user                | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.ba | User Module          | unfollow user                | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: user-not-followed                                                                                        | return: user-not-followed                             | F   |
+| UT-2.2.bb | User Module          | unfollow user                | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User: OK , followed.get Followed user-id by valid-token: OK                                                                                                       | return: OK                                            | P   |
+| UT-2.2.bc | User Module          | create community             | Invalid Community Name                                             | community: invalid-community-name \textbf{and} user-token: valid-token                                                                                                                                                          | return: invalid-community                             | F   |
+| UT-2.2.bd | User Module          | create community             | Valid Community Name                                               | community: valid-community-name \textbf{and} user-token: valid-token , get Community: community-not-found                                                                                                                       | return: OK                                            | P   |
+| UT-2.2.be | User Module          | report user By Post          | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token post: post-id, get User: user-not-found                                                                                                                              | return: user-not-found                                | F   |
+| UT-2.2.bf | User Module          | report user By Post          | Invalid PostID                                                     | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                                                                                                            | return: post-not-found                                | F   |
+| UT-2.2.bg | User Module          | report user By Post          | reporting user not in community                                    | user: known-user-id \textbf{and} user-token: valid-token, post: known-post-id, get User: OK, get Post: OK, Joined.get User-community Status: user-not-in-community                                                              | return: user-not-in-community                         | F   |
+| UT-2.2.bh | User Module          | report user By Post          | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, post: known-post-id, get User: OK, get Post: OK, Joined.get User-community Status: joined                                                                             | return: OK                                            | P   |
+| UT-2.2.bi | User Module          | report user By Comment       | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token comment: comment-id, get User: user-not-found                                                                                                                        | return: user-not-found                                | F   |
+| UT-2.2.bj | User Module          | report user By Comment       | Invalid CommentID                                                  | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found                                                                                                                                | return: comment-not-found                             | F   |
+| UT-2.2.bk | User Module          | report user By Comment       | reporting user not in community                                    | user: known-user-id \textbf{and} user-token: valid-token, comment: known-comment-id, get User: OK, get Comment: OK, Joined.get User-community Status: user-not-in-community                                                     | return: user-not-in-community                         | F   |
+| UT-2.2.bl | User Module          | report user By Comment       | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, comment: known-comment-id, get User: OK, get Comment: OK, Joined.get User-community Status: joined                                                                    | return: OK                                            | P   |
+| ut-2.2.bm | User Module          | report community             | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.bn | User Module          | report community             | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK                                            | P   |
+| UT-2.2.bo | User Module          | report to admin by community | Invalid CommunityID                                                | community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                                                                                                        | return: community-not-found                           | F   |
+| UT-2.2.bp | User Module          | report to admin by community | Valid Community                                                    | community: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                                                                                                           | return: OK                                            | P   |
+| UT-2.2.bq | User Module          | send chat request            | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.br | User Module          | send chat request            | Receiver has direct chat from all users on                         | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: all-direct-chat-from-users-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2) | return: user-can-receive-all-messages                 | P   |
+| UT-2.2.bs | User Module          | send chat request            | Receiver has direct chat from all users on                         | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: all-direct-chat-from-users-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2)     | return: user-blocked                                  | F   |
+| UT-2.2.bt | User Module          | send chat request            | Receiver has no-chat-requests-on                                   | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: no-chat-requests-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2)           | return: user-cannot-receive-chat-requests             | F   |
+| UT-2.2.bu | User Module          | send chat request            | Receiver has no-chat-requests-on                                   | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: no-chat-requests-on, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2)               | return: user-blocked                                  | F   |
+| UT-2.2.bv | User Module          | send chat request            | Other chat-settings                                                | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2)  | return: user-can-receive-chat-requests                | P   |
+| UT-2.2.bw | User Module          | send chat request            | Other chat-settings                                                | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2)      | return: user-blocked                                  | F   |
+| UT-2.2.bx | User Module          | send chat                    | Invalid UserID                                                     | user: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                                                                                                            | return: user-not-found                                | F   |
+| UT-2.2.by | User Module          | send chat                    | Unaccepted chat request                                            | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2)  | return: chat-request-not-accepted                     | F   |
+| UT-2.2.bz | User Module          | send chat                    | User is blocked by receiver                                        | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-blocked-by-user(2)      | return: user-blocked                                  | F   |
+| UT-2.2.ca | User Module          | send chat                    | Valid User                                                         | user: known-user-id \textbf{and} user-token: valid-token, get User(receiver): OK \textbf{and} chat-setting: chat-requests-from-following, get User(sender): OK, blocked.get User(1) By User(2): user(1)-not-blocked-by-user(2)  | return: OK                                            | P   | -->
 
 ##### Admin User Module
 
-| S.No     | Module Name  | Function                  | Conditions to be tested    | Test Data                                                                                                  | Expected Output                 | Status |
+<!-- Convert to Latex Table -->
+
+\begin{longtblr}[
+caption = {Admin Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Module Name} & \textbf{Function} & \textbf{Conditions to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\\hline
+UT-2.3.a&Admin Module & Change Community Settings & Invalid CommunityID & communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.3.b&Admin Module & Change Community Settings & Valid Community & communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+UT-2.3.c&Admin Module & Appointing Moderator & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.3.d&Admin Module & Appointing Moderator & User not in Community & userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-in-community & F \\\hline
+UT-2.3.e&Admin Module & Appointing Moderator & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.3.f&Admin Module & Remove Moderator & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.3.g&Admin Module & Remove Moderator & User not Moderator & userID: non-moderator-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-moderator & F \\\hline
+UT-2.3.h&Admin Module & Remove Moderator & Valid User & userID: known-user:id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.3.i&Admin Module & Granting Post Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.3.j&Admin Module & Granting Post Privilege & User not in Community & userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-in-community & F \\\hline
+UT-2.3.k&Admin Module & Granting Post Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.3.l&Admin Module & Revoking Post Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.3.m&Admin Module & Revoking Post Privilege & User do not have privilege & userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-have-privilege & F \\\hline
+UT-2.3.n&Admin Module & Revoking Post Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+
+\end{longtblr}
+
+<!-- | S.No     | Module Name  | Function                  | Conditions to be tested    | Test Data                                                                                                  | Expected Output                 | Status |
 | -------- | ------------ | ------------------------- | -------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------- | ------ |
 | UT-2.3.a | Admim Module | Change Community Settings | Invalid CommunityID        | communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found | return: community-not-found     | F      |
 | UT-2.3.b | Admim Module | Change Community Settings | Valid Community            | communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK                    | return: OK                      | P      |
@@ -349,56 +496,141 @@ UT-2.2.an & reject request & Valid Request & request: known-request-id \textbf{a
 | UT-2.3.k | Admim Module | Granting Post Privilege   | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
 | UT-2.3.l | Admim Module | Revoking Post Privilege   | Invalid UserID             | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                     | return: user-not-found          | F      |
 | UT-2.3.m | Admim Module | Revoking Post Privilege   | User do not have privilege | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                           | return: user-not-have-privilege | F      |
-| UT-2.3.n | Admim Module | Revoking Post Privilege   | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      |
+| UT-2.3.n | Admim Module | Revoking Post Privilege   | Valid User                 | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                   | return: OK                      | P      | -->
 
 ##### Moderator User Module
 
-| S.No      | Module Name     | Function                 | Conditions to be tested           | Test Data                                                                                                                                          | Expected Output                     | Status |
+<!-- Convert to Latex Table -->
+
+\begin{longtblr}[
+caption = {Moderator Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+S.No & Module Name & Function & Conditions to be tested & Test Data & Expected Output & Status \\\hline
+UT-2.4.a & Moderator Module & Remove Post & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.4.b & Moderator Module & Remove Post & Post is Not From Community & post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK & return: post-not-from-community & F \\\hline
+UT-2.4.c & Moderator Module & Remove Post & Moderator does not have privilege & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-post-removal-privilege & return: user-cannot-remove-post & F \\\hline
+UT-2.4.d & Moderator Module & Remove Post & Valid Post & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getUserCommunity.privileges: post-removal-privilege & return: OK & P \\\hline
+UT-2.4.e & Moderator Module & Remove Comment & Invalid CommentID & comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found & return: comment-not-found & F \\\hline
+UT-2.4.f & Moderator Module & Remove Comment & Comment is Not From Post & comment: non-post-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: comment-not-from-post & F \\\hline
+UT-2.4.g & Moderator Module & Remove Comment & Moderator does not have privilege & comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK, role.getGetUserCommunity.privileges: no-comment-removal-privilege & return: user-cannot-remove-comment & F \\\hline
+UT-2.4.h & Moderator Module & Remove Comment & Valid Comment & comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK & return: OK & P \\\hline
+UT-2.4.i & Moderator Module & Ban User & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.j & Moderator Module & Ban User & User is not in Community & userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-in-community & F \\\hline
+UT-2.4.k & Moderator Module & Ban User & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-ban-privilege & return: user-cannot-ban-user & F \\\hline
+UT-2.4.l & Moderator Module & Ban User & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.m & Moderator Module & Unban User & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.n & Moderator Module & Unban User & User is not banned & userID: non-banned-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-banned & F \\\hline
+UT-2.4.o & Moderator Module & Unban User & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-unban-privilege & return: user-cannot-unban-user & F \\\hline
+UT-2.4.p & Moderator Module & Unban User & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.q & Moderator Module & Grant Post Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.r & Moderator Module & Grant Post Privilege & User is not in Community & userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-in-community & F \\\hline
+UT-2.4.s & Moderator Module & Grant Post Privilege & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege & return: user-cannot-grant-post & F \\\hline
+UT-2.4.t & Moderator Module & Grant Post Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.u & Moderator Module & Revoke Post Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.v & Moderator Module & Revoke Post Privilege & User do not have privilege & userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-have-privilege & F \\\hline
+UT-2.4.w & Moderator Module & Revoke Post Privilege & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege & return: user-cannot-revoke-post & F \\\hline
+UT-2.4.x & Moderator Module & Revoke Post Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.y & Moderator Module & Remove Comment Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.z & Moderator Module & Remove Comment Privilege & User do not have privilege & userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-have-privilege & F \\\hline
+UT-2.4.aa & Moderator Module & Remove Comment Privilege & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege & return: user-cannot-revoke-comment & F \\\hline
+UT-2.4.ab & Moderator Module & Remove Comment Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.ac & Moderator Module & Grant Comment Privilege & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.4.ad & Moderator Module & Grant Comment Privilege & User is not in Community & userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK & return: user-not-in-community & F \\\hline
+UT-2.4.ae & Moderator Module & Grant Comment Privilege & Moderator does not have privilege & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege & return: user-cannot-grant-comment & F \\\hline
+UT-2.4.af & Moderator Module & Grant Comment Privilege & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.4.ag & Moderator Module & Comment Disable & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.4.ah & Moderator Module & Comment Disable & Post is Not From Community & post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK & return: post-not-from-community & F \\\hline
+UT-2.4.ai & Moderator Module & Comment Disable & Moderator does not have privilege & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege & return: user-cannot-disable-comment & F \\\hline
+UT-2.4.aj & Moderator Module & Comment Disable & Valid Post & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK & return: OK & P \\\hline
+UT-2.4.ak & Moderator Module & Comment Enable & Invalid PostID & post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found & return: post-not-found & F \\\hline
+UT-2.4.al & Moderator Module & Comment Enable & Post is Not From Community & post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK & return: post-not-from-community & F \\\hline
+UT-2.4.am & Moderator Module & Comment Enable & Moderator does not have privilege & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege & return: user-cannot-enable-comment & F \\\hline
+UT-2.4.an & Moderator Module & Comment Enable & Valid Post & post: known-post-id \textbf{and} user-token: valid-token, get Post: OK & return: OK & P \\\hline
+UT-2.4.ao & Moderator Module & View Community Reports & Invalid CommunityID & communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.4.ap & Moderator Module & View Community Reports & Valid Community & communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+
+\end{longtblr}
+
+<!-- | S.No      | Module Name     | Function                 | Conditions to be tested           | Test Data                                                                                                                                          | Expected Output                     | Status |
 | --------- | --------------- | ------------------------ | --------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- | ------ |
-| UT-2.4.a  | Modertor Module | Remove Post              | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
-| UT-2.4.b  | Modertor Module | Remove Post              | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
-| UT-2.4.c  | Modertor Module | Remove Post              | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-post-removal-privilege             | return: user-cannot-remove-post     | F      |
-| UT-2.4.d  | Modertor Module | Remove Post              | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getUserCommunity.privileges: post-removal-privilege                   | return: OK                          | P      |
-| UT-2.4.e  | Modertor Module | Remove Comment           | Invalid CommentID                 | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found                                                   | return: comment-not-found           | F      |
-| UT-2.4.f  | Modertor Module | Remove Comment           | Comment is Not From Post          | comment: non-post-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                 | return: comment-not-from-post       | F      |
-| UT-2.4.g  | Modertor Module | Remove Comment           | Moderator does not have privilege | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK, role.getGetUserCommunity.privileges: no-comment-removal-privilege | return: user-cannot-remove-comment  | F      |
-| UT-2.4.h  | Modertor Module | Remove Comment           | Valid Comment                     | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                    | return: OK                          | P      |
-| UT-2.4.i  | Modertor Module | Ban User                 | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.j  | Modertor Module | Ban User                 | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
-| UT-2.4.k  | Modertor Module | Ban User                 | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-ban-privilege               | return: user-cannot-ban-user        | F      |
-| UT-2.4.l  | Modertor Module | Ban User                 | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.m  | Modertor Module | Unban User               | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.n  | Modertor Module | Unban User               | User is not banned                | userID: non-banned-user-id \textbf{and} user-token: valid-token, get User: OK                                                                      | return: user-not-banned             | F      |
-| UT-2.4.o  | Modertor Module | Unban User               | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-unban-privilege             | return: user-cannot-unban-user      | F      |
-| UT-2.4.p  | Modertor Module | Unban User               | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.q  | Modertor Module | Grant Post Privilege     | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.r  | Modertor Module | Grant Post Privilege     | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
-| UT-2.4.s  | Modertor Module | Grant Post Privilege     | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege                   | return: user-cannot-grant-post      | F      |
-| UT-2.4.t  | Modertor Module | Grant Post Privilege     | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.u  | Modertor Module | Revoke Post Privilege    | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.v  | Modertor Module | Revoke Post Privilege    | User do not have privilege        | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-have-privilege     | F      |
-| UT-2.4.w  | Modertor Module | Revoke Post Privilege    | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege                   | return: user-cannot-revoke-post     | F      |
-| UT-2.4.x  | Modertor Module | Revoke Post Privilege    | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.y  | Modertor Module | Remove Comment Privilege | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.z  | Modertor Module | Remove Comment Privilege | User do not have privilege        | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-have-privilege     | F      |
-| UT-2.4.aa | Modertor Module | Remove Comment Privilege | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege                | return: user-cannot-revoke-comment  | F      |
-| UT-2.4.ab | Modertor Module | Remove Comment Privilege | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.ac | Modertor Module | Grant Comment Privilege  | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
-| UT-2.4.ad | Modertor Module | Grant Comment Privilege  | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
-| UT-2.4.ae | Modertor Module | Grant Comment Privilege  | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege                | return: user-cannot-grant-comment   | F      |
-| UT-2.4.af | Modertor Module | Grant Comment Privilege  | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
-| UT-2.4.ag | Modertor Module | Comment Disable          | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
-| UT-2.4.ah | Modertor Module | Comment Disable          | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
-| UT-2.4.ai | Modertor Module | Comment Disable          | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege                  | return: user-cannot-disable-comment | F      |
-| UT-2.4.aj | Modertor Module | Comment Disable          | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                             | return: OK                          | P      |
-| UT-2.4.ak | Modertor Module | Comment Enable           | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
-| UT-2.4.al | Modertor Module | Comment Enable           | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
-| UT-2.4.am | Modertor Module | Comment Enable           | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege                  | return: user-cannot-enable-comment  | F      |
-| UT-2.4.an | Modertor Module | Comment Enable           | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                             | return: OK                          | P      |
-| UT-2.4.ao | Modertor Module | View Community Reports   | Invalid CommunityID               | communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                         | return: community-not-found         | F      |
-| UT-2.4.ap | Modertor Module | View Community Reports   | Valid Community                   | communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                            | return: OK                          | P      |
+| UT-2.4.a  | Moderator Module | Remove Post              | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
+| UT-2.4.b  | Moderator Module | Remove Post              | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
+| UT-2.4.c  | Moderator Module | Remove Post              | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-post-removal-privilege             | return: user-cannot-remove-post     | F      |
+| UT-2.4.d  | Moderator Module | Remove Post              | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getUserCommunity.privileges: post-removal-privilege                   | return: OK                          | P      |
+| UT-2.4.e  | Moderator Module | Remove Comment           | Invalid CommentID                 | comment: unknown-comment-id \textbf{and} user-token: valid-token, get Comment: comment-not-found                                                   | return: comment-not-found           | F      |
+| UT-2.4.f  | Moderator Module | Remove Comment           | Comment is Not From Post          | comment: non-post-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                 | return: comment-not-from-post       | F      |
+| UT-2.4.g  | Moderator Module | Remove Comment           | Moderator does not have privilege | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK, role.getGetUserCommunity.privileges: no-comment-removal-privilege | return: user-cannot-remove-comment  | F      |
+| UT-2.4.h  | Moderator Module | Remove Comment           | Valid Comment                     | comment: known-comment-id \textbf{and} user-token: valid-token, get Comment: OK                                                                    | return: OK                          | P      |
+| UT-2.4.i  | Moderator Module | Ban User                 | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.j  | Moderator Module | Ban User                 | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
+| UT-2.4.k  | Moderator Module | Ban User                 | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-ban-privilege               | return: user-cannot-ban-user        | F      |
+| UT-2.4.l  | Moderator Module | Ban User                 | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.m  | Moderator Module | Unban User               | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.n  | Moderator Module | Unban User               | User is not banned                | userID: non-banned-user-id \textbf{and} user-token: valid-token, get User: OK                                                                      | return: user-not-banned             | F      |
+| UT-2.4.o  | Moderator Module | Unban User               | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-user-unban-privilege             | return: user-cannot-unban-user      | F      |
+| UT-2.4.p  | Moderator Module | Unban User               | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.q  | Moderator Module | Grant Post Privilege     | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.r  | Moderator Module | Grant Post Privilege     | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
+| UT-2.4.s  | Moderator Module | Grant Post Privilege     | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege                   | return: user-cannot-grant-post      | F      |
+| UT-2.4.t  | Moderator Module | Grant Post Privilege     | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.u  | Moderator Module | Revoke Post Privilege    | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.v  | Moderator Module | Revoke Post Privilege    | User do not have privilege        | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-have-privilege     | F      |
+| UT-2.4.w  | Moderator Module | Revoke Post Privilege    | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-post-privilege                   | return: user-cannot-revoke-post     | F      |
+| UT-2.4.x  | Moderator Module | Revoke Post Privilege    | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.y  | Moderator Module | Remove Comment Privilege | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.z  | Moderator Module | Remove Comment Privilege | User do not have privilege        | userID: non-privilege-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-have-privilege     | F      |
+| UT-2.4.aa | Moderator Module | Remove Comment Privilege | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege                | return: user-cannot-revoke-comment  | F      |
+| UT-2.4.ab | Moderator Module | Remove Comment Privilege | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.ac | Moderator Module | Grant Comment Privilege  | Invalid UserID                    | userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found                                                             | return: user-not-found              | F      |
+| UT-2.4.ad | Moderator Module | Grant Comment Privilege  | User is not in Community          | userID: non-community-user-id \textbf{and} user-token: valid-token, get User: OK                                                                   | return: user-not-in-community       | F      |
+| UT-2.4.ae | Moderator Module | Grant Comment Privilege  | Moderator does not have privilege | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK, role.getGetUserCommunity.privileges: no-comment-privilege                | return: user-cannot-grant-comment   | F      |
+| UT-2.4.af | Moderator Module | Grant Comment Privilege  | Valid User                        | userID: known-user-id \textbf{and} user-token: valid-token, get User: OK                                                                           | return: OK                          | P      |
+| UT-2.4.ag | Moderator Module | Comment Disable          | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
+| UT-2.4.ah | Moderator Module | Comment Disable          | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
+| UT-2.4.ai | Moderator Module | Comment Disable          | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege                  | return: user-cannot-disable-comment | F      |
+| UT-2.4.aj | Moderator Module | Comment Disable          | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                             | return: OK                          | P      |
+| UT-2.4.ak | Moderator Module | Comment Enable           | Invalid PostID                    | post: unknown-post-id \textbf{and} user-token: valid-token, get Post: post-not-found                                                               | return: post-not-found              | F      |
+| UT-2.4.al | Moderator Module | Comment Enable           | Post is Not From Community        | post: non-community-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                     | return: post-not-from-community     | F      |
+| UT-2.4.am | Moderator Module | Comment Enable           | Moderator does not have privilege | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK, role.getGetUserCommunity.privileges: no-comment-privilege                  | return: user-cannot-enable-comment  | F      |
+| UT-2.4.an | Moderator Module | Comment Enable           | Valid Post                        | post: known-post-id \textbf{and} user-token: valid-token, get Post: OK                                                                             | return: OK                          | P      |
+| UT-2.4.ao | Moderator Module | View Community Reports   | Invalid CommunityID               | communityID: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found                                         | return: community-not-found         | F      |
+| UT-2.4.ap | Moderator Module | View Community Reports   | Valid Community                   | communityID: known-community-id \textbf{and} user-token: valid-token, get Community: OK                                                            | return: OK                          | P      | -->
 
 ##### Superuser Module
+
+<!-- Convert to Latex Table -->
+
+<!-- \begin{longtblr}[
+caption = {Superuser Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+S.No & Module Name & Function & Conditions to be tested & Test Data & Expected Output & Status \\\hline
+UT-2.5.a & Superuser Module & make superuser & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.5.b & Superuser Module & make superuser & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.5.c & Superuser Module & ban_c user & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.5.d & Superuser Module & ban_c user & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.5.e & Superuser Module & unban_c user & Invalid UserID & userID: unknown-user-id \textbf{and} user-token: valid-token, get User: user-not-found & return: user-not-found & F \\\hline
+UT-2.5.f & Superuser Module & unban_c user & Valid User & userID: known-user-id \textbf{and} user-token: valid-token, get User: OK & return: OK & P \\\hline
+UT-2.5.g & Superuser Module & Delete Community & Invalid CommunityID & community: unknown-community-id \textbf{and} user-token: valid-token, get Community: community-not-found & return: community-not-found & F \\\hline
+UT-2.5.h & Superuser Module & Delete Community & Valid Community & community: known-community-id \textbf{and} user-token: valid-token, get Community: OK & return: OK & P \\\hline
+\end{longtblr} -->
 
 | S.No     | Module Name      | Function         | Conditions to be tested | Test Data                                                                                                  | Expected Output             | Status |
 | -------- | ---------------- | ---------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------- | --------------------------- | ------ |
@@ -413,9 +645,84 @@ UT-2.2.an & reject request & Valid Request & request: known-request-id \textbf{a
 
 #### System Module
 
-| S.No     | Module Name | Conditions to be tested | Test Data | Expected Output | Status |
-| -------- | ----------- | ----------------------- | --------- | --------------- | ------ |
-| UT-3.1.a |             |                         |           |                 |        |
+##### Cache Module
+
+<!-- Convert to Latex Table -->
+
+\begin{longtblr}[
+caption = {Cache Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+S.No & Module Name & Function & Conditions to be tested & Test Data & Expected Output & Status\\\hline
+UT-3.1.a & Cache Module & get Item From Cache & Item Not In Cache & item:item-id & returns:item-not-in-cache & F \\\hline
+UT-3.1.b & Cache Module & get Item From Cache & Item TTL Expired & item:item-id & returns:item-ttl-expired & F \\\hline
+UT-3.1.c & Cache Module & get Item From Cache & Valid Item & item:item-id & returns:OK \textbf{and} item & P \\\hline
+UT-3.1.d & Cache Module & set Item In Cache & Invalid Item & item:item-id & returns:item-id-already-in-use & F \\\hline
+UT-3.1.e & Cache Module & set Item In Cache & Valid Item & item:item-id & returns:OK & P \\\hline
+UT-3.1.f & Cache Module & delete Item From Cache & Invalid Item & item:item-id & returns:item-not-in-cache & F \\\hline
+UT-3.1.g & Cache Module & delete Item From Cache & Valid Item & item:item-id & returns:OK & P \\\hline
+UT-3.1.h & Cache Module & update Item In Cache & Invalid Item & item:item-id & returns:item-not-in-cache & F \\\hline
+UT-3.1.i & Cache Module & update Item In Cache & Valid Item & item:item-id & returns:OK & P \\\hline
+UT-3.1.j & Cache Module & write Back To DB & Invalid Item & item:item-id & returns:item-not-in-cache & F \\\hline
+UT-3.1.k & Cache Module & write Back To DB & Valid Item & item:item-id & returns:OK & P \\\hline
+UT-3.1.l & Cache Module & update Item In Cache From DB & Invalid Item & item:item-id & returns:item-not-in-cache & F \\\hline
+UT-3.1.m & Cache Module & update Item In Cache From DB & Item Not Present in DB & item:item-id & returns:item-not-in-DB & P \\\hline
+UT-3.1.n & Cache Module & update Item In Cache From DB & Valid Item & item:item-id & returns:OK & P \\\hline
+\end{longtblr}
+
+<!-- | S.No     | Module Name  | Function                     | Conditions to be tested | Test Data    | Expected Output                | Status |
+| -------- | ------------ | ---------------------------- | ----------------------- | ------------ | ------------------------------ | ------ |
+| UT-3.1.a | Cache Module | get Item From Cache          | Item Not In Cache       | item:item-id | returns:item-not-in-cache      | F      |
+| UT-3.1.b | Cache Module | get Item From Cache          | Item TTL Expired        | item:item-id | returns:item-ttl-expired       | F      |
+| UT-3.1.c | Cache Module | get Item From Cache          | Valid Item              | item:item-id | returns:OK **and** item        | P      |
+| UT-3.1.d | Cache Module | set Item In Cache            | Invalid Item            | item:item-id | returns:item-id-already-in-use | F      |
+| UT-3.1.e | Cache Module | set Item In Cache            | Valid Item              | item:item-id | returns:OK                     | P      |
+| UT-3.1.f | Cache Module | delete Item From Cache       | Invalid Item            | item:item-id | returns:item-not-in-cache      | F      |
+| UT-3.1.g | Cache Module | delete Item From Cache       | Valid Item              | item:item-id | returns:OK                     | P      |
+| UT-3.1.h | Cache Module | update Item In Cache         | Invalid Item            | item:item-id | returns:item-not-in-cache      | F      |
+| UT-3.1.i | Cache Module | update Item In Cache         | Valid Item              | item:item-id | returns:OK                     | P      |
+| UT-3.1.j | Cache Module | write Back To DB             | Invalid Item            | item:item-id | returns:item-not-in-cache      | F      |
+| UT-3.1.k | Cache Module | write Back To DB             | Valid Item              | item:item-id | returns:OK                     | P      |
+| UT-3.1.l | Cache Module | update Item In Cache From DB | Invalid Item            | item:item-id | returns:item-not-in-cache      | F      |
+| UT-3.1.m | Cache Module | update Item In Cache From DB | Item Not Present in DB  | item:item-id | returns:item-not-in-DB         | P      |
+| UT-3.1.n | Cache Module | update Item In Cache From DB | Valid Item              | item:item-id | returns:OK                     | P      | -->
+
+##### Recommendation Module
+
+<!-- Convert to Latex Table -->
+
+\begin{longtblr}[
+caption = {Recommendation Module Unit Test},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[4]X[3]X[4.5]X[3]X[5]X[1]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+S.No & Module Name & Function & Conditions to be tested & Test Data & Expected Output & Status \\\hline
+UT-3.2.a & Recommendation Module & get Trending & Trending Content & no-input & returns:OK \textbf{and} trending-content & P \\\hline
+UT-3.2.b & Recommendation Module & get User Feed & Invalid UserID & user:invalid-user-id, get User:user-not-found & returns:invalid-user-id & F \\\hline
+UT-3.2.c & Recommendation Module & get User Feed & Valid UserID & user:user-id, get User:OK & returns:OK \textbf{and} user-feed & P \\\hline
+\end{longtblr}
+
+<!--
+| S.No     | Module Name           | Function      | Conditions to be tested | Test Data                                     | Expected Output                     | Status |
+| -------- | --------------------- | ------------- | ----------------------- | --------------------------------------------- | ----------------------------------- | ------ |
+| UT-3.2.a | Recommendation Module | get Trending  | Trending Content        | no-input                                      | returns:OK **and** trending-content | P      |
+| UT-3.2.b | Recommendation Module | get User Feed | Invalid UserID          | user:invalid-user-id, get User:user-not-found | returns:invalid-user-id             | F      |
+| UT-3.2.c | Recommendation Module | get User Feed | Valid UserID            | user:user-id, get User:OK                     | returns:OK **and** user-feed        | P      | -->
 
 #### Database Access Module
 
@@ -919,7 +1226,7 @@ UT-4.11.c & Joined Community Module & get User-Community & Invalid UserID and Co
 UT-4.11.d & Joined Community Module & get User-Community & Valid Request & user: known-user, community: known-community, status: OK & return: OK & P \\\hline
 UT-4.11.e & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
 UT-4.11.f & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
-UT-4.11.g & Joined Community Module & get User-Community Status (requested, invited, joined) & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
+UT-4.11.g & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Invalid UserID and CommunityID tuple & user: known-user, community: known-community, DB-status: unknown-user-community-tuple & return: user-not-in-community & F \\\hline
 UT-4.11.h & Joined Community Module & get User-Community Status (requested, invited, joined, blocked) & Valid Request & user: known-user, community: known-community, status: OK & return: OK \textbf{and} user-status & P \\\hline
 UT-4.11.i & Joined Community Module & delete User-Community & Invalid UserID & user: unknown-user \textbf{and} community: community-id, DB-status: user-not-found & return: user-not-found & F \\\hline
 UT-4.11.j & Joined Community Module & delete User-Community & Invalid CommunityID & user: user-id \textbf{and} community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
@@ -990,6 +1297,8 @@ UT-4.12.c & Blocked Module & delete Blocked User(1) By UserID(2) & Invalid UserI
 UT-4.12.d & Blocked Module & delete Blocked User(1) By UserID(2) & Invalid UserID & user1: user-id \textbf{and} user2: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
 UT-4.12.e & Blocked Module & delete Blocked User(1) By UserID(2) & Tuple Not Present & user1: user-id \textbf{and} user2: known-user, DB-status: tuple-not-found & return: tuple-not-found & F \\\hline
 UT-4.12.f & Blocked Module & delete Blocked User(1) By UserID(2) & Valid Request & user1: known-user \textbf{and} user2: known-user, DB-status: OK & return: OK & P \\\hline
+UT-4.12.g & Blocked Module & get User(1) By UserID(2) & Invalid UserID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+UT-4.12.h & Blocked Module & get User(1) By UserID(2) & Valid Request & user: known-user, DB-status: OK & return: OK \textbf{and} user & P \\\hline
 \end{longtblr}
 
 <!-- | S.No      | Module Name    | Function                            | Conditions to be tested | Test Data                                                             | Expected Output                 | Status |
@@ -1177,133 +1486,277 @@ UT-5.1.v & Listing Service Module & List Blocked Users & Valid List of Blocked U
 
 ### Integration Testing
 
-```text
-Integrating different modules and testing
-    Unit tested submodules combined and tested
-    Use bottom-up approach for integration of modules
-```
+<!-- Convert into Latex Table -->
 
-| S.No | Modules Integrated                                            | Condition to be tested | Test Data                                                                                            | Expected Output             | Status |
-| ---- | ------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------- | ------ |
-| 1.1  | View Profile Module & Update Profile Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
-| 1.2  | View Profile Module & Update Profile Module                   | Invalid Update Data    | user: known-user, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
-| 1.3  | View Profile Module & Update Profile Module                   | Valid Request          | user: known-user, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
-| 2.1  | View Community Module & Update Community Module               | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
-| 2.2  | View Community Module & Update Community Module               | Invalid Update Data    | community: known-community, update-data: invalid-data, DB-status: OK                                 | return: invalid-data        | F      |
-| 2.3  | View Community Module & Update Community Module               | No Privilege           | community: known-community, update-data: valid-data, DB-status: no-privilege                         | return: no-privilege        | F      |
-| 2.4  | View Community Module & Update Community Module               | Valid Request          | community: known-community, update-data: valid-data, DB-status: OK                                   | return: OK                  | P      |
-| 3.1  | View Post Module & Update Post Module                         | Invalid Post ID        | post: unknown-post, DB-status: post-not-found                                                        | return: post-not-found      | F      |
-| 3.2  | View Post Module & Update Post Module                         | Invalid Update Data    | post: known-post, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
-| 3.3  | View Post Module & Update Post Module                         | No Privilege           | post: known-post, update-data: valid-data, DB-status: no-privilege                                   | return: no-privilege        | F      |
-| 3.4  | View Post Module & Update Post Module                         | Valid Request          | post: known-post, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
-| 4.1  | View Comment Module & Update Comment Module                   | Invalid Comment ID     | comment: unknown-comment, DB-status: comment-not-found                                               | return: comment-not-found   | F      |
-| 4.2  | View Comment Module & Update Comment Module                   | Invalid Update Data    | comment: known-comment, update-data: invalid-data, DB-status: OK                                     | return: invalid-data        | F      |
-| 4.3  | View Comment Module & Update Comment Module                   | No Privilege           | comment: known-comment, update-data: valid-data, DB-status: no-privilege                             | return: no-privilege        | F      |
-| 4.4  | View Comment Module & Update Comment Module                   | Valid Request          | comment: known-comment, update-data: valid-data, DB-status: OK                                       | return: OK                  | P      |
-| 5.1  | View User Profile Module & Chat Module                        | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
-| 5.2  | View User Profile Module & Chat Module                        | Invalid Chat Data      | user: known-user, chat-data: invalid-data, DB-status: OK                                             | return: invalid-data        | F      |
-| 5.3  | View User Profile Module & Chat Module                        | Blocked User           | user: known-user, chat-data: valid-data, DB-status: blocked-user                                     | return: blocked-user        | F      |
-| 5.4  | View User Profile Module & Chat Module                        | Valid Request          | user: known-user, chat-data: valid-data, DB-status: OK                                               | return: OK                  | P      |
-| 6.1  | View Home Module & view Post Module                           | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
-| 6.2  | View Home Module & view Post Module                           | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
-| 6.3  | View Home Module & view Post Module                           | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      |
-| 7.1  | View Community Module & View Post Module                      | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
-| 7.2  | View Community Module & View Post Module                      | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
-| 7.3  | View Community Module & View Post Module                      | Valid Request          | community: known-community, post: known-post, DB-status: OK                                          | return: OK                  | P      |
-| 8.1  | View Community Module, View Post Module & View Comment Module | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
-| 8.2  | View Community Module, View Post Module & View Comment Module | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
-| 8.3  | View Community Module, View Post Module & View Comment Module | Invalid Comment ID     | community: known-community, post: known-post, comment: unknown-comment, DB-status: comment-not-found | return: comment-not-found   | F      |
-| 8.4  | View Community Module, View Post Module & View Comment Module | Valid Request          | community: known-community, post: known-post, comment: known-comment, DB-status: OK                  | return: OK                  | P      |
-| 9.1  | View User Profile Module & View Post Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
-| 9.2  | View User Profile Module & View Post Module                   | Private Profile        | user: known-user, post: known-post, DB-status: private-profile                                       | return: private-profile     | F      |
-| 9.3  | View User Profile Module & View Post Module                   | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
-| 9.4  | View User Profile Module & View Post Module                   | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      |
+\begin{longtblr}[
+caption = {Integration Testing},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[3]X[4.5]X[4]X[5]X[1.5]|}, % Adjusted to 5 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Modules Integrated} & \textbf{Condition to be tested} & \textbf{Test Data} & \textbf{Expected Output} & \textbf{Status} \\
+\hline
+IT-1.1 & View Profile Module \& Update Profile Module & Invalid User ID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+IT-1.2 & View Profile Module \& Update Profile Module & Invalid Update Data & user: known-user, update-data: invalid-data, DB-status: OK & return: invalid-data & F \\\hline
+IT-1.3 & View Profile Module \& Update Profile Module & Valid Request & user: known-user, update-data: valid-data, DB-status: OK & return: OK & P \\\hline
+IT-2.1 & View Community Module \& Update Community Module & Invalid Community ID & community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+IT-2.2 & View Community Module \& Update Community Module & Invalid Update Data & community: known-community, update-data: invalid-data, DB-status: OK & return: invalid-data & F \\\hline
+IT-2.3 & View Community Module \& Update Community Module & No Privilege & community: known-community, update-data: valid-data, DB-status: no-privilege & return: no-privilege & F \\\hline
+IT-2.4 & View Community Module \& Update Community Module & Valid Request & community: known-community, update-data: valid-data, DB-status: OK & return: OK & P \\\hline
+IT-3.1 & View Post Module \& Update Post Module & Invalid Post ID & post: unknown-post, DB-status: post-not-found & return: post-not-found & F \\\hline
+IT-3.2 & View Post Module \& Update Post Module & Invalid Update Data & post: known-post, update-data: invalid-data, DB-status: OK & return: invalid-data & F \\\hline
+IT-3.3 & View Post Module \& Update Post Module & No Privilege & post: known-post, update-data: valid-data, DB-status: no-privilege & return: no-privilege & F \\\hline
+IT-3.4 & View Post Module \& Update Post Module & Valid Request & post: known-post, update-data: valid-data, DB-status: OK & return: OK & P \\\hline
+IT-4.1 & View Comment Module \& Update Comment Module & Invalid Comment ID & comment: unknown-comment, DB-status: comment-not-found & return: comment-not-found & F \\\hline
+IT-4.2 & View Comment Module \& Update Comment Module & Invalid Update Data & comment: known-comment, update-data: invalid-data, DB-status: OK & return: invalid-data & F \\\hline
+IT-4.3 & View Comment Module \& Update Comment Module & No Privilege & comment: known-comment, update-data: valid-data, DB-status: no-privilege & return: no-privilege & F \\\hline
+IT-4.4 & View Comment Module \& Update Comment Module & Valid Request & comment: known-comment, update-data: valid-data, DB-status: OK & return: OK & P \\\hline
+IT-5.1 & View User Profile Module \& Chat Module & Invalid User ID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+IT-5.2 & View User Profile Module \& Chat Module & Invalid Chat Data & user: known-user, chat-data: invalid-data, DB-status: OK & return: invalid-data & F \\\hline
+IT-5.3 & View User Profile Module \& Chat Module & Blocked User & user: known-user, chat-data: valid-data, DB-status: blocked-user & return: blocked-user & F \\\hline
+IT-5.4 & View User Profile Module \& Chat Module & Valid Request & user: known-user, chat-data: valid-data, DB-status: OK & return: OK & P \\\hline
+IT-6.1 & View Home Module \& view Post Module & Invalid User ID & user: unknown-user, DB-status: user-not-found & return: user-not-found & F \\\hline
+IT-6.2 & View Home Module \& view Post Module & Invalid Post ID & user: known-user, post: unknown-post, DB-status: post-not-found & return: post-not-found & F \\\hline
+IT-6.3 & View Home Module \& view Post Module & Valid Request & user: known-user, post: known-post, DB-status: OK & return: OK & P \\\hline
+IT-7.1 & View Community Module \& View Post Module & Invalid Community ID & community: unknown-community, DB-status: community-not-found & return: community-not-found & F \\\hline
+\end{longtblr}
+
+<!-- | S.No   | Modules Integrated                                             | Condition to be tested | Test Data                                                                                            | Expected Output             | Status |
+| ------ | -------------------------------------------------------------- | ---------------------- | ---------------------------------------------------------------------------------------------------- | --------------------------- | ------ |
+| IT-1.1 | View Profile Module \& Update Profile Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| IT-1.2 | View Profile Module \& Update Profile Module                   | Invalid Update Data    | user: known-user, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
+| IT-1.3 | View Profile Module \& Update Profile Module                   | Valid Request          | user: known-user, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
+| IT-2.1 | View Community Module \& Update Community Module               | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| IT-2.2 | View Community Module \& Update Community Module               | Invalid Update Data    | community: known-community, update-data: invalid-data, DB-status: OK                                 | return: invalid-data        | F      |
+| IT-2.3 | View Community Module \& Update Community Module               | No Privilege           | community: known-community, update-data: valid-data, DB-status: no-privilege                         | return: no-privilege        | F      |
+| IT-2.4 | View Community Module \& Update Community Module               | Valid Request          | community: known-community, update-data: valid-data, DB-status: OK                                   | return: OK                  | P      |
+| IT-3.1 | View Post Module \& Update Post Module                         | Invalid Post ID        | post: unknown-post, DB-status: post-not-found                                                        | return: post-not-found      | F      |
+| IT-3.2 | View Post Module \& Update Post Module                         | Invalid Update Data    | post: known-post, update-data: invalid-data, DB-status: OK                                           | return: invalid-data        | F      |
+| IT-3.3 | View Post Module \& Update Post Module                         | No Privilege           | post: known-post, update-data: valid-data, DB-status: no-privilege                                   | return: no-privilege        | F      |
+| IT-3.4 | View Post Module \& Update Post Module                         | Valid Request          | post: known-post, update-data: valid-data, DB-status: OK                                             | return: OK                  | P      |
+| IT-4.1 | View Comment Module \& Update Comment Module                   | Invalid Comment ID     | comment: unknown-comment, DB-status: comment-not-found                                               | return: comment-not-found   | F      |
+| IT-4.2 | View Comment Module \& Update Comment Module                   | Invalid Update Data    | comment: known-comment, update-data: invalid-data, DB-status: OK                                     | return: invalid-data        | F      |
+| IT-4.3 | View Comment Module \& Update Comment Module                   | No Privilege           | comment: known-comment, update-data: valid-data, DB-status: no-privilege                             | return: no-privilege        | F      |
+| IT-4.4 | View Comment Module \& Update Comment Module                   | Valid Request          | comment: known-comment, update-data: valid-data, DB-status: OK                                       | return: OK                  | P      |
+| IT-5.1 | View User Profile Module \& Chat Module                        | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| IT-5.2 | View User Profile Module \& Chat Module                        | Invalid Chat Data      | user: known-user, chat-data: invalid-data, DB-status: OK                                             | return: invalid-data        | F      |
+| IT-5.3 | View User Profile Module \& Chat Module                        | Blocked User           | user: known-user, chat-data: valid-data, DB-status: blocked-user                                     | return: blocked-user        | F      |
+| IT-5.4 | View User Profile Module \& Chat Module                        | Valid Request          | user: known-user, chat-data: valid-data, DB-status: OK                                               | return: OK                  | P      |
+| IT-6.1 | View Home Module \& view Post Module                           | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| IT-6.2 | View Home Module \& view Post Module                           | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
+| IT-6.3 | View Home Module \& view Post Module                           | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      |
+| IT-7.1 | View Community Module \& View Post Module                      | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| IT-7.2 | View Community Module \& View Post Module                      | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
+| IT-7.3 | View Community Module \& View Post Module                      | Valid Request          | community: known-community, post: known-post, DB-status: OK                                          | return: OK                  | P      |
+| IT-8.1 | View Community Module, View Post Module \& View Comment Module | Invalid Community ID   | community: unknown-community, DB-status: community-not-found                                         | return: community-not-found | F      |
+| IT-8.2 | View Community Module, View Post Module \& View Comment Module | Invalid Post ID        | community: known-community, post: unknown-post, DB-status: post-not-found                            | return: post-not-found      | F      |
+| IT-8.3 | View Community Module, View Post Module \& View Comment Module | Invalid Comment ID     | community: known-community, post: known-post, comment: unknown-comment, DB-status: comment-not-found | return: comment-not-found   | F      |
+| IT-8.4 | View Community Module, View Post Module \& View Comment Module | Valid Request          | community: known-community, post: known-post, comment: known-comment, DB-status: OK                  | return: OK                  | P      |
+| IT-9.1 | View User Profile Module \& View Post Module                   | Invalid User ID        | user: unknown-user, DB-status: user-not-found                                                        | return: user-not-found      | F      |
+| IT-9.2 | View User Profile Module \& View Post Module                   | Private Profile        | user: known-user, post: known-post, DB-status: private-profile                                       | return: private-profile     | F      |
+| IT-9.3 | View User Profile Module \& View Post Module                   | Invalid Post ID        | user: known-user, post: unknown-post, DB-status: post-not-found                                      | return: post-not-found      | F      |
+| IT-9.4 | View User Profile Module \& View Post Module                   | Valid Request          | user: known-user, post: known-post, DB-status: OK                                                    | return: OK                  | P      | -->
 
 ### System Testing
 
-```text
-Testing of system as a whole
-```
+<!-- Cpmvert to latex -->
 
-| S.No | Test Case                   | Description                 | Expected Output          |
-| ---- | --------------------------- | --------------------------- | ------------------------ |
-| 1    | Login                       | User login                  | Login successful         |
-| 2    | Logout                      | User logout                 | Logout successful        |
-| 3    | Register                    | User register               | Registration successful  |
-| 4    | View Profile                | View user profile           | Profile displayed        |
-| 5    | Update Profile              | Update user profile         | Profile updated          |
-| 6    | View Community              | View community              | Community displayed      |
-| 7    | Update Community            | Update community            | Community updated        |
-| 8    | View Post                   | View post                   | Post displayed           |
-| 9    | Update Post                 | Update post                 | Post updated             |
-| 10   | View Comment                | View comment                | Comment displayed        |
-| 11   | Update Comment              | Update comment              | Comment updated          |
-| 12   | Chat                        | Chat with user              | Chat successful          |
-| 13   | View Home                   | View home                   | Home displayed           |
-| 14   | View Reports                | View reports                | Reports displayed        |
-| 15   | View Requests               | View requests               | Requests displayed       |
-| 16   | View Notifications          | View notifications          | Notifications displayed  |
-| 17   | View User-Community         | View user-community         | User-community displayed |
-| 18   | View Followers              | View followers              | Followers displayed      |
-| 19   | View Following              | View following              | Following displayed      |
-| 20   | Create Community            | Create community            | Community created        |
-| 21   | Create Post                 | Create post                 | Post created             |
-| 22   | Create Comment              | Create comment              | Comment created          |
-| 23   | view Reports                | View reports                | Reports displayed        |
-| 24   | Follow User                 | Follow user                 | User followed            |
-| 25   | Block User                  | Block user                  | User blocked             |
-| 26   | Report User                 | Report user                 | User reported            |
-| 27   | Delete Post                 | Delete post                 | Post deleted             |
-| 28   | Delete Comment              | Delete comment              | Comment deleted          |
-| 29   | Delete Community            | Delete community            | Community deleted        |
-| 30   | Delete User                 | Delete user from community  | User deleted             |
-| 31   | View Community Guidelines   | View community guidelines   | Guidelines displayed     |
-| 32   | Update Community Guidelines | Update community guidelines | Guidelines updated       |
-| 33   | Report Post                 | Report post                 | Post reported            |
-| 34   | Report Comment              | Report comment              | Comment reported         |
-| 35   | Report User                 | Report user                 | User reported            |
-| 36   | Get Trending Posts          | Get trending posts          | Trending posts displayed |
-| 37   | Get Home Feed               | Get home feed               | Home feed displayed      |
-| 38   | Get Community Feed          | Get community feed          | Community feed displayed |
+\begin{longtblr}[
+caption = {System Testing},
+label = {tab:test},
+]{
+colspec = {|X[1.5]X[2]X[3]X[6]X[7]|}, % Adjusted to 6 columns
+rowhead = 1,
+hlines,
+row{even} = {gray9},
+row{1} = {olive9},
+}
+
+\hline
+\textbf{S.No} & \textbf{Class} & \textbf{Test Case} & \textbf{Description} & \textbf{Expected Output} \\
+\hline
+ST-1 & Authentication & Login & User login & The user is able to successfully login to the portal, in case of a superuser a separate UI is loaded \\\hline
+ST-2 & & Logout & User logout & The user successfully logs out of the system \\\hline
+ST-3 & & Register & User register & The user successfully registers with a unique user name on the plaform with a registered email-id for usage in case of forgot-password \\\hline
+ST-4 & & Forgot Password & User forgot password & The user successfully resets the password using the registered email-id \\\hline
+ST-5 & Guest User & View Profile & The user tries to view another persons user profile & Profile displayed if it is public otherwise only the reports on the profile are displayed \\\hline
+ST-6 & & Get Trending Posts & Get trending posts & Trending posts displayed \\\hline
+ST-7 & & Search & User searches for a community, post, comment, user & The search results are displayed based on the search query (as per the visibility of the search results for the user) \\\hline
+ST-8 & & View Community & The user tries to view a community & Community displayed if it is public \\\hline
+ST-9 & Registered User & View Post & The user tries to view a post & Post displayed if it is public or from a community that the user has joined \\\hline
+ST-10 & & Join Community & The user tries to join a community & The user successfully joins the community if it public or the request is accepted in-case of request only or is invited to the community \\\hline
+ST-11 & & Leave Community & The user tries to leave a community & The user successfully leaves the community which he/she had previously joined \\\hline
+ST-12 & & Follow User & The user tries to follow another user & The user successfully follows the user \\\hline
+ST-13 & & Block User & The user tries to block another user & The user successfully blocks the user \\\hline
+ST-14 & & Report User & The user tries to report another user & The user successfully reports the user \\\hline
+ST-15 & & Report Post & The user tries to report a post & The user successfully reports the post \\\hline
+ST-16 & & Report Comment & The user tries to report a comment & The user successfully reports the comment \\\hline
+ST-17 & & Chat & The user tries to chat with another user & The user successfully chats with the user depending on the status of his/her chat-request or the chat setting of the receiver \\\hline
+ST-18 & & View Home & The user tries to view the home feed & The user successfully views the home feed based on the posts from the communities and users he/she has joined/followed or according to the taste of the user \\\hline
+ST-19 & & Update Profile & Update user profile & Profile updated \\\hline
+ST-20 & & Create Community & Create community & Community created \\\hline
+ST-21 & & Create Post & Create post & Post created if the user has post privileges \\\hline
+ST-22 & & Create Comment & Create comment & Comment created if the user has comment privileges \\\hline
+ST-23 & & Reply Comment & Reply to a comment & Comment replied \\\hline
+ST-24 & & update Post & Update post & Post updated \\\hline
+ST-25 & & update Comment & Update comment & Comment updated \\\hline
+ST-26 & & Delete Post & Delete post & Post deleted \\\hline
+ST-27 & Community Admin & Update Community Guidelines & Update community guidelines & Guidelines updated \\\hline
+ST-28 & & Update Community Settings & Update community settings & Community updated \\\hline
+ST-29 & & Update Community Roles & Update community roles & Roles updated \\\hline
+ST-30 & & Appoint Moderator & Appoint a moderator & Moderator appointed \\\hline
+ST-31 & & Grant Privilegs to Moderator & Grant privileges to a moderator & Privileges granted \\\hline
+ST-32 & & Remove Privileges from Moderator & Remove privileges from a moderator & Privileges removed \\\hline
+ST-33 & & Remove Moderator & Remove a moderator & Moderator removed \\\hline
+ST-34 & & Delete Community & Delete a community & Community deleted \\\hline
+ST-35 & Community Moderator & View Reports & View reports & Reports displayed \\\hline
+ST-36 & & View Requests & View requests & Requests displayed \\\hline
+ST-37 & & Ban User & Ban a user & User banned \\\hline
+ST-38 & & Remove Post & Remove a post & Post removed \\\hline
+ST-39 & & Remove Comment & Remove a comment & Comment removed \\\hline
+ST-40 & & Grant Post/Comment Priv & Grant Post/Comment Priv & Post/Comment Priv granted \\\hline
+ST-41 & & Remove Post/Comment Priv & Remove Post/Comment Priv & Post/Comment Priv removed \\\hline
+ST-42 & & Unban User & Unban a user & User unbanned \\\hline
+ST-43 & Superuser & View User-ban-from-platform Reports & View reports & Reports displayed \\\hline
+ST-44 & & Ban User from Platform & Ban a user from the platform & User banned from the platform \\\hline
+ST-45 & & Unban User from Platform & Unban a user from the platform & User unbanned from the platform \\\hline
+ST-46 & & Delete Community & Delete a community & Community deleted \\\hline
+ST-47 & & View Community-reports & View reports & Reports displayed \\\hline
+\end{longtblr}
+
+<!-- | S.No | Class               | Test Case                           | Description                                         | Expected Output                                                                                                                                              |
+| ---- | ------------------- | ----------------------------------- | --------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| 1    | Authentication      | Login                               | User login                                          | The user is able to successfully login to the portal, in case of a superuser a separate UI is loaded                                                         |
+| 2    |                     | Logout                              | User logout                                         | The user successfully logs out of the system                                                                                                                 |
+| 3    |                     | Register                            | User register                                       | The user successfully registers with a unique user name on the plaform with a registered email-id for usage in case of forgot-password                       |
+| 4    |                     | Forgot Password                     | User forgot password                                | The user successfully resets the password using the registered email-id                                                                                      |
+| 4    | Guest User          | View Profile                        | The user tries to view another persons user profile | Profile displayed if it is public otherwise only the reports on the profile are displayed                                                                    |
+| 6    |                     | Get Trending Posts                  | Get trending posts                                  | Trending posts displayed                                                                                                                                     |
+| 7    |                     | Search                              | User searches for a community, post, comment, user  | The search results are displayed based on the search query (as per the visibility of the search results for the user)                                        |
+| 8    |                     | View Community                      | The user tries to view a community                  | Community displayed if it is public                                                                                                                          |
+| 9    | Registered User     | View Post                           | The user tries to view a post                       | Post displayed if it is public or from a community that the user has joined                                                                                  |
+| 10   |                     | Join Community                      | The user tries to join a community                  | The user successfully joins the community if it public or the request is accepted in-case of request only or is invited to the community                     |
+| 11   |                     | Leave Community                     | The user tries to leave a community                 | The user successfully leaves the community which he/she had previously joined                                                                                |
+| 12   |                     | Follow User                         | The user tries to follow another user               | The user successfully follows the user                                                                                                                       |
+| 13   |                     | Block User                          | The user tries to block another user                | The user successfully blocks the user                                                                                                                        |
+| 14   |                     | Report User                         | The user tries to report another user               | The user successfully reports the user                                                                                                                       |
+| 15   |                     | Report Post                         | The user tries to report a post                     | The user successfully reports the post                                                                                                                       |
+| 16   |                     | Report Comment                      | The user tries to report a comment                  | The user successfully reports the comment                                                                                                                    |
+| 17   |                     | Chat                                | The user tries to chat with another user            | The user successfully chats with the user depending on the status of his/her chat-request or the chat setting of the receiver                                |
+| 18   |                     | View Home                           | The user tries to view the home feed                | The user successfully views the home feed based on the posts from the communities and users he/she has joined/followed or according to the taste of the user |
+| 19   |                     | Update Profile                      | Update user profile                                 | Profile updated                                                                                                                                              |
+| 20   |                     | Create Community                    | Create community                                    | Community created                                                                                                                                            |
+| 21   |                     | Create Post                         | Create post                                         | Post created if the user has post privileges                                                                                                                 |
+| 22   |                     | Create Comment                      | Create comment                                      | Comment created if the user has comment privileges                                                                                                           |
+| 23   |                     | Reply Comment                       | Reply to a comment                                  | Comment replied                                                                                                                                              |
+| 24   |                     | update Post                         | Update post                                         | Post updated                                                                                                                                                 |
+| 25   |                     | update Comment                      | Update comment                                      | Comment updated                                                                                                                                              |
+| 26   |                     | Delete Post                         | Delete post                                         | Post deleted                                                                                                                                                 |
+| 27   | Community Admin     | Update Community Guidelines         | Update community guidelines                         | Guidelines updated                                                                                                                                           |
+| 28   |                     | Update Community Settings           | Update community settings                           | Community updated                                                                                                                                            |
+| 29   |                     | Update Community Roles              | Update community roles                              | Roles updated                                                                                                                                                |
+| 30   |                     | Appoint Moderator                   | Appoint a moderator                                 | Moderator appointed                                                                                                                                          |
+| 31   |                     | Grant Privilegs to Moderator        | Grant privileges to a moderator                     | Privileges granted                                                                                                                                           |
+| 32   |                     | Remove Privileges from Moderator    | Remove privileges from a moderator                  | Privileges removed                                                                                                                                           |
+| 33   |                     | Remove Moderator                    | Remove a moderator                                  | Moderator removed                                                                                                                                            |
+| 34   |                     | Delete Community                    | Delete a community                                  | Community deleted                                                                                                                                            |
+| 35   | Community Moderator | View Reports                        | View reports                                        | Reports displayed                                                                                                                                            |
+| 36   |                     | View Requests                       | View requests                                       | Requests displayed                                                                                                                                           |
+| 37   |                     | Ban User                            | Ban a user                                          | User banned                                                                                                                                                  |
+| 38   |                     | Remove Post                         | Remove a post                                       | Post removed                                                                                                                                                 |
+| 39   |                     | Remove Comment                      | Remove a comment                                    | Comment removed                                                                                                                                              |
+| 40   |                     | Grant Post/Comment Privileges       | Grant post/comment privileges                       | Privileges granted                                                                                                                                           |
+| 41   |                     | Remove Post/Comment Privileges      | Remove post/comment privileges                      | Privileges removed                                                                                                                                           |
+| 42   |                     | Unban User                          | Unban a user                                        | User unbanned                                                                                                                                                |
+| 43   | Superuser           | View User-ban-from-platform Reports | View reports                                        | Reports displayed                                                                                                                                            |
+| 44   |                     | Ban User from Platform              | Ban a user from the platform                        | User banned from the platform                                                                                                                                |
+| 45   |                     | Unban User from Platform            | Unban a user from the platform                      | User unbanned from the platform                                                                                                                              |
+| 46   |                     | Delete Community                    | Delete a community                                  | Community deleted                                                                                                                                            |
+| 47   |                     | View Community-reports              | View reports                                        | Reports displayed                                                                                                                                            | -->
 
 ### Performance Testing
 
-```text
-Performance testing plan
-```
+A social media platform like Communities need to be tested on the following performance metrics:
+
+- Response Time
+- Scalability
+- Handling of Load
+- Cache Performance
+- Concurrent Access
+
+#### Latency
+
+- The latency of such a system should ideally be very less.
+- In-order to test the latency of the APIs and the client-side rendering, we can measure the time taken by the APIs to respond to the client requests under different amount of load on the API server.
+- Generally some of the modules which require low latency are the Chat Module, the Listing Service Module(client-side rendering), Search Module, Comments Module, Login Module, etc.
+
+#### Scalability
+
+- The system should be able to scale with increasing number of users as well as concurrent requests by multiple users.
+- We can try to test the scalability of the system by increasing the number of users and the number of requests made by each user.
+- We can measure the response time under on changing the above parameters.
+
+#### Load Handling/Load Testing
+
+- Ideally the system should be able to handle a large number of requests at the same time as well as prevent the system from crashing.
+- In order to prevent the system from crashing under large amount of requests, the system must be able to prioritize the requests and handle them accordingly.
+- The system should be able to downscale the requests which are not important and handle the requests which are important under very high load.
+- This is the role of the Job Queue included in the system architecture and it's behaviour can be tested under various amount/ type of load.
+
+#### Cache Performance
+
+- The system should be able to cache the data which is frequently accessed and reduce the load on the database.
+- However including cache in the system should not increase the latency of the system because each request is now being handled by the cache server and the database server and hence takes more time in case of cache-miss.
+- The cache performance can be tested by measuring the percentage of cache-hits and cache-misses under different amount of load and under random order of requests.
+
+#### Concurrent Access
+
+- The system should be able to handle multiple requests from the same user at the same time.
+- Some modules that require concurrent access are the Chat Module, the Comment Module, the Notification Module, the Report Module(multiple moderators can access the same report at the same time), etc.
+- Efficiently serving responses for same item from the database to multiple users at the same time is a challenge and the system should be able to handle this.
+- In-order to serve the same item to multiple users at the same time, the system should ideally use the cache server to serve the same item to multiple users at the same time.
+- In-order to test the concurrent access, we can simulate multiple users accessing the same item at the same time and measure the time taken by the system to respond to each user.
 
 ## Test Analysis
 
-```text
-We discussed the following seven types of black box testing in the class: equivalence class partitioning, boundary value analysis, cause-effect graphing, pair-wise testing, special cases, error guessing and state based testing. Which of these methods did you use for generating the test cases, for which modules and the count of test cases. Report this functional test summary in the form of a table.
-
-Performance test plan/report
-```
-
-### Test Statistics
-
-- Number of classes:
-- Number of methods:
-- Number of modules tested:
-- Number of test cases:
-- Number of test cases failed:
-
 ### Functional Test Report
 
-```text
-Functional test summary in the form of a table
-    Test case count for each module
-    Type of testing method used
-        equivalence class partitioning
-        boundary value analysis
-        cause-effect graphing
-        pair-wise testing
-        special cases
-        error guessing
-        state based testing
-```
+- Some methodologies used for the test-cases are as follows:
+  - **Equivalence class partitioning** - The inputs in the test cases are divided into different equivalence classes and the test cases are written for each equivalence class. (for example in case of login - invalid username and valid username, valid and invalid emails, etc.)
+  - **Pair-wise testing** - Different inputs for a test case are combined in different test cases using the technique of pair-wise testing.(for example in case of login - username and password are the two fields)
+  - **Boundary value analysis** - The test cases are written for the boundary values of the inputs.
+  - **State-based testing** - For certain test cases (for example cache testing, the cache is present in multiple states - TTL-expired, in-cache, not-in-cache, etc.)
 
-| S.No | Module Name | Test Case Count | Testing Method |
-| ---- | ----------- | --------------- | -------------- |
+| S.No | Module           | Test Case Count |
+| ---- | ---------------- | --------------- |
+| 1    | Authentication   | 9               |
+| 2    | Guest User       | 17              |
+| 3    | Registered User  | 79              |
+| 4    | Community Admin  | 14              |
+| 5    | Community Mod    | 42              |
+| 6    | Superuser        | 8               |
+| 7    | Cache            | 14              |
+| 8    | Recommendation   | 3               |
+| 9    | User Record      | 15              |
+| 10   | Post Record      | 24              |
+| 11   | Comment Record   | 13              |
+| 12   | Vote Record      | 20              |
+| 13   | Chat Record      | 7               |
+| 14   | Message Record   | 14              |
+| 15   | Group Record     | 5               |
+| 16   | User_chat Record | 8               |
+| 17   | User_group       | 8               |
+| 18   | community record | 11              |
+| 19   | Joined Table     | 24              |
+| 20   | Blocked Table    | 8               |
+| 21   | Reports Table    | 11              |
+| 22   | Roles Table      | 13              |
+| 23   | UI Modules       | 22              |
 
-### Performance Test Report
+Total Test Cases: 389
