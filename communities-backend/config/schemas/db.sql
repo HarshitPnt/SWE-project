@@ -1,12 +1,13 @@
-CREATE DATABASE communities;
-
 -- Authentication Table
 
 CREATE TABLE authentication (
     id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+
+    -- check that (user_name, email, created_at) is present in users table
+    CONSTRAINT user_check CHECK ((username, email) IN (SELECT username, email FROM users)),
 );
 
 -- Users Table

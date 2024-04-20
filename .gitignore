@@ -3,3 +3,7 @@ node_modules
 
 # ignore build folder
 build
+
+/Data/data/*
+
+*/.env
