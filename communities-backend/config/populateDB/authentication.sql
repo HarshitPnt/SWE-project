@@ -742,7 +742,6 @@ INSERT INTO authentication(username,email, password) VALUES ('Ruthless_Bunny','R
 INSERT INTO authentication(username,email, password) VALUES ('box1313','box1313@dummy.com','c66a3e2226c09e932d00621464ba5bf2c2483e4b1c63abcc89defa70889355b7');
 INSERT INTO authentication(username,email, password) VALUES ('Shoo_not_shoe','Shoo_not_shoe@dummy.com','9c84290417bcc23853442012e7721fe689020c3b2477fb058597d5989c75db91');
 INSERT INTO authentication(username,email, password) VALUES ('dannyswrld','dannyswrld@dummy.com','2f5ca303c8739c8e05276d82cc95346c304793ed9e4ed6f099a4d3605713957e');
-INSERT INTO authentication(username,email, password) VALUES ('[deleted]','[deleted]@dummy.com','ef022850e4b4eb5b334f335ba4f73cf270be4af719f1ae57be0c5e26eee82a14');
 INSERT INTO authentication(username,email, password) VALUES ('nanoSpawn','nanoSpawn@dummy.com','90524c652ee0b87fcb632e9f48ba3dd8d916f25fe3f93715d12fe49fbc6a4fa8');
 INSERT INTO authentication(username,email, password) VALUES ('Devil_0fHellsKitchen','Devil_0fHellsKitchen@dummy.com','ead41eab7b1dad7ae65eb5effe4f27b89b4e945edcb2084b20fe6dbdcaafa989');
 INSERT INTO authentication(username,email, password) VALUES ('Nookiguak','Nookiguak@dummy.com','008508f6a741d57ced5a4aa7cad8ec88728ba66fee3ac29e754183dedd238d57');

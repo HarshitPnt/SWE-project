@@ -1,15 +1,3 @@
--- Authentication Table
-
-CREATE TABLE authentication (
-    id SERIAL PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
-    email VARCHAR(255) NOT NULL,
-    password VARCHAR(255) NOT NULL,
-
-    -- check that (user_name, email, created_at) is present in users table
-    CONSTRAINT user_check CHECK ((username, email) IN (SELECT username, email FROM users)),
-);
-
 -- Users Table
 
 CREATE TABLE users (
@@ -30,6 +18,21 @@ CREATE TABLE users (
     notification_setting VARCHAR(4) DEFAULT '1111',
     bio TEXT DEFAULT '',
     location VARCHAR(255) DEFAULT '',
+
+    -- ALTER TABLE users ADD CONSTRAINT unique_username_email UNIQUE (username, email);
+    CONSTRAINT unique_username_email UNIQUE (username, email)
+);
+
+-- Authentication Table
+
+CREATE TABLE authentication (
+    id SERIAL PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+
+    -- check that (user_name, email, created_at) is present in users table
+    CONSTRAINT user_check FOREIGN KEY (username, email) REFERENCES users(username, email)
 );
 
 -- Communities Table
@@ -47,14 +50,13 @@ CREATE TABLE communities (
     status VARCHAR(255) DEFAULT 'active',
     visibility VARCHAR(255) DEFAULT 'public',
     banner_image VARCHAR(255),
-    description TEXT DEFAULT '',
     post_privilege BOOLEAN DEFAULT TRUE,
     comment_privilege BOOLEAN DEFAULT TRUE,
     -- posts: image, video, text, link, polls
-    allowed_posts VARCHAR(5) DEFAULT '11111'
+    allowed_posts VARCHAR(5) DEFAULT '11111',
 
     CONSTRAINT visibility_check CHECK (visibility IN ('public', 'invite', 'request')),
-    CONSTRAINT status_check CHECK (status IN ('active', 'banned', 'deleted')),
+    CONSTRAINT status_check CHECK (status IN ('active', 'banned', 'deleted'))
 );
 
 -- Community Members Table
@@ -73,7 +75,7 @@ CREATE TABLE community_users (
 
     PRIMARY KEY (user_id, community_id),
 
-    CONSTRAINT status_check CHECK (status IN ('active', 'banned','left')),
+    CONSTRAINT status_check CHECK (status IN ('active', 'banned','left','rejected-invite','rejected-request'))
 );
 
 -- Posts Table
