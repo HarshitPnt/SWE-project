@@ -82,7 +82,7 @@ CREATE TABLE community_users (
 
 CREATE TABLE posts (
     id SERIAL PRIMARY KEY,
-    title VARCHAR(255) NOT NULL,
+    title TEXT NOT NULL,
     content TEXT NOT NULL,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -94,13 +94,13 @@ CREATE TABLE posts (
     banned_by INTEGER REFERENCES users(id),
     -- post types: image, video, text, polls
     post_type VARCHAR(255) DEFAULT 'text',
-    image VARCHAR(255),
-    video VARCHAR(255),
-    poll_question TEXT,
+    image TEXT DEFAULT '',
+    video TEXT DEFAULT '',
+    poll_question TEXT DEFAULT '',
     poll_end_at TIMESTAMP,
-    poll_result TEXT,
+    poll_result TEXT DEFAULT '',
 
-    CONSTRAINT post_type_check CHECK (post_type IN ('image', 'video', 'text', 'polls')),
+    CONSTRAINT post_type_check CHECK (post_type IN ('image', 'video', 'text', 'polls'))
 );
 
 -- Comments Table
@@ -113,11 +113,14 @@ CREATE TABLE comments (
     deleted_at TIMESTAMP,
     creator_id INTEGER REFERENCES users(id),
     post_id INTEGER REFERENCES posts(id),
-    parent_id INTEGER REFERENCES comments(id),
+    parent_id VARCHAR(255) DEFAULT '',
     is_banned BOOLEAN DEFAULT FALSE,
     is_deleted BOOLEAN DEFAULT FALSE,
     banned_reason TEXT DEFAULT '',
     banned_by INTEGER REFERENCES users(id),
+
+    -- constraint that if parent_id not null then it should begin with c_
+    CONSTRAINT parent_id_check CHECK (parent_id = '' OR parent_id ~ '^c_')
 
 );
 
@@ -133,7 +136,7 @@ CREATE TABLE votes (
     vote_type INTEGER NOT NULL,
 
     -- constraint that parent_id begins with p_ for posts and c_ for comments and v_ for votes
-    CONSTRAINT parent_id_check CHECK (parent_id ~ '^(p|c|v)_'),
+    CONSTRAINT parent_id_check CHECK (parent_id ~ '^(p|c|v)_')
 );
 
 -- Moderators Table
@@ -147,25 +150,22 @@ CREATE TABLE moderators (
     privileges VARCHAR(8) DEFAULT '11111111',
 
     -- check that user_id,community_id is unique and is in community_users
-    PRIMARY KEY (user_id, community_id),
-    CONSTRAINT user_community_check CHECK (user_id, community_id) IN (SELECT user_id, community_id FROM community_users),
+    PRIMARY KEY (user_id, community_id)
 );
 
 -- Follows Table
 
 CREATE TABLE follows (
     follower_id INTEGER REFERENCES users(id),
-    followee_id INTEGER REFERENCES users(id),
+    followed_id INTEGER REFERENCES users(id),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     deleted_at TIMESTAMP,
 
     -- check that follower_id, followee_id is unique
-    PRIMARY KEY (follower_id, followee_id),
-    -- updated_at should be greater than created_at
-    CONSTRAINT updated_check CHECK (updated_at > created_at),
+    PRIMARY KEY (follower_id, followed_id),
     -- follower_id != followee_id
-    CONSTRAINT follower_followee_check CHECK (follower_id != followee_id),
+    CONSTRAINT follower_followee_check CHECK (follower_id != followed_id)
 );
 
 -- Reports Table
@@ -190,9 +190,8 @@ CREATE TABLE reports (
     -- resolved_at should be greater than created_at
     CONSTRAINT resolved_check CHECK (resolved_at > created_at),
     -- resolved_by should be null if status is pending
-    CONSTRAINT resolved_by_check CHECK (status = 'pending' AND resolved_by IS NULL),
+    CONSTRAINT resolved_by_check CHECK (status = 'pending' AND resolved_by IS NULL)
     -- if status is not 'pending' then (if community_id is null then resolved_by should be a superuser else resolved_by should be a moderator of the community)
-    CONSTRAINT resolved_by_community_check CHECK (status = 'pending' OR (community_id IS NOT NULL AND resolved_by IN (SELECT user_id FROM moderators WHERE community_id = community_id)) OR (community_id IS NULL AND resolved_by IN (SELECT id FROM users WHERE is_superuser = TRUE))),
 );
 
 -- Notifications Table
@@ -210,7 +209,7 @@ CREATE TABLE notifications (
 
     CONSTRAINT type_check CHECK (type IN ('follow', 'comment', 'vote', 'mention', 'report', 'moderator', 'community')),
     -- read_at should be greater than created_at
-    CONSTRAINT read_check CHECK (read_at > created_at),
+    CONSTRAINT read_check CHECK (read_at >= created_at)
 );
 
 CREATE TABLE saved_posts (
@@ -218,7 +217,7 @@ CREATE TABLE saved_posts (
     post_id INTEGER REFERENCES posts(id),
     saved_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (user_id, post_id),
+    PRIMARY KEY (user_id, post_id)
 );
 
 CREATE TABLE blocked (
@@ -226,7 +225,7 @@ CREATE TABLE blocked (
     blocked_id INTEGER REFERENCES users(id),
     blocked_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 
-    PRIMARY KEY (blocker_id, blocked_id),
+    PRIMARY KEY (blocker_id, blocked_id)
 );
 
 -- INDEXES
@@ -240,6 +239,6 @@ CREATE INDEX idx_votes_parentid ON votes(parent_id);
 CREATE INDEX idx_moderators_userid ON moderators(user_id);
 CREATE INDEX idx_moderators_communityid ON moderators(community_id);
 CREATE INDEX idx_follows_followerid ON follows(follower_id);
-CREATE INDEX idx_follows_followeeid ON follows(followee_id);
+CREATE INDEX idx_follows_followedid ON follows(followed_id);
 CREATE INDEX idx_reports_reported ON reports(reported_id);
 CREATE INDEX idx_reports_community ON reports(community_id);
