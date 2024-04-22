@@ -42,6 +42,9 @@ for line in lines:
         chat = -chat
     chat = chats[chat%4]
 
+    if line=="[deleted]":
+        continue
+
     command = f"INSERT INTO users(username, email, created_at, updated_at, is_superuser,is_banned,is_deleted,profile_picture,chat_setting,profile_privacy_setting,notification_setting,bio,location) VALUES ('{line}','{line}@dummy.com',DEFAULT,DEFAULT,DEFAULT,DEFAULT,DEFAULT,'','{chat}','{privacy}','{notification}','{bio}','{location}');"
     with open("../../communities-backend/config/populateDB/users.sql", "a") as f:
         f.write(command + "\n")

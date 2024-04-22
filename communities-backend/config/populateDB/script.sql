@@ -1,0 +1,10 @@
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/users.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/communities.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/authentication.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/community_users.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/posts.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/comments.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/votes.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/followers.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/moderators.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities-backend/config/populateDB/blocked.sql

@@ -1,0 +1,10 @@
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/users.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/communities.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/authentication.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/community_users.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/posts.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/comments.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/votes.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/followers.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/moderators.sql
+\i /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/blocked.sql

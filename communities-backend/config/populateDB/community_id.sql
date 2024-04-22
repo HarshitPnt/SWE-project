@@ -1,0 +1,1 @@
+\copy (SELECT name, id, post_privilege, comment_privilege FROM communities) TO /home/harshit/IITH/Sem6/SWE/assignments/SWE-project/Data/scripts/intermediateData/community_id.csv DELIMITER ',' CSV HEADER;
