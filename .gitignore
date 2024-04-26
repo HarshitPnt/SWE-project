@@ -7,3 +7,5 @@ build
 /Data/data/*
 
 */.env
+
+*script.sql
