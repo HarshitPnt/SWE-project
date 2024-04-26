@@ -1,0 +1,79 @@
+.Header {
+    margin: 0;
+    padding: 0;
+    padding-top: 10px;
+    align-items: center;
+    display: flex;
+}
+
+hr {
+    margin: 0;
+    border: 0;
+    border-top: 1px solid rgb(20, 20, 20);
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    font-size: 1.7vw;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: rgb(53, 101, 190);
+}
+
+.name {
+    padding: 0;
+    margin: 0;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+
+
+.icon {
+    width: 60px;
+    margin-right: 5px;
+}
+
+.search_bar {
+    padding-left: 0;
+    margin-left: 0;
+    margin-left: 460px
+}
+
+.search_input {
+    width: 500px;
+    height: 24px;
+    border-radius: 20px;
+    border: 1px solid rgb(20, 20, 20);
+    padding: 3px;
+    padding-left: 10px;
+}
+
+.chat_btn {
+    margin-left: 520px;
+}
+
+.chat_img {
+    width: 40px;
+}
+
+.not_btn {
+    margin-left: 5px;
+}
+
+.not_img {
+    width: 40px;
+}
+
+
+
+.profile_btn {
+    display: flex;
+    margin-left: 10px;
+}
+
+.profile_img {
+    width: 60px;
+    margin-right: 5px;
+}
