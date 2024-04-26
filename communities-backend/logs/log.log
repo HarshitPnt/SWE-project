@@ -37,3 +37,49 @@
 2024-04-26T12:26:08.971Z - Method: GET, URL: /user?id=100, Status Code: 200
 2024-04-26T12:26:19.240Z - Method: GET, URL: /user?id=100, Status Code: 200
 2024-04-26T12:26:26.813Z - Method: GET, URL: /user?id=100, Status Code: 200
+2024-04-27T02:04:57.975Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:05:23.798Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:05:43.175Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:07:51.304Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:10:17.795Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:13:05.196Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:15:28.700Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:20:20.374Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:23:02.477Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:24:39.270Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:27:08.969Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:31:58.367Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:37:06.844Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:38:15.654Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:38:51.250Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjU2OTUsImV4cCI6MTcxNDI1MjA5NX0.Mnhvt5ygOTZIuFZFenfqmc53paXScTTmvzjEGKjIryg, Status Code: 200
+2024-04-27T02:42:00.708Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjU2OTUsImV4cCI6MTcxNDI1MjA5NX0.Mnhvt5ygOTZIuFZFenfqmc53paXScTTmvzjEGKjIryg, Status Code: 200
+2024-04-27T02:42:00.744Z - Method: GET, URL: /favicon.ico, Status Code: 200
+2024-04-27T02:42:18.618Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjU2OTUsImV4cCI6MTcxNDI1MjA5NX0.Mnhvt5ygOTZIuFZFenfqmc53paXScTTmvzjEGKjIryg, Status Code: 200
+2024-04-27T02:42:37.662Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:43:47.269Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjU5NTcsImV4cCI6MTcxNDI1MjM1N30.oBZMaHOoI7craNehmwtGHcJGm9qrt6LKYWzNydiTxxc, Status Code: 200
+2024-04-27T02:44:50.571Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:45:05.717Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYwOTAsImV4cCI6MTcxNDI1MjQ5MH0.As8Yrp1WYjx1_SkCimW5Em0hgTf2mCojAUo3xHxXmU4, Status Code: 200
+2024-04-27T02:45:46.961Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:45:59.546Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYwOTAsImV4cCI6MTcxNDI1MjQ5MH0.As8Yrp1WYjx1_SkCimW5Em0hgTf2mCojAUo3xHxXmU4, Status Code: 200
+2024-04-27T02:47:50.877Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:48:07.870Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYyNzAsImV4cCI6MTcxNDI1MjY3MH0.OzlJdwecw_9WO2MdVgjIZa4m-tUMM3uGK9nyEbB-0jk, Status Code: 200
+2024-04-27T02:49:15.219Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:49:28.158Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYzNTUsImV4cCI6MTcxNDI1Mjc1NX0.ukAWeRUCsVKm4WJEUzze1C-Pedy6PAeVFFSezv4D8mI, Status Code: 200
+2024-04-27T02:50:02.868Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:50:14.291Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYzNTUsImV4cCI6MTcxNDI1Mjc1NX0.ukAWeRUCsVKm4WJEUzze1C-Pedy6PAeVFFSezv4D8mI, Status Code: 200
+2024-04-27T02:50:56.580Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYzNTUsImV4cCI6MTcxNDI1Mjc1NX0.ukAWeRUCsVKm4WJEUzze1C-Pedy6PAeVFFSezv4D8mI, Status Code: 200
+2024-04-27T02:51:05.072Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:51:15.512Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjYzNTUsImV4cCI6MTcxNDI1Mjc1NX0.ukAWeRUCsVKm4WJEUzze1C-Pedy6PAeVFFSezv4D8mI, Status Code: 200
+Register: [object Object]
+2024-04-27T02:51:34.880Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:51:51.147Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjY0OTQsImV4cCI6MTcxNDI1Mjg5NH0.AkuVEpVF8ZyUaeaqJjLq2TVljSDahXE4dgWuBrXeUqM, Status Code: 200
+Register: [object Object]
+2024-04-27T02:54:13.311Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:54:17.004Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjY0OTQsImV4cCI6MTcxNDI1Mjg5NH0.AkuVEpVF8ZyUaeaqJjLq2TVljSDahXE4dgWuBrXeUqM, Status Code: 200
+Register: [object Object]
+2024-04-27T02:55:39.868Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:55:41.959Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjY0OTQsImV4cCI6MTcxNDI1Mjg5NH0.AkuVEpVF8ZyUaeaqJjLq2TVljSDahXE4dgWuBrXeUqM, Status Code: 200
+Register: [object Object]
+2024-04-27T02:57:45.942Z - Method: POST, URL: /register, Status Code: 200
+2024-04-27T02:57:50.136Z - Method: GET, URL: /verify/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImhhcnNoaXQiLCJlbWFpbCI6ImNzMjFidGVjaDExMDIxQGlpdGguYWMuaW4iLCJpYXQiOjE3MTQxNjY0OTQsImV4cCI6MTcxNDI1Mjg5NH0.AkuVEpVF8ZyUaeaqJjLq2TVljSDahXE4dgWuBrXeUqM, Status Code: 200
+Register: [object SequelizeInstance:authentication]

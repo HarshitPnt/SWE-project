@@ -1,5 +1,6 @@
-import Authentication from "../../models/authModel";
-import { fs } from "fs";
+import { Authentication } from "../../models/authModel.js";
+import fs from "fs";
+// import { User } from "../../models/userModel.js";
 
 const filename = "./logs/db.log";
 

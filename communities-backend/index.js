@@ -5,11 +5,13 @@ import logger from "./src/middleware/logger.js";
 import cors from "cors";
 import express from "express";
 import routes from "./src/routes/route.js";
+import bodyParser from "body-parser";
 const app = express();
 const port = 8080; // You can change this port number if needed
 
 app.use(logger);
 app.use(cors());
+app.use(bodyParser.json());
 app.use("/", routes);
 
 // establishing a connection to the database

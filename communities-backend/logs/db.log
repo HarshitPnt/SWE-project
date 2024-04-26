@@ -255,3 +255,55 @@ getUserByEmail: [object SequelizeInstance:User]
 getUserById: [object SequelizeInstance:User]
 updateUser: 1
 getUserById: [object SequelizeInstance:User]
+Auth: getUserByUsername: SequelizeDatabaseError: relation "Authentications" does not exist
+Auth: getUserByUsername: SequelizeDatabaseError: relation "authentications" does not exist
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+Auth: createUser: SequelizeValidationError: string violation: username cannot be an array or an object,
+notNull Violation: authentication.email cannot be null,
+notNull Violation: authentication.password cannot be null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+Auth: createUser: SequelizeValidationError: string violation: username cannot be an array or an object,
+notNull Violation: authentication.email cannot be null,
+notNull Violation: authentication.password cannot be null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+Auth: createUser: SequelizeValidationError: string violation: username cannot be an array or an object,
+notNull Violation: authentication.email cannot be null,
+notNull Violation: authentication.password cannot be null
+Auth: getUserByUsername: null
+Auth: getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]

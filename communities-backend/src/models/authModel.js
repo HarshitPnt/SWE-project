@@ -2,8 +2,8 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Authentication = db.define(
-  "Authentication",
+export const Authentication = db.define(
+  "authentication",
   {
     id: {
       type: DataTypes.INTEGER,
@@ -25,6 +25,7 @@ const Authentication = db.define(
   },
   {
     timestamps: false,
+    tableName: "authentication",
   }
 );
 
@@ -42,5 +43,3 @@ Authentication.associate = (models) => {
     },
   });
 };
-
-export default Authentication;
