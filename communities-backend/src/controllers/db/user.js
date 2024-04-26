@@ -6,6 +6,9 @@ const filename = "./logs/db.log";
 // getUserById
 export const getUserById = async (id) => {
   try {
+    if (id <= 0) {
+      throw { error: null, msg: "Invalid id" };
+    }
     const user = await User.findOne({
       where: {
         id: id,
@@ -15,9 +18,17 @@ export const getUserById = async (id) => {
     // logging the user
     fs.appendFileSync(filename, `getUserById: ${user}\n`);
     // console.log(user);
+
+    // check if user is null
+    if (user === null) {
+      throw { error: null, msg: "User not found" };
+    }
     return user;
   } catch (err) {
     console.log(err);
+    if (err.msg === "Invalid id" || err.msg === "User not found") {
+      throw err;
+    }
     throw { error: err, msg: "Error in getUserById" };
   }
 };
@@ -29,10 +40,15 @@ export const getUserByUsername = async (username) => {
 
     // logging the user
     fs.appendFileSync(filename, `getUserByUsername: ${user}\n`);
-
+    if (user === null) {
+      throw { error: null, msg: "User not found" };
+    }
     return user;
   } catch (err) {
-    console.log(err);
+    // console.log(err);
+    if (err.msg === "User not found") {
+      throw err;
+    }
     throw { error: err, msg: "Error in getUserByUsername" };
   }
 };
@@ -41,15 +57,19 @@ export const getUserByUsername = async (username) => {
 export const getUserByEmail = async (email) => {
   try {
     const user = await User.findOne({
-      email: email,
+      where: { email: email },
     });
 
     // logging the user
     fs.appendFileSync(filename, `getUserByEmail: ${user}\n`);
-
+    if (user === null) {
+      throw { error: null, msg: "User not found" };
+    }
     return user;
   } catch (err) {
-    console.log(err);
+    if (err.msg === "User not found") {
+      throw err;
+    }
     throw { error: err, msg: "Error in getUserByEmail" };
   }
 };
@@ -57,6 +77,9 @@ export const getUserByEmail = async (email) => {
 // createUser
 export const createUser = async (username, email) => {
   try {
+    if (username == "" || username == null || email == "" || email == null) {
+      throw { error: null, msg: "Invalid username or email" };
+    }
     const user = await User.create({
       username: username,
       email: email,
@@ -64,10 +87,15 @@ export const createUser = async (username, email) => {
 
     // logging the user
     fs.appendFileSync(filename, `createUser: ${user}\n`);
-
-    return user;
+    return "User created successfully";
   } catch (err) {
     console.log(err);
+    if (err.msg === "Invalid username or email") {
+      throw err;
+    }
+    if (err.name === "SequelizeUniqueConstraintError") {
+      throw { error: err.name, msg: "Username already exists" };
+    }
     throw { error: err, msg: "Error in createUser" };
   }
 };
@@ -78,36 +106,30 @@ export const updateUser = async (id, data) => {
   data.updated_at = new Date().toLocaleString("en-US", {
     timeZone: "Asia/Kolkata",
   });
+  delete data.created_at;
+  delete data.id;
+  delete data.username;
+  delete data.email;
 
   try {
-    const user = await User.update(data, {
+    if (id <= 0) {
+      throw { error: null, msg: "Invalid id" };
+    }
+    let user = await User.update(data, {
       where: { id: id },
     });
 
     // logging the user
+    if (user[0] === 0) {
+      throw { error: null, msg: "User not found" };
+    }
     fs.appendFileSync(filename, `updateUser: ${user}\n`);
-
-    return user;
+    return "User updated successfully";
   } catch (err) {
-    console.log(err);
+    if (err.msg === "Invalid id" || err.msg === "User not found") {
+      throw err;
+    }
     throw { error: err, msg: "Error in updateUser" };
-  }
-};
-
-// deleteUser
-export const deleteUser = async (id) => {
-  try {
-    const user = await User.destroy({
-      where: { id: id },
-    });
-
-    // logging the user
-    fs.appendFileSync(filename, `deleteUser: ${user}\n`);
-
-    return user;
-  } catch (err) {
-    console.log(err);
-    throw { error: err, msg: "Error in deleteUser" };
   }
 };
 

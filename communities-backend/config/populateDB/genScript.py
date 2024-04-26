@@ -13,6 +13,7 @@ filename = "./script.sql"
 
 with open(filename,"w") as f:
     f.write(f"\\i '{db_abs_path}/createDB.sql'\n")
+    f.write(f"\\c communities\n")
     f.write(f"\\i '{db_abs_path}/db.sql'\n")
     f.write(f"\\i '{db_abs_path}/chat.sql'\n")
     f.write(f"\\i '{abs_path}/users.sql'\n")

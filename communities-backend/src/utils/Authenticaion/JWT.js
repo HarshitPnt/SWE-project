@@ -11,12 +11,12 @@ export const generateToken = (user) => {
   };
   const token = jwt.sign(payload, salt, { expiresIn: "1h" });
   const refresh_token = jwt.sign(payload, salt, { expiresIn: "20d" });
-  const jwt = {
-    username: user.username,
+  const jwtoken = {
     token: token,
     refresh_token: refresh_token,
   };
-  refreshTokens[refresh_token] = jwt;
+  console.log(jwtoken);
+  refreshTokens[refresh_token] = jwtoken;
   return { token, refresh_token };
 };
 
