@@ -1,13 +1,29 @@
 import { User } from "../models/userModel.js";
 import * as UserDB from "../controllers/db/user.js";
+import { query } from "express";
 
-// getUserById
-export const getUserById = async (req, res) => {
+// getUser
+export const getUser = async (req, res) => {
   try {
-    console.log(req.params.id);
-    const user = await UserDB.getUserById(req.params.id);
-    return res.status(200).json(user);
+    const query = req.query;
+    console.log(query);
+    let user = null;
+    if (query.id) {
+      user = await UserDB.getUserById(query.id);
+    } else if (query.username) {
+      user = await UserDB.getUserByUsername(query.username);
+    } else if (query.email) {
+      user = await UserDB.getUserByEmail(query.email);
+    } else {
+      res.status(400).json({ msg: "Invalid query" });
+    }
+    if (user === null) {
+      res.status(404).json({ msg: "User not found" });
+      return;
+    }
+    res.status(200).json(user);
   } catch (err) {
-    return res.status(500).json(err);
+    console.log(err);
+    res.status(500).json(err);
   }
 };

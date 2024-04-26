@@ -14,7 +14,7 @@ export const getUserById = async (id) => {
 
     // logging the user
     fs.appendFileSync(filename, `getUserById: ${user}\n`);
-
+    // console.log(user);
     return user;
   } catch (err) {
     console.log(err);
@@ -25,7 +25,7 @@ export const getUserById = async (id) => {
 // getUserByUsername
 export const getUserByUsername = async (username) => {
   try {
-    const user = await User.findOne({ username: username });
+    const user = await User.findOne({ where: { username: username } });
 
     // logging the user
     fs.appendFileSync(filename, `getUserByUsername: ${user}\n`);
