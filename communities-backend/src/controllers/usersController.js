@@ -27,3 +27,25 @@ export const getUser = async (req, res) => {
     res.status(500).json(err);
   }
 };
+
+// communities that the user is a part of (communities)
+
+// user notifications (notifications)
+
+// user posts (posts)
+
+// user profile
+
+// user home feed (services)
+
+// user chat (chat)
+
+// user settings
+
+// user logout
+
+// update user settings
+
+// followers
+
+// following

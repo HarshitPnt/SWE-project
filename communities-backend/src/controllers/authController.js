@@ -13,13 +13,13 @@ dotenv.config();
 const password_salt = process.env.SHA_SALT;
 
 let unverifiedUsers = [];
+let googleUsers;
 
 const filename = "./logs/log.log";
 
 // Register User
 export const register = async (req, res) => {
   try {
-    console.log(req);
     const { username, email, password } = req.body;
     // check if user exists
     const userExists = await AuthDB.getUserByUsername(username);
@@ -120,7 +120,6 @@ export const insertUserAuth = async (username, email, password) => {
 };
 
 // Verify User
-
 export const verify = async (req, res) => {
   try {
     const decoded = jwt.verify(req.params.token, password_salt);
@@ -151,3 +150,97 @@ export const verify = async (req, res) => {
 };
 
 // login
+export const login = async (req, res) => {
+  try {
+    const { username, password } = req.body;
+
+    const user = await AuthDB.getUserByUsername(username);
+
+    if (user.password === sha256(password + password_salt)) {
+      const jwtoken = generateToken({ username: username });
+
+      res.status(200).json({ token: jwtoken, msg: "Login successful" });
+    } else {
+      res.status(400).json({ msg: "Incorrect password" });
+    }
+  } catch (err) {
+    console.log(err);
+
+    if (err.msg == "User not found") {
+      res.status(400).json({ msg: "User does not exist" });
+      return;
+    }
+    res.status(500).json({ msg: "Error in login" });
+  }
+};
+
+export const google_C = async (req, res, next) => {
+  try {
+    const username = req.query.username;
+    if (username) {
+      const user = await UserDB.getUserByUsername(username);
+      if (user) {
+        res.status(400).json({ msg: "User already exists" });
+        return;
+      }
+    }
+    next();
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "User not found") {
+      googleUsers = req.query.username;
+      next();
+    }
+  }
+};
+
+export const google_R = async (req, res) => {
+  try {
+    // Successful authentication, redirect or respond as necessary
+    // check is user with email exists
+    const email = req.user._json.email;
+    let user = await UserDB.getUserByEmail(email);
+    if (user) {
+      // get JWT token
+      user = user.toJSON();
+      const token = generateToken({ username: user.username });
+      res.cookie("token", token, { httpOnly: true });
+      res.status(200);
+      googleUsers = undefined;
+      res.redirect(process.env.FRONTEND_URL);
+      return;
+    }
+    let username = googleUsers;
+    if (username == undefined) {
+      res.status(400);
+      res.redirect(process.env.LOGIN_URL);
+    }
+
+    // check if user with username exists
+    user = await UserDB.getUserByUsername(username);
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "User not found") {
+      // insert user
+      const username = googleUsers;
+      const email = req.user._json.email;
+      const picture = req.user._json.picture;
+      let user = await UserDB.createUser(username, email);
+      user = await UserDB.getUserByUsername(username);
+      user = user.toJSON();
+      if (picture) {
+        user = await UserDB.updateUser(user.id, { profile_picture: picture });
+      }
+      // get JWT token
+      const token = generateToken({ username: username });
+      res.cookie("token", token, { httpOnly: true });
+      res.status(200);
+      googleUsers = undefined;
+      res.redirect(process.env.FRONTEND_URL);
+      return;
+    }
+    res.status(500);
+    googleUsers = undefined;
+    res.redirect(process.env.LOGIN_URL);
+  }
+};

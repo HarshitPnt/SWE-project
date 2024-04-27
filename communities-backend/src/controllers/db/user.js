@@ -102,8 +102,7 @@ export const createUser = async (username, email) => {
 
 // updateUser
 export const updateUser = async (id, data) => {
-  // update updated_at in IST
-  data.updated_at = new Date().toLocaleString("en-US", {
+  data.updated_at = Date().toLocaleString("en-US", {
     timeZone: "Asia/Kolkata",
   });
   delete data.created_at;

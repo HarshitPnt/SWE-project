@@ -6,12 +6,19 @@ import cors from "cors";
 import express from "express";
 import routes from "./src/routes/route.js";
 import bodyParser from "body-parser";
+import passportSetup from "./src/utils/Authenticaion/passport-setup.js";
+import passport from "passport";
+
 const app = express();
 const port = 8080; // You can change this port number if needed
 
+passportSetup();
+
+app.use(passport.initialize());
 app.use(logger);
 app.use(cors());
 app.use(bodyParser.json());
+
 app.use("/", routes);
 
 // establishing a connection to the database

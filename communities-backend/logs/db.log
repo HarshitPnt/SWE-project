@@ -307,3 +307,579 @@ Auth: getUserByUsername: null
 Auth: getUserByEmail: null
 createUser: [object SequelizeInstance:User]
 Auth: createUser: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: [object Object]
+Auth: createUser: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: SequelizeForeignKeyConstraintError: insert or update on table "authentication" violates foreign key constraint "user_check"
+Auth: createUser: [object Object]
+Auth: createUser: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+Auth: createUser: TypeError: Cannot read properties of undefined (reading 'getUserByUsername')
+Auth: createUser: TypeError: Cannot read properties of undefined (reading 'getUserByUsername')
+Auth: createUser: [object Object]
+Auth: createUser: TypeError: Cannot read properties of undefined (reading 'getUserByUsername')
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserById: [object Object]
+Auth: getUserById: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserByUsername: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserByUsername: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserByEmail: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserByEmail: SequelizeDatabaseError: relation "authentication" does not exist
+Auth: getUserByEmail: SequelizeDatabaseError: relation "authentication" does not exist
+getUserByUsername: null
+Auth: createUser: [object Object]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeDatabaseError: relation "authentication" does not exist
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: null
+Auth: createUser: [object Object]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: null
+Auth: createUser: [object Object]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: null
+Auth: createUser: [object Object]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object SequelizeInstance:authentication]
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: getUserById: [object SequelizeInstance:authentication]
+Auth: getUserById: [object Object]
+Auth: getUserById: [object Object]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: [object SequelizeInstance:authentication]
+Auth: getUserByEmail: null
+Auth: getUserByEmail: null
+getUserByUsername: null
+Auth: createUser: [object Object]
+Auth: createUser: [object Object]
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: SequelizeUniqueConstraintError: Validation error
+getUserByUsername: [object SequelizeInstance:User]
+Auth: createUser: [object Object]
+Auth: updateUser: 0
+Auth: updateUser: 1
+Auth: getUserByUsername: [object SequelizeInstance:authentication]
+Auth: getUserByUsername: Error: WHERE parameter "username" has invalid "undefined" value
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+Auth: getUserByUsername: null
+Auth: getUserByUsername: [object Object]
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+getUserByEmail: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+getUserByUsername: null
+getUserByEmail: null
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: null
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: null
+getUserByEmail: null
+createUser: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+updateUser: 1
+getUserByUsername: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByUsername: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
+getUserByEmail: [object SequelizeInstance:User]
