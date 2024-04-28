@@ -1,0 +1,12 @@
+{
+    "token":{
+        "username":"admin",
+        "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwidGltZSI6MTcxNDI0NTQxOTM0MywiaWF0IjoxNzE0MjQ1NDE5LCJleHAiOjE3MTQyNDkwMTl9.1-YH7lxb-WbqLq1L0LH1nO7SJVrWd_dwb_MMup-er60"
+    }
+}
+{
+    "token": {
+        "username": "jerog1",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implcm9nMSIsInRpbWUiOjE3MTQyODI0NzA3MTMsImlhdCI6MTcxNDI4MjQ3MCwiZXhwIjoxNzE0Mjg2MDcwfQ.JLty-56CsXtZWXwriBag7AO-V9ak4yvwXRaF6FC196U"
+    }
+}

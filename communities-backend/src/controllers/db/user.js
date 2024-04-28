@@ -1,5 +1,6 @@
 import { User } from "../../models/userModel.js";
 import fs from "fs";
+import { Op } from "sequelize";
 
 const filename = "./logs/db.log";
 
@@ -102,8 +103,7 @@ export const createUser = async (username, email) => {
 
 // updateUser
 export const updateUser = async (id, data) => {
-  // update updated_at in IST
-  data.updated_at = new Date().toLocaleString("en-US", {
+  data.updated_at = Date().toLocaleString("en-US", {
     timeZone: "Asia/Kolkata",
   });
   delete data.created_at;
@@ -145,5 +145,27 @@ export const getAllUsers = async () => {
   } catch (err) {
     console.log(err);
     throw { error: err, msg: "Error in getAllUsers" };
+  }
+};
+
+// searchUser
+export const searchUser = async (searchString) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "username"],
+      where: {
+        username: {
+          [Op.iLike]: searchString + "%",
+        },
+      },
+    });
+
+    // logging the user
+    fs.appendFileSync(filename, `searchUser: ${users}\n`);
+
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw { error: err, msg: "Error in searchUser" };
   }
 };

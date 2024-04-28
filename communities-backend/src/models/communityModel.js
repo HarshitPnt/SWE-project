@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Community = db.define(
+export const Community = db.define(
   "communities",
   {
     id: {
@@ -84,5 +84,3 @@ Community.addHook("beforeValidate", (community, options) => {
     throw new Error("Invalid status value");
   }
 });
-
-export default Community;

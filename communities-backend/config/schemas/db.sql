@@ -26,13 +26,14 @@ CREATE TABLE users (
 -- Authentication Table
 
 CREATE TABLE authentication (
-    id SERIAL PRIMARY KEY,
+    id SERIAL,
     username VARCHAR(255) NOT NULL,
     email VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
 
     -- check that (user_name, email, created_at) is present in users table
-    CONSTRAINT user_check FOREIGN KEY (username, email) REFERENCES users(username, email)
+    CONSTRAINT user_check FOREIGN KEY (username, email) REFERENCES users(username, email),
+    PRIMARY KEY (username, email)
 );
 
 -- Communities Table
