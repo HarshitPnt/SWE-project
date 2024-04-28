@@ -10,3 +10,9 @@
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Implcm9nMSIsInRpbWUiOjE3MTQyODI0NzA3MTMsImlhdCI6MTcxNDI4MjQ3MCwiZXhwIjoxNzE0Mjg2MDcwfQ.JLty-56CsXtZWXwriBag7AO-V9ak4yvwXRaF6FC196U"
     }
 }
+{
+    "token": {
+        "username": "Junekri",
+        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Ikp1bmVrcmkiLCJ0aW1lIjoxNzE0MzM4Nzk5MTEzLCJpYXQiOjE3MTQzMzg3OTksImV4cCI6MTcxNDM0MjM5OX0.GyoSgcW0CRjsq9D_dSVJuNSg2WEJrt8wIZ5uSJkB1N8"
+    }
+}

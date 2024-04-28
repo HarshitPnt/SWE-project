@@ -3,6 +3,7 @@ import {
   getPublicPosts,
   getMemberPosts,
 } from "../utils/PostsFilter/filterByVisibility.js";
+import { checkFields, retainFields } from "../utils/utilities/object.js";
 
 // getPostById (public: tested)
 export const getPostById = async (req, res) => {
@@ -88,4 +89,71 @@ export const searchPosts = async (req, res) => {
   }
 };
 
-//
+// createPost
+export const createPost = async (req, res) => {
+  try {
+    const data = req.body.data;
+    if (!req.body.data) {
+      res.status(400).json({ msg: "Missing data" });
+      return;
+    }
+    // check if data contains the following fields
+    const requiredFields = [
+      "title",
+      "content",
+      "community_id",
+      "creator_id",
+      "post_type",
+    ];
+    // from post_type check others also (TODO)
+    if (checkFields(data, requiredFields) === false) {
+      res.status(400).json({ msg: "Missing fields" });
+      return;
+    }
+    const post = await PostDB.createPost(data);
+    res.status(201).json({ msg: "Post created" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in createPost" });
+  }
+};
+
+// updatePost
+export const updatePost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    let data = req.body.data;
+    if (!req.body.data) {
+      res.status(400).json({ msg: "Missing data" });
+      return;
+    }
+    data = retainFields(data, ["title", "content"]);
+    data.updated_at = new Date().toLocaleString("en-US", {
+      timeZone: "Asia/Kolkata",
+    });
+    const post = await PostDB.updatePost(id, data);
+    res.status(200).json({ msg: "Post updated" });
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "Post not found") {
+      res.status(404).json({ msg: "Post not found" });
+      return;
+    }
+    res.status(500).json({ msg: "Error in updatePost" });
+  }
+};
+
+export const deletePost = async (req, res) => {
+  try {
+    const id = req.params.id;
+    const post = await PostDB.deletePost(id);
+    res.status(200).json({ msg: "Post deleted" });
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "Post not found") {
+      res.status(404).json({ msg: "Post not found" });
+      return;
+    }
+    res.status(500).json({ msg: "Error in deletePost" });
+  }
+};

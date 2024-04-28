@@ -66,7 +66,7 @@ export const getCommunityByOwner = async (id, banned = false) => {
   try {
     const community = await Community.findAll({
       attributes: ["id"],
-      where: { creater_id: id, is_banned: banned, status: "active" },
+      where: { creator_id: id, is_banned: banned, status: "active" },
     });
 
     // logging the community
@@ -135,6 +135,7 @@ export const isActiveCommunity = async (id) => {
 
     // logging the community
     fs.appendFileSync(filename, `isActiveCommunity: ${community}\n`);
+    console.log("HERE", community.status);
     if (community.status !== "active") {
       return { active: false, status: community.status };
     }
@@ -160,7 +161,10 @@ export const updateCommunity = async (id, data) => {
       "comment_privilege",
       "allowed_posts",
     ]);
-    console.log(data);
+    // check if data is empty
+    if (Object.keys(data).length === 0) {
+      return { msg: "No data to update" };
+    }
     if (data.status === "deleted")
       data.deleted_at = new Date().toLocaleString("en-US", {
         timeZone: "Asia/Kolkata",
@@ -169,14 +173,15 @@ export const updateCommunity = async (id, data) => {
       timeZone: "Asia/Kolkata",
     });
     // check if community is deleted
-    if (isActiveCommunity(id).active === false) {
+    const active = await isActiveCommunity(id);
+    if (active.active === false) {
       throw { error: null, msg: "Community not found" };
     }
     const community = await Community.update(data, { where: { id: id } });
 
     // logging the community
     fs.appendFileSync(filename, `updateCommunity: ${community}\n`);
-    return community;
+    return { msg: "Community updated" };
   } catch (err) {
     // console.log(err);
     throw { error: err, msg: "Error in updateCommunity" };
@@ -245,10 +250,13 @@ export const getAllBannedCommunities = async () => {
 // banCommunity
 export const banCommunity = async (id, reason) => {
   try {
-    if (isActiveCommunity(id) === false) {
+    const active = await isActiveCommunity(id);
+    console.log(active.active, active.status);
+    if (active.active === false) {
+      console.log("HERE");
       throw { error: null, msg: "Community already banned" };
     }
-    if (reason === "") {
+    if (!reason || reason === "") {
       throw { error: null, msg: "Reason cannot be empty" };
     }
     const community = await Community.update(
@@ -275,9 +283,12 @@ export const banCommunity = async (id, reason) => {
 // unbanCommunity
 export const unbanCommunity = async (id) => {
   try {
-    const _ret = isActiveCommunity(id);
+    const _ret = await isActiveCommunity(id);
     if (_ret.active === false && _ret.status === "deleted") {
       throw { error: null, msg: "Community is deleted" };
+    }
+    if (_ret.active === true) {
+      throw { error: null, msg: "Community is already unbanned" };
     }
     const community = await Community.update(
       { is_banned: false, banned_reason: "", status: "active" },
@@ -289,7 +300,11 @@ export const unbanCommunity = async (id) => {
     return community;
   } catch (err) {
     // console.log(err);
-    if (err.msg === "Community not found") {
+    if (
+      err.msg === "Community not found" ||
+      err.msg === "Community is deleted" ||
+      err.msg === "Community is already unbanned"
+    ) {
       throw err;
     }
     throw { error: err, msg: "Error in unbanCommunity" };

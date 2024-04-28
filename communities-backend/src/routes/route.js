@@ -11,6 +11,7 @@ import {
   checkCommunityAdmin,
   checkSuperuser,
 } from "../middleware/users/checkRoles.js";
+import { checkPostCreator } from "../middleware/posts/checkPrivileges.js";
 
 const router = express.Router();
 
@@ -64,38 +65,39 @@ router.get(
   User_Controller.getAllBannedUsers
 );
 
-router.get(
+router.patch(
   "/superuser/community/ban/:id",
   checkSuperuser,
   Community_Controller.banCommunity
 );
 
-router.get(
+router.patch(
   "/superuser/community/unban/:id",
   checkSuperuser,
   Community_Controller.unbanCommunity
-);
+); // tested
 
 router.get(
   "/superuser/community/banned",
   checkSuperuser,
   Community_Controller.getAllBannedCommunities
-);
+); // tested
 
 // community routes
-router.get("/community/:id", Community_Controller.getCommunityByID);
-router.get(
-  "community/owner/:owner_id",
-  Community_Controller.getCommunityByOwner
-);
+router.get("/community/:id", Community_Controller.getCommunityByID); // tested
 
-router.get("/search/community", Community_Controller.searchCommunity);
+router.get(
+  "/community/owner/:owner_id",
+  Community_Controller.getCommunityByOwner
+); // tested
+
+router.get("/search/community", Community_Controller.searchCommunity); //tested
 
 router.patch(
   "/community/:id",
   checkCommunityAdmin,
   Community_Controller.updateCommunity
-);
+); // tested
 
 router.post("/community", Community_Controller.createCommunity);
 
@@ -108,12 +110,19 @@ router.post(
 // router.post("/post", Post_Controller.createPost);
 
 // post routes
-router.get("/post/:id", Post_Controller.getPostById);
-router.get("/post/creator/:creator_id", Post_Controller.getPostByCreatorID);
+router.get("/post/:id", Post_Controller.getPostById); // tested
+router.get("/post/creator/:creator_id", Post_Controller.getPostByCreatorID); // tested
 router.get(
   "/post/community/:community_id",
   Post_Controller.getPostByCommunityID
 );
 router.get("/search/post", Post_Controller.searchPosts);
+
+// TODO: checkPrivileges middleware
+// router.post("/post", Post_Controller.createPost);
+
+router.patch("/post/:id", checkPostCreator, Post_Controller.updatePost);
+
+router.delete("/post/:id", checkPostCreator, Post_Controller.deletePost);
 
 export default router;

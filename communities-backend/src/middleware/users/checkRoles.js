@@ -30,7 +30,7 @@ export const checkCommunityAdmin = async (req, res, next) => {
   try {
     let community;
     let user;
-    const community_id = req.params.community_id;
+    const community_id = req.params.id;
     if (req.verified) {
       community = await CommunityDB.getCommunityById(community_id);
       user = await UserDB.getUserByUsername(req.username);
