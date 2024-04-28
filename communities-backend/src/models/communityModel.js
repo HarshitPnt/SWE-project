@@ -83,4 +83,9 @@ Community.addHook("beforeValidate", (community, options) => {
   if (!["active", "banned", "deleted"].includes(community.status)) {
     throw new Error("Invalid status value");
   }
+
+  // hook such that allowed_posts is of type "11111", "11110", "11100", "11000", "10000", "00000"
+  if (!/^[01]{5}$/.test(community.allowed_posts)) {
+    throw new Error("Invalid allowed_posts value");
+  }
 });

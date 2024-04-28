@@ -436,3 +436,6 @@ Register: [object SequelizeInstance:authentication]
 2024-04-28T12:01:53.995Z - Method: GET, URL: /search/post?search=rooster&community=ro, Status Code: 200
 2024-04-28T12:05:01.806Z - Method: GET, URL: /search/post?search=rooster&community=ro, Status Code: 200
 2024-04-28T12:05:49.683Z - Method: GET, URL: /search/post?search=r&community=ro, Status Code: 200
+2024-04-28T22:11:02.396Z - Method: GET, URL: /superuser/user/banned, Status Code: 200
+2024-04-28T22:11:33.041Z - Method: GET, URL: /superuser/user/banned, Status Code: 200
+2024-04-28T22:11:37.422Z - Method: GET, URL: /superuser/user/banned, Status Code: 200

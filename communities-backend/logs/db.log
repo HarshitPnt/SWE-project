@@ -1071,3 +1071,4 @@ searchCommunity: [object SequelizeInstance:communities]
 getCommunityVisibilityByIDs: [object SequelizeInstance:communities]
 searchCommunity: [object SequelizeInstance:communities]
 getCommunityVisibilityByIDs: [object SequelizeInstance:communities]
+getUserByUsername: null

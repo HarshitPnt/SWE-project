@@ -3,10 +3,14 @@ import * as User_Controller from "../controllers/usersController.js";
 import * as UserDB from "../controllers/db/user.js";
 import * as Auth_Controller from "../controllers/authController.js";
 import * as Post_Controller from "../controllers/postsController.js";
+import * as Community_Controller from "../controllers/communityController.js";
 import { generateToken } from "../utils/Authenticaion/JWT.js";
 import passport from "passport";
 import { verify } from "../middleware/verifyToken.js";
-import { checkSuperuser } from "../middleware/users/checkRoles.js";
+import {
+  checkCommunityAdmin,
+  checkSuperuser,
+} from "../middleware/users/checkRoles.js";
 
 const router = express.Router();
 
@@ -37,17 +41,71 @@ router.post("/forgot", Auth_Controller.forgot);
 // user routes
 router.get("/user/public/:id", User_Controller.getPublicUser);
 
+// token verification
 router.use(verify);
 router.get("/user/private/:id", User_Controller.getPrivateUser);
-router.patch("/superuser/ban/:id", checkSuperuser, User_Controller.banUser);
-router.patch("/superuser/unban/:id", checkSuperuser, User_Controller.unbanUser);
+router.patch("/user/update", User_Controller.updateUser);
+
+router.patch(
+  "/superuser/user/ban/:id",
+  checkSuperuser,
+  User_Controller.banUser
+);
+
+router.patch(
+  "/superuser/user/unban/:id",
+  checkSuperuser,
+  User_Controller.unbanUser
+);
+
 router.get(
-  "/superuser/getBanned",
+  "/superuser/user/banned",
   checkSuperuser,
   User_Controller.getAllBannedUsers
 );
-router.patch("/user/update", User_Controller.updateUser);
-router.get("/user/ban", checkSuperuser, User_Controller.getAllBannedUsers);
+
+router.get(
+  "/superuser/community/ban/:id",
+  checkSuperuser,
+  Community_Controller.banCommunity
+);
+
+router.get(
+  "/superuser/community/unban/:id",
+  checkSuperuser,
+  Community_Controller.unbanCommunity
+);
+
+router.get(
+  "/superuser/community/banned",
+  checkSuperuser,
+  Community_Controller.getAllBannedCommunities
+);
+
+// community routes
+router.get("/community/:id", Community_Controller.getCommunityByID);
+router.get(
+  "community/owner/:owner_id",
+  Community_Controller.getCommunityByOwner
+);
+
+router.get("/search/community", Community_Controller.searchCommunity);
+
+router.patch(
+  "/community/:id",
+  checkCommunityAdmin,
+  Community_Controller.updateCommunity
+);
+
+router.post("/community", Community_Controller.createCommunity);
+
+router.post(
+  "/community/delete/:id",
+  checkCommunityAdmin,
+  Community_Controller.deleteCommunity
+);
+
+// router.post("/post", Post_Controller.createPost);
 
 // post routes
 router.get("/post/:id", Post_Controller.getPostById);
