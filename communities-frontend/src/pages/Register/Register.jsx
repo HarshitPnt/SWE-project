@@ -23,6 +23,7 @@ export default function Register() {
   const [style, setStyle] = useState(styles.no_error);
   const nameRef = useRef(null);
   const passRef = useRef(null);
+  const emailRef = useRef(null);
   const [pwd, setPwd] = useState("");
   const [userName, setUserName] = useState("");
   const [isRevealPwd, setIsRevealPwd] = useState(false);
@@ -67,7 +68,7 @@ export default function Register() {
               email
             </label>
             <input
-              ref={nameRef}
+              ref={emailRef}
               className={styles.input_css}
               type="email"
               placeholder="Your Name"

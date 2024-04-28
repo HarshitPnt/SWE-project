@@ -1,5 +1,5 @@
 .UserProfile {
-  height: 100%;
+  display: flex;
 }
 
 .navbar {
@@ -17,7 +17,12 @@
 
 .box1 {
   margin-left: 355px;
-  width: 79%;
+  width: 52%;
+  margin-right: 0;
+  padding-right: 0;
+  height: 867px;
+  overflow-y: auto;
+  padding-right: 5px;
 }
 
 .Sidebar {
@@ -29,7 +34,6 @@
   border: 1px solid #ccc;
   padding: 15px;
   margin-left: 200px;
-  width: 50%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -80,4 +84,62 @@
   font-weight: 500;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.box2 {
+  width: 200px;
+  margin-left: 100px;
+  overflow-y: auto;
+  height: 867px;
+  overflow-y: auto;
+  padding-right: 5px;
+}
+
+.box3 {
+  width: 200px;
+  margin-left: 20px;
+  overflow-y: auto;
+  height: 867px;
+  padding-right: 5px;
+}
+
+.singleuserbximg {
+  height: 40px;
+  width: 40px;
+  border-radius: 40px;
+  padding: 0;
+  margin: 0;
+  padding: 5px;
+}
+
+.rightheader {
+  margin-top: 20px;
+  align-items: center;
+  border: solid 1px #ccc;
+  margin-bottom: 10px;
+  padding-top: 2px;
+  padding-bottom: 2px;
+  padding-left: 45px;
+  justify-content: center;
+}
+
+.userList {
+  display: flex;
+  flex-direction: column;
+}
+
+.singleuserbx {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-bottom: 8px;
+  border: solid 1px #ccc;
+}
+
+.singleuserbxinfo {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  margin-left: 10px;
 }

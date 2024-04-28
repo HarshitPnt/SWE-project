@@ -6,6 +6,17 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
 
+export function SingleUser(name, img) {
+  return (
+    <div className={styles.singleuserbx}>
+      <img src={img} alt="user" className={styles.singleuserbximg} />
+      <div className={styles.singleuserbxinfo}>
+        <h3>{name}</h3>
+      </div>
+    </div>
+  );
+}
+
 function UserProfile() {
   return (
     <div className={styles.UserProfile}>
@@ -44,16 +55,93 @@ function UserProfile() {
             <h2>Followers</h2>
           </div>
           <div className={styles.userList}>
-            <div className={styles.singleuserbx}>
-              <img
-                src="https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
-                alt="user"
-                className={styles.singleuserbximg}
-              />
-              <div className={styles.singleuserbxinfo}>
-                <h2>John Doe</h2>
-              </div>
-            </div>
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+          </div>
+        </div>
+        <div className={styles.box3}>
+          <div className={styles.rightheader}>
+            <h2>Following</h2>
+          </div>
+          <div className={styles.userList}>
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
+            {SingleUser(
+              "John Doe",
+              "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+            )}
           </div>
         </div>
       </div>
