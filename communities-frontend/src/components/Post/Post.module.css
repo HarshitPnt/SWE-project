@@ -1,0 +1,113 @@
+.Post {
+    margin-top: 20px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    margin-left: 200px;
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.post_header {
+    display: flex;
+    align-items: center;
+
+}
+
+.post_header_img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    padding: 5px;
+}
+
+.post_header_left {
+    display: flex;
+    flex-direction: row;
+    margin-left: 10px;
+    align-items: center;
+    margin-right: 50px;
+}
+
+.post_header_right {
+    display: flex;
+    flex-direction: row;
+    margin-left: 340px;
+    align-items: center;
+}
+
+.post_header_right button {
+    background-color: #211b77;
+    color: white;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 15px;
+    cursor: pointer;
+
+}
+
+.post_header_info {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.post_header_info span {
+    font-size: 15px;
+    font-weight: 500;
+    padding: 2px;
+}
+
+.Post hr {
+    border-top: 1px solid #ccc;
+    width: 100%;
+}
+
+.post_body_title {
+    font-size: 18px;
+    font-weight: 500;
+    padding-bottom: 3px;
+}
+
+.post_body_text {
+    font-size: 14px;
+    padding-bottom: 8px;
+    padding-top: 4px;
+}
+
+.post_footer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.post_footer_left button {
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 15px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.post_footer_right button {
+    color: black;
+    padding-left: 10px;
+    padding-right: 10px;
+    margin-right: 10px;
+    padding-top: 3px;
+    padding-bottom: 3px;
+    font-size: 17px;
+    font-weight: 500;
+    border-radius: 15px;
+    cursor: pointer;
+}

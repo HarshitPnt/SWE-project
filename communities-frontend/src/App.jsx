@@ -1,13 +1,12 @@
 import Header from "./components/Header/Header";
+import Home from "./pages/Home/Home";
+import Register from "./pages/Register/Register";
+import Login from "./pages/Login/Login";
 
 function App() {
   return (
     <>
-      <Header />
-
-      {/* <div className={styles.App}>
-        <h1>Communities</h1>
-      </div> */}
+      <Home />
     </>
   );
 }

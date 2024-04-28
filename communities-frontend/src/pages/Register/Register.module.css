@@ -1,0 +1,162 @@
+.main {
+  text-align: center;
+  justify-content: center;
+  display: block;
+  padding: 90px 0 174px 0;
+  height: 100%;
+  background-color: rgb(238, 238, 238);
+  background: rgb(95, 87, 233);
+  background: linear-gradient(90deg,
+      rgba(95, 87, 233, 1) 0%,
+      rgba(167, 167, 235, 1) 54%,
+      rgba(22, 158, 186, 1) 100%);
+}
+
+.popup {}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 1px #ccc;
+  margin-top: 10px;
+  width: 30%;
+  margin-left: 35%;
+  padding-bottom: 20px;
+  background-color: white;
+}
+
+.error {
+  margin-top: 30px;
+  color: red;
+  font-size: larger;
+}
+
+.no_error {
+  margin-top: 30px;
+  color: red;
+  font-size: larger;
+  display: none;
+}
+
+.logo img {
+  width: 70px;
+  background-color: transparent;
+}
+
+.sub_main {
+  display: inline-block;
+  text-align: center;
+  justify-content: center;
+  margin-top: 10px;
+  height: 600px;
+  width: 28%;
+  padding-top: 30px;
+  border-radius: 20px;
+  background-color: white;
+}
+
+.label_css {
+  padding-top: 15px;
+  padding-bottom: 7px;
+  padding-left: 85px;
+  font-size: larger;
+  display: block;
+  color: #3d5af1;
+  text-align: left;
+}
+
+.button_css {
+  color: white;
+  border-radius: 10px;
+  font-size: larger;
+  display: block;
+  margin: auto;
+  background-color: #3d5af1;
+  width: 70%;
+  margin-top: 30px;
+  cursor: pointer;
+  height: 40px;
+}
+
+.h2_css {
+  color: #3d5af1;
+  margin-bottom: 20px;
+  margin-top: 25px;
+}
+
+.butt:hover,
+.button_css:hover {
+  background-color: #aa2fcf;
+}
+
+.h4_css {
+  color: #3d5af1;
+  margin-top: 15px;
+}
+
+.butt {
+  color: white;
+  border-radius: 10px;
+  font-size: larger;
+  margin: auto;
+  background-color: #3d5af1;
+  width: 70%;
+  cursor: pointer;
+  margin-top: 0px;
+  width: 45%;
+  background-color: #3d5af1;
+  height: 40px;
+}
+
+.input_css {
+  margin-top: 5px;
+  font-size: larger;
+  width: 70%;
+  display: block;
+  margin: auto;
+  border-radius: 10px;
+  padding: 5px 30px 5px 10px;
+}
+
+.pwd_container {
+  position: relative;
+  width: 100%;
+  justify-content: center;
+}
+
+.pwd_container input {
+  padding: 5px 30px 5px 10px;
+  width: 70%;
+  font-size: larger;
+}
+
+.pwd_container img {
+  cursor: pointer;
+  position: absolute;
+  width: 30px;
+  margin-right: 80px;
+  right: -5px;
+  top: 4px;
+}
+
+.linkstyle {
+  text-emphasis: none;
+  text-decoration: none;
+
+}
+
+.linkstyle:hover {
+  text-emphasis: none;
+  text-decoration: none;
+  background-color: rgba(0, 0, 0, 0);
+  border-style: none;
+}
+
+.google {
+  margin: auto;
+  text-align: center;
+  margin-top: 30px;
+  margin-left: 150px;
+  padding: 0;
+}
