@@ -1,26 +1,25 @@
 .Home {
-    height: 100%;
-    width: 2;
+  height: 100%;
 }
 
 .navbar {
-    width: 100%;
-    z-index: 100;
-    position: fixed;
-    top: 0;
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  top: 0;
 }
 
 .body {
-    margin-top: 65px;
-    display: flex;
-    flex: 1;
+  margin-top: 65px;
+  display: flex;
+  flex: 1;
 }
 
 .content {
-    margin-left: 355px;
-    width: 79%;
+  margin-left: 355px;
+  width: 79%;
 }
 
 .Sidebar {
-    position: fixed;
+  position: fixed;
 }

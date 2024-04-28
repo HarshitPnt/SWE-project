@@ -1,0 +1,83 @@
+.UserProfile {
+  height: 100%;
+}
+
+.navbar {
+  width: 100%;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+}
+
+.body {
+  margin-top: 65px;
+  display: flex;
+  flex: 1;
+}
+
+.box1 {
+  margin-left: 355px;
+  width: 79%;
+}
+
+.Sidebar {
+  position: fixed;
+}
+
+.Header {
+  margin-top: 20px;
+  border: 1px solid #ccc;
+  padding: 15px;
+  margin-left: 200px;
+  width: 50%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.Header img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  padding: 5px;
+}
+
+.userText {
+  display: flex;
+  flex-direction: column;
+  margin-left: 20px;
+  padding: 0;
+}
+
+.userText h2 {
+  font-size: 20px;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+
+.userText h4 {
+  font-size: 15px;
+  font-weight: 500;
+  padding: 0;
+  margin: 0;
+}
+
+.headerbtns {
+  display: flex;
+  flex-direction: column;
+  margin-left: 500px;
+}
+
+.headerbtns button {
+  background-color: #211b77;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 5px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 15px;
+  cursor: pointer;
+}
