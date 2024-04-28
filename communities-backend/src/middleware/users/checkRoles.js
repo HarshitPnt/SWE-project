@@ -1,6 +1,7 @@
 import * as UserDB from "../../controllers/db/user.js";
 import * as AuthDB from "../../controllers/db/auth.js";
 import { User } from "../../models/userModel.js";
+import * as CommunityDB from "../../controllers/db/community.js";
 
 export const checkSuperuser = async (req, res, next) => {
   try {
@@ -27,10 +28,14 @@ export const checkSuperuser = async (req, res, next) => {
 // TODO: Implement checkBanned middleware, and the below
 export const checkCommunityAdmin = async (req, res, next) => {
   try {
+    let community;
     let user;
-    if (req.verified) user = await UserDB.getUserByUsername(req.username);
-    else res.status(403).json({ msg: "Invalid Token" });
-    if (user.is_community_admin === true) {
+    const community_id = req.params.community_id;
+    if (req.verified) {
+      community = await CommunityDB.getCommunityById(community_id);
+      user = await UserDB.getUserByUsername(req.username);
+    } else res.status(403).json({ msg: "Invalid Token" });
+    if (user.id === community.creator_id) {
       next();
     } else {
       res.status(403).json({ msg: "User is not a community admin" });

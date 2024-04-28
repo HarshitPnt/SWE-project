@@ -6,7 +6,7 @@ const filename = "./logs/db.log";
 
 // getCommunityById
 
-export const getCommunityById = async (id) => {
+export const getCommunityById = async (id, banned = false) => {
   try {
     if (id <= 0) {
       throw { error: null, msg: "Invalid id" };
@@ -14,6 +14,8 @@ export const getCommunityById = async (id) => {
     const community = await Community.findOne({
       where: {
         id: id,
+        is_banned: banned,
+        status: "active",
       },
     });
 
@@ -37,9 +39,11 @@ export const getCommunityById = async (id) => {
 
 // getCommunityByName
 
-export const getCommunityByName = async (name) => {
+export const getCommunityByName = async (name, banned = false) => {
   try {
-    const community = await Community.findOne({ where: { name: name } });
+    const community = await Community.findOne({
+      where: { name: name, is_banned: banned, status: "active" },
+    });
 
     // logging the community
     fs.appendFileSync(filename, `getCommunityByName: ${community}\n`);
@@ -57,11 +61,11 @@ export const getCommunityByName = async (name) => {
 };
 
 // getCommunityByOwner
-export const getCommunityByOwner = async (id) => {
+export const getCommunityByOwner = async (id, banned = false) => {
   try {
     const community = await Community.findAll({
       attributes: ["id"],
-      where: { creater_id: id },
+      where: { creater_id: id, is_banned: banned, status: "active" },
     });
 
     // logging the community
@@ -80,10 +84,10 @@ export const getCommunityByOwner = async (id) => {
 };
 
 // getCommunityPrivilegesById
-export const getCommunityPrivilegesById = async (id) => {
+export const getCommunityPrivilegesById = async (id, banned = false) => {
   try {
     const community = await Community.findOne({
-      where: { id: id },
+      where: { id: id, is_banned: banned, status: "active" },
     });
 
     // logging the community
@@ -123,12 +127,14 @@ export const createCommunity = async (name, creater_id) => {
 
 // updateCommunity
 
-export const updateCommunity = async (id, name) => {
+export const updateCommunity = async (id, data) => {
   try {
-    const community = await Community.update(
-      { name: name },
-      { where: { id: id } }
-    );
+    delete data.name;
+    delete data.created_at;
+    delete data.creator_id;
+    delete data.id;
+
+    const community = await Community.update(data, { where: { id: id } });
 
     // logging the community
     fs.appendFileSync(filename, `updateCommunity: ${community}\n`);
@@ -178,5 +184,23 @@ export const getCommunityVisibilityByIDs = async (id_list) => {
   } catch (err) {
     // console.log(err);
     throw { error: err, msg: "Error in getCommunityVisibilityByIDs" };
+  }
+};
+
+// getAllBannedCommunities
+
+export const getAllBannedCommunities = async () => {
+  try {
+    const community = await Community.findAll({
+      attributes: ["id", "name"],
+      where: { is_banned: true },
+    });
+
+    // logging the community
+    fs.appendFileSync(filename, `getAllBannedCommunities: ${community}\n`);
+    return community;
+  } catch (err) {
+    // console.log(err);
+    throw { error: err, msg: "Error in getAllBannedCommunities" };
   }
 };

@@ -51,3 +51,26 @@ export const getCommunityByOwner = async (req, res) => {
     res.status(500).json({ msg: "Error in getCommunityByOwner" });
   }
 };
+
+// searchCommunity
+export const searchCommunity = async (req, res) => {
+  try {
+    const query = req.query.community;
+    const communities = await CommunityDB.searchCommunity(query);
+    res.status(200).json(communities);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in searchCommunity" });
+  }
+};
+
+// getAllBannedCommunities
+export const getAllBannedCommunities = async (req, res) => {
+  try {
+    const communities = await CommunityDB.getAllBannedCommunities();
+    res.status(200).json(communities);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in getAllBannedCommunities" });
+  }
+};

@@ -204,6 +204,17 @@ export const getAllBannedUsers = async (req, res) => {
   }
 };
 
+export const searchUser = async (req, res) => {
+  try {
+    const searchString = req.query.user;
+    const users = await UserDB.searchUser(searchString);
+    res.status(200).json(users);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 // communities that the user is a part of (communities)
 
 // user notifications (notifications)
