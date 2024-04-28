@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Posts = db.define(
+export const Post = db.define(
   "Posts",
   {
     id: {
@@ -87,5 +87,3 @@ const Posts = db.define(
     tableName: "posts",
   }
 );
-
-export default Posts;

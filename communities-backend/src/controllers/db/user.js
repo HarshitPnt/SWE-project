@@ -1,5 +1,6 @@
 import { User } from "../../models/userModel.js";
 import fs from "fs";
+import { Op } from "sequelize";
 
 const filename = "./logs/db.log";
 
@@ -144,5 +145,27 @@ export const getAllUsers = async () => {
   } catch (err) {
     console.log(err);
     throw { error: err, msg: "Error in getAllUsers" };
+  }
+};
+
+// searchUser
+export const searchUser = async (searchString) => {
+  try {
+    const users = await User.findAll({
+      attributes: ["id", "username"],
+      where: {
+        username: {
+          [Op.iLike]: searchString + "%",
+        },
+      },
+    });
+
+    // logging the user
+    fs.appendFileSync(filename, `searchUser: ${users}\n`);
+
+    return users;
+  } catch (err) {
+    console.log(err);
+    throw { error: err, msg: "Error in searchUser" };
   }
 };

@@ -8,12 +8,14 @@ import * as UserDB from "../controllers/db/user.js";
 import dotenv from "dotenv";
 import { sendVerificationMail } from "../utils/Mailer/verificationMail.js";
 import { verifyToken, generateToken } from "../utils/Authenticaion/JWT.js";
+import { sendForgotPassword } from "../utils/Mailer/forgot.js";
 
 dotenv.config();
 const password_salt = process.env.SHA_SALT;
 
 let unverifiedUsers = [];
 let googleUsers;
+let forgotPasswordUsers = [];
 
 const filename = "./logs/log.log";
 
@@ -152,13 +154,12 @@ export const verify = async (req, res) => {
 // login
 export const login = async (req, res) => {
   try {
+    console.log("HERE");
     const { username, password } = req.body;
-
     const user = await AuthDB.getUserByUsername(username);
 
     if (user.password === sha256(password + password_salt)) {
       const jwtoken = generateToken({ username: username });
-
       res.status(200).json({ token: jwtoken, msg: "Login successful" });
     } else {
       res.status(400).json({ msg: "Incorrect password" });
@@ -204,10 +205,8 @@ export const google_R = async (req, res) => {
       // get JWT token
       user = user.toJSON();
       const token = generateToken({ username: user.username });
-      res.cookie("token", token, { httpOnly: true });
-      res.status(200);
+      res.status(200).json({ token: token, msg: "Login successful" });
       googleUsers = undefined;
-      res.redirect(process.env.FRONTEND_URL);
       return;
     }
     let username = googleUsers;
@@ -233,8 +232,7 @@ export const google_R = async (req, res) => {
       }
       // get JWT token
       const token = generateToken({ username: username });
-      res.cookie("token", token, { httpOnly: true });
-      res.status(200);
+      res.status(200).json({ token: token, msg: "Login successful" });
       googleUsers = undefined;
       res.redirect(process.env.FRONTEND_URL);
       return;
@@ -242,5 +240,31 @@ export const google_R = async (req, res) => {
     res.status(500);
     googleUsers = undefined;
     res.redirect(process.env.LOGIN_URL);
+  }
+};
+
+// forgot password
+export const forgot = async (req, res) => {
+  try {
+    const username = req.body.username;
+    const user = await AuthDB.getUserByUsername(username);
+    if (!user) {
+      res.status(400).json({ msg: "User is not in Auth" });
+      return;
+    }
+    const email = user.email;
+
+    // send forgot password mail
+    const token = jwt.sign(
+      { username: username, email: email },
+      password_salt,
+      { expiresIn: "1d" }
+    );
+    sendForgotPassword(username, email, token);
+
+    res.status(200).json({ msg: "Forgot password mail sent" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in sendForgotMail" });
   }
 };
