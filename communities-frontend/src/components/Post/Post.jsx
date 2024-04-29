@@ -9,11 +9,20 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 
 function Post() {
+  const handlecommentClick = () => {
+    window.location.href = "/post";
+  };
+
+  const handleuserclick = () => {
+    window.location.href = "/user";
+  };
+
   return (
     <div className={styles.Post}>
       <div className={styles.post_header}>
         <div className={styles.post_header_left}>
           <img
+            onClick={handleuserclick}
             src="https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
             alt="user"
             className={styles.post_header_img}
@@ -48,7 +57,10 @@ function Post() {
           </button>
         </div>
         <div className={styles.post_footer_right}>
-          <button className={styles.post_footer_right_btn}>
+          <button
+            onClick={handlecommentClick}
+            className={styles.post_footer_right_btn}
+          >
             <FontAwesomeIcon icon={faComment} />
           </button>
           <button className={styles.post_footer_right_btn}>

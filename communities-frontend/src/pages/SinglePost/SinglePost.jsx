@@ -12,6 +12,37 @@ function SinglePost() {
         <div className={styles.content}>
           <Post />
         </div>
+        <div className={styles.CommentBox}>
+          <div className={styles.comments}>
+            <div className={styles.comment}>
+              <div className={styles.commentUser}>
+                <span className={styles.commentUsername}>John Doe</span>
+                <span className={styles.commentDate}>5 minutes ago</span>
+              </div>
+              <div className={styles.commentText}>
+                Lorem ipsum dolor sit amet
+              </div>
+            </div>
+            <div className={styles.comment}>
+              <div className={styles.commentUser}>
+                <span className={styles.commentUsername}>John Doe</span>
+                <span className={styles.commentDate}>5 minutes ago</span>
+              </div>
+              <div className={styles.commentText}>
+                Lorem ipsum dolor sit amet
+              </div>
+            </div>
+            <div className={styles.comment}>
+              <div className={styles.commentUser}>
+                <span className={styles.commentUsername}>John Doe</span>
+                <span className={styles.commentDate}>5 minutes ago</span>
+              </div>
+              <div className={styles.commentText}>
+                Lorem ipsum dolor sit amet
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

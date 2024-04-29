@@ -27,6 +27,20 @@
     text-align: left;
 }
 
+.active {
+    width: 70%;
+    margin-bottom: 15px;
+    font-size: 20px;
+    font-weight: 900;
+    border: none;
+    border-radius: 30px;
+    background-color: rgb(105, 105, 105);
+    color: white;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    text-align: left;
+}
+
 .sidebar_img {
     padding-left: 5px;
     padding-right: 5px;

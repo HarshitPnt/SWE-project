@@ -1,12 +1,18 @@
 import styles from "./Sidebar.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faHome, faPoop, faAnchor } from "@fortawesome/free-solid-svg-icons";
+import {
+  faHome,
+  faArrowUpRightFromSquare,
+  faPlus,
+} from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Sidebar() {
+function Sidebar({ page = 0 }) {
   const [JoinedCommunities, setJoinedCommunities] = useState(true);
   const [AdminCommunities, setAdminCommunities] = useState(false);
   const [ModeratorCommunities, setModeratorCommunities] = useState(false);
+  const xyz = "communityName";
   const handleJoinedCommunities = () => {
     setJoinedCommunities(!JoinedCommunities);
   };
@@ -15,6 +21,22 @@ function Sidebar() {
   };
   const handleModeratorCommunities = () => {
     setModeratorCommunities(!ModeratorCommunities);
+  };
+
+  const handlehomeclick = () => {
+    if (page !== 2) {
+      window.location.href = "/home";
+    }
+  };
+
+  const handleTrendingClick = () => {
+    if (page !== 1) {
+      window.location.href = "/";
+    }
+  };
+
+  const handlecommunityclick = () => {
+    window.location.href = "/community";
   };
 
   const JoinedCommunitiesClass = JoinedCommunities
@@ -27,21 +49,28 @@ function Sidebar() {
     ? styles.dropdown_content
     : styles.hide;
 
+  const homebutton_class = page === 2 ? styles.active : styles.sidebar_btn;
+  const trendingbutton_class = page === 1 ? styles.active : styles.sidebar_btn;
+
   return (
     <>
       <div className={styles.Sidebar}>
         {/* Buttons for home trending and All*/}
-        <button className={styles.sidebar_btn}>
+
+        <button className={homebutton_class} onClick={handlehomeclick}>
           <FontAwesomeIcon icon={faHome} className={styles.sidebar_img} />
           Home
         </button>
-        <button className={styles.sidebar_btn}>
-          <FontAwesomeIcon icon={faPoop} className={styles.sidebar_img} />
+        <button className={trendingbutton_class} onClick={handleTrendingClick}>
+          <FontAwesomeIcon
+            icon={faArrowUpRightFromSquare}
+            className={styles.sidebar_img}
+          />
           Trending
         </button>
         <button className={styles.sidebar_btn}>
-          <FontAwesomeIcon icon={faAnchor} className={styles.sidebar_img} />
-          All
+          <FontAwesomeIcon icon={faPlus} className={styles.sidebar_img} />
+          New Community
         </button>
         <hr className={styles.hr_sidebar} />
         {/* Dropdown named communities */}
@@ -50,9 +79,9 @@ function Sidebar() {
             Joined Communities
           </button>
           <div className={JoinedCommunitiesClass}>
-            <a href="/">c/programming</a>
-            <a href="/">c/AskReddit</a>
-            <a href="/">c/learnprogramming</a>
+            <a onClick={handlecommunityclick}>c/programming</a>
+            <a>c/AskReddit</a>
+            <a>c/learnprogramming</a>
           </div>
         </div>
         <hr className={styles.hr_sidebar} />

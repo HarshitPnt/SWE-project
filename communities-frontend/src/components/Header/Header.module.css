@@ -110,3 +110,30 @@ h1 {
 .profile_img {
     width: 60px;
 }
+
+.login_btn_div {
+    display: flex;
+    flex-direction: row;
+    margin: 0;
+    padding: 0;
+    margin-left: 410px;
+}
+
+.login_btn_div button {
+    display: flex;
+    align-items: center;
+    /* Add CSS for the login button */
+    background-color: rgb(53, 101, 190);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+    color: white;
+    margin-left: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+
+    /* Add hover effect */
+    &:hover {
+        background-color: rgb(33, 81, 160);
+    }
+}

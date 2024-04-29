@@ -45,7 +45,7 @@ function CommunityPage() {
     <div className={styles.CommunityPage}>
       <Header className={styles.navbar} />
       <div className={styles.body}>
-        <Sidebar className={styles.Sidebar} />
+        <Sidebar page={0} className={styles.Sidebar} />
         <div className={styles.box1}>
           <div className={styles.Header}>
             <img

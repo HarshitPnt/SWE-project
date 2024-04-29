@@ -3,7 +3,7 @@ import { useState, useRef } from "react";
 import styles from "./Login.module.css";
 import { Link, useNavigate } from "react-router-dom";
 // import url from "../../../url";
-// import axios from "axios";
+import axios from "axios";
 import GoogleButton from "react-google-button";
 
 export default function Login() {
@@ -81,13 +81,15 @@ export default function Login() {
           </button>
           <div className={style}>Invalid email or password</div>
           <h4 className={styles.h4_css}>Don't have an account ?</h4>
-          <button
-            className={styles.butt}
-            type="Sign In"
-            onClick={() => setStyle(styles.no_error)}
-          >
-            Register
-          </button>
+          <Link to="/register">
+            <button
+              className={styles.butt}
+              type="Sign In"
+              onClick={() => setStyle(styles.no_error)}
+            >
+              Register
+            </button>
+          </Link>
           <div className={styles.google}>
             <GoogleButton />
           </div>

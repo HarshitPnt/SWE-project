@@ -95,19 +95,23 @@ export default function Register() {
               />
             </div>
           </form>
+
           <button className={styles.button_css} onClick={handleRegister}>
             Register
           </button>
+
           <InvalidUserModal isOpen={showModal} onClose={handleCloseModal} />
           <div className={style}>Your User Name is</div>
           <h4 className={styles.h4_css}>Already have an account ?</h4>
-          <button
-            className={styles.butt}
-            type="Sign In"
-            onClick={() => setStyle(styles.no_error)}
-          >
-            Log In
-          </button>
+          <Link to="/login">
+            <button
+              className={styles.butt}
+              type="Sign In"
+              onClick={() => setStyle(styles.no_error)}
+            >
+              Log In
+            </button>
+          </Link>
           <div className={styles.google}>
             <GoogleButton />
           </div>

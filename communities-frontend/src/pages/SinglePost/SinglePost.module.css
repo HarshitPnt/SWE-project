@@ -23,3 +23,29 @@
 .Sidebar {
     position: fixed;
 }
+
+.CommentBox {
+    margin-top: 20px;
+    margin-left: 40px;
+    border: 1px solid #ccc;
+    padding: 15px;
+    width: 23%;
+    height: 855px;
+    overflow-y: auto;
+}
+
+.comment {
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.commentUsername {
+    font-weight: bold;
+    color: rgb(110, 110, 110);
+}
+
+.CommentDate {
+    color: rgb(110, 110, 110);
+}

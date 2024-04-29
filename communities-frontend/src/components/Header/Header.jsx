@@ -2,8 +2,9 @@ import styles from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell, faMessage, faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 
-function Header() {
+function Header({ loggedIn }) {
   const [isInputClicked, setIsInputClicked] = useState(false);
 
   const handleInputClick = () => {
@@ -29,15 +30,29 @@ function Header() {
               onClick={handleInputClick}
             />
           </div>
-          <div className={styles.chat_btn}>
-            <FontAwesomeIcon icon={faBell} className={styles.chat_img} />
-          </div>
-          <div className={styles.not_btn}>
-            <FontAwesomeIcon icon={faMessage} className={styles.not_img} />
-          </div>
-          <div className={styles.profile_btn}>
-            <img src="/logo.png" alt="" className={styles.profile_img} />
-          </div>
+          {loggedIn && (
+            <>
+              <div className={styles.chat_btn}>
+                <FontAwesomeIcon icon={faBell} className={styles.chat_img} />
+              </div>
+              <div className={styles.not_btn}>
+                <FontAwesomeIcon icon={faMessage} className={styles.not_img} />
+              </div>
+              <div className={styles.profile_btn}>
+                <img src="/logo.png" alt="" className={styles.profile_img} />
+              </div>
+            </>
+          )}
+          {!loggedIn && (
+            <div className={styles.login_btn_div}>
+              <Link to="/login">
+                <button>Login</button>
+              </Link>
+              <Link to="/register">
+                <button>Register</button>
+              </Link>
+            </div>
+          )}
         </div>
         <hr className={styles.hr_sidebar} />
       </div>
