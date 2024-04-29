@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Moderators = db.define(
+export const Moderators = db.define(
   "Moderators",
   {
     user_id: {
@@ -42,5 +42,3 @@ const Moderators = db.define(
     tableName: "moderators",
   }
 );
-
-export default Moderators;

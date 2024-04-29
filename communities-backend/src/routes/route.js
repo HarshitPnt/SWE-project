@@ -12,6 +12,8 @@ import {
   checkSuperuser,
 } from "../middleware/users/checkRoles.js";
 import { checkPostCreator } from "../middleware/posts/checkPrivileges.js";
+import * as Moderator_Controller from "../controllers/moderatorController.js";
+import * as CommunityUser_Controller from "../controllers/communityUserController.js";
 
 const router = express.Router();
 
@@ -124,5 +126,49 @@ router.get("/search/post", Post_Controller.searchPosts);
 router.patch("/post/:id", checkPostCreator, Post_Controller.updatePost);
 
 router.delete("/post/:id", checkPostCreator, Post_Controller.deletePost);
+
+// moderator routes
+
+router.get("/moderator/user/:id", Moderator_Controller.getModeratorByUserID); // tested
+router.get(
+  "/moderator/community/:id",
+  checkCommunityAdmin,
+  Moderator_Controller.getModeratorByCommunityID
+); //tested
+
+router.post(
+  "/moderator/:id",
+  checkCommunityAdmin,
+  Moderator_Controller.insertModerator
+); //tested
+router.patch(
+  "/moderator/:id",
+  checkCommunityAdmin,
+  Moderator_Controller.updateModeratorPrivileges
+); //tested
+
+router.delete(
+  "/moderator/:id",
+  checkCommunityAdmin,
+  Moderator_Controller.deleteModerator
+); //tested
+
+router.get(
+  "/community/user/:id",
+  checkCommunityAdmin,
+  CommunityUser_Controller.getAllUsers
+);
+
+router.get(
+  "/community/user/requested/:id",
+  checkCommunityAdmin,
+  CommunityUser_Controller.getRequested
+);
+
+router.get(
+  "/community/user/invited/:id",
+  checkCommunityAdmin,
+  CommunityUser_Controller.getInvited
+);
 
 export default router;

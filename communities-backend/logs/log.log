@@ -569,3 +569,7 @@ Register: [object SequelizeInstance:authentication]
 2024-04-29T10:55:16.930Z - Method: GET, URL: /login, Status Code: 200
 2024-04-29T10:55:41.562Z - Method: OPTIONS, URL: /login, Status Code: 200
 2024-04-29T10:55:41.563Z - Method: GET, URL: /login, Status Code: 200
+2024-04-29T11:45:16.903Z - Method: OPTIONS, URL: /login, Status Code: 200
+2024-04-29T11:45:16.906Z - Method: GET, URL: /login, Status Code: 200
+2024-04-29T11:47:49.925Z - Method: OPTIONS, URL: /login, Status Code: 200
+2024-04-29T11:47:49.927Z - Method: GET, URL: /login, Status Code: 200
