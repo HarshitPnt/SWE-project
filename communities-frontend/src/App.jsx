@@ -19,7 +19,7 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
           <Route path="/user" element={<UserProfile />} />
-          <Route path="/community" element={<CommunityPage />} />
+          <Route path="/community/:id" element={<CommunityPage />} />
           <Route path="/chat" element={<Chat />} />
           <Route path="/post" element={<SinglePost />} />
           <Route path="*" element={<Navigate to="/" />} />

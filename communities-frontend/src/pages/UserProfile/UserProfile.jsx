@@ -44,10 +44,22 @@ function UserProfile() {
             </div>
           </div>
           <div className={styles.PostArray}>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            <Post
+              post={{
+                title: "Title",
+                description:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id sapien nec purus lacinia aliquet. Sed nec nunc id neque tincidunt accumsan",
+                username: "John Doe",
+              }}
+            />
+            <Post
+              post={{
+                title: "Title",
+                description:
+                  "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id sapien nec purus lacinia aliquet. Sed nec nunc id neque tincidunt accumsan",
+                username: "John Doe",
+              }}
+            />
           </div>
         </div>
         <div className={styles.box2}>

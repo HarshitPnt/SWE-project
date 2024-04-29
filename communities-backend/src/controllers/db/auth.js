@@ -31,6 +31,21 @@ export const getUserById = async (id) => {
 };
 
 // getUserByUsername
+export const getUserByUsername2 = async (username) => {
+  try {
+    const user = await Authentication.findOne({
+      where: { username: username },
+    });
+    fs.appendFileSync(filename, `Auth: getUserByUsername: ${user}\n`);
+    return user;
+  } catch (err) {
+    console.log(err);
+
+    fs.appendFileSync(filename, `Auth: getUserByUsername: ${err}\n`);
+    throw { error: err.error, msg: err.msg };
+  }
+};
+
 export const getUserByUsername = async (username) => {
   try {
     const user = await Authentication.findOne({
@@ -46,6 +61,25 @@ export const getUserByUsername = async (username) => {
 
     fs.appendFileSync(filename, `Auth: getUserByUsername: ${err}\n`);
     throw { error: err.error, msg: err.msg };
+  }
+};
+
+// getUserByEmail
+export const getUserByEmail2 = async (email) => {
+  try {
+    const user = await Authentication.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    fs.appendFileSync(filename, `Auth: getUserByEmail: ${user}\n`);
+    return user;
+  } catch (err) {
+    console.log(err);
+
+    fs.appendFileSync(filename, `Auth: getUserByEmail: ${err}\n`);
+    throw { error: err, msg: "Error in getUserByEmail" };
   }
 };
 

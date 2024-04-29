@@ -86,6 +86,47 @@ export const getPostByCreatorID = async (creator_id, banned = "none") => {
   }
 };
 
+export const getPostByCommunityID2 = async (community_id, banned = "none") => {
+  try {
+    let post;
+    if (banned == "all") {
+      post = await Post.findAll({
+        attributes: ["id", "creator_id", "community_id"],
+        where: { community_id: community_id, deleted_at: null },
+      });
+    } else if (banned == "none") {
+      post = await Post.findAll({
+        attributes: ["id", "creator_id", "community_id", "content", "title"],
+        where: {
+          community_id: community_id,
+          is_banned: false,
+          deleted_at: null,
+        },
+      });
+    } else if (banned == "only") {
+      post = await Post.findAll({
+        attributes: ["id", "creator_id", "community_id"],
+        where: {
+          community_id: community_id,
+          is_banned: true,
+          deleted_at: null,
+        },
+      });
+    } else {
+      throw { error: null, msg: "Invalid banned value" };
+    }
+    // logging the post
+    fs.appendFileSync(filename, `getPostByCommunityID: ${post}\n`);
+    return post;
+  } catch (err) {
+    // console.log(err);
+    if (err.msg === "Post not found") {
+      throw err;
+    }
+    throw { error: err, msg: "Error in getPostByCommunityID" };
+  }
+};
+
 // getPostByCommunityID
 
 export const getPostByCommunityID = async (community_id, banned = "none") => {

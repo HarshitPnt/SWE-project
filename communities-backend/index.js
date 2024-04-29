@@ -12,11 +12,11 @@ import passport from "passport";
 const app = express();
 const port = 8080; // You can change this port number if needed
 
+app.use(cors());
 passportSetup();
 
 app.use(passport.initialize());
 app.use(logger);
-app.use(cors());
 app.use(bodyParser.json());
 
 app.use("/", routes);

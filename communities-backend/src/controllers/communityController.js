@@ -9,6 +9,22 @@ import {
   getPublicCommunities,
 } from "../utils/CommunityFilter/filterByVisibility.js";
 
+export const getCommunityDetails = async (req, res) => {
+  try {
+    const id = req.params.id;
+    if (id <= 0) throw { error: null, msg: "Invalid id" };
+    let community = await CommunityDB.getCommunityDetails(id);
+    res.status(200).json(community);
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "Invalid id" || err.msg === "Community not found") {
+      res.status(404).json({ msg: "Community not found" });
+      return;
+    }
+    res.status(500).json({ msg: "Error in getCommunityByID" });
+  }
+};
+
 // getCommunityByID
 export const getCommunityByID = async (req, res) => {
   try {

@@ -14,6 +14,7 @@ import {
 import { checkPostCreator } from "../middleware/posts/checkPrivileges.js";
 import * as Moderator_Controller from "../controllers/moderatorController.js";
 import * as CommunityUser_Controller from "../controllers/communityUserController.js";
+import { getTrendingPosts } from "../controllers/trending.js";
 
 const router = express.Router();
 
@@ -30,6 +31,8 @@ router.get(
   })
 );
 
+router.get("/user/:id", User_Controller.getUserByID); // tested
+
 router.get(
   "/google/redirect",
   passport.authenticate("google", {
@@ -40,6 +43,7 @@ router.get(
 );
 
 router.post("/forgot", Auth_Controller.forgot);
+router.get("/trending", getTrendingPosts);
 
 // user routes
 router.get("/user/public/:id", User_Controller.getPublicUser);
@@ -117,6 +121,13 @@ router.get("/post/creator/:creator_id", Post_Controller.getPostByCreatorID); // 
 router.get(
   "/post/community/:community_id",
   Post_Controller.getPostByCommunityID
+);
+
+router.get("/community/:id/details", Community_Controller.getCommunityDetails);
+
+router.get(
+  "/post/community/:community_id/all",
+  Post_Controller.getAllPostsByCommunityID
 );
 router.get("/search/post", Post_Controller.searchPosts);
 

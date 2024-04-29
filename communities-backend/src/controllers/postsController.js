@@ -45,6 +45,25 @@ export const getPostByCreatorID = async (req, res) => {
     res.status(500).json({ msg: "Error in getPostByCreatorID" });
   }
 };
+// getAllPostsByCommunityID
+export const getAllPostsByCommunityID = async (req, res) => {
+  try {
+    const community_id = req.params.community_id;
+    let post = await PostDB.getPostByCommunityID2(community_id, "none");
+    console.log(post);
+    res.status(200).json(post);
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "Invalid banned value") {
+      res.status(400).json({ msg: "Invalid banned value" });
+      return;
+    } else if (err.msg === "Post not found") {
+      res.status(404).json({ msg: "Post not found" });
+      return;
+    }
+    res.status(500).json({ msg: "Error in getPostByCommunityID" });
+  }
+};
 
 // getPostByCommunityID
 export const getPostByCommunityID = async (req, res) => {
@@ -53,6 +72,7 @@ export const getPostByCommunityID = async (req, res) => {
     let post = await PostDB.getPostByCommunityID(community_id, "none");
     if (!req.verified) post = await getPublicPosts(post);
     else post = await getMemberPosts(post, req.username);
+    console.log(post);
     res.status(200).json(post);
   } catch (err) {
     console.log(err);

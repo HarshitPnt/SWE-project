@@ -5,8 +5,10 @@ import Post from "../../components/Post/Post";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUserFriends } from "@fortawesome/free-solid-svg-icons";
 import { faMessage } from "@fortawesome/free-solid-svg-icons";
+import { useGetCommunityPosts } from "../../hooks/useGetCommunityPosts.js";
+import { useGetCommunityDetails } from "../../hooks/useGetCommunityDetails.js";
 import Modal from "react-modal";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const WritePost = ({ isOpen, onClose }) => {
   return (
@@ -33,6 +35,16 @@ const WritePost = ({ isOpen, onClose }) => {
 };
 
 function CommunityPage() {
+  const [logged, setLogged] = useState(true);
+  const { loading, communityPosts } = useGetCommunityPosts();
+  const { loading2, communityDetails } = useGetCommunityDetails();
+  useEffect(() => {
+    console.log("HERE");
+    console.log(document.cookie);
+    if (!document.cookie.includes("token")) {
+      setLogged(false);
+    }
+  }, []);
   const [showModal, setShowModal] = useState(false);
   const handlePost = async () => {
     setShowModal(true);
@@ -41,9 +53,17 @@ function CommunityPage() {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    console.log(communityPosts);
+  }, [communityPosts]);
+
+  useEffect(() => {
+    console.log(communityDetails);
+  }, [communityDetails]);
+
   return (
     <div className={styles.CommunityPage}>
-      <Header className={styles.navbar} />
+      <Header className={styles.navbar} loggedIn={logged} />
       <div className={styles.body}>
         <Sidebar page={0} className={styles.Sidebar} />
         <div className={styles.box1}>
@@ -54,8 +74,8 @@ function CommunityPage() {
               className={styles.HeaderImg}
             />
             <div className={styles.userText}>
-              <h2>Programming</h2>
-              <h4>Learn how to program</h4>
+              <h2>{communityDetails.name}</h2>
+              <h4>{communityDetails.description}</h4>
             </div>
             <div className={styles.headerbtns}>
               <button className={styles.headerbtn} onClick={handlePost}>
@@ -65,10 +85,16 @@ function CommunityPage() {
             </div>
           </div>
           <div className={styles.PostArray}>
-            <Post />
-            <Post />
-            <Post />
-            <Post />
+            {communityPosts.map((post) => (
+              <Post
+                key={post.id}
+                post={{
+                  title: post.title,
+                  description: post.content,
+                  username: "",
+                }}
+              />
+            ))}
           </div>
         </div>
       </div>

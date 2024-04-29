@@ -5,8 +5,39 @@ import { retainFields } from "../../utils/utilities/object.js";
 
 const filename = "./logs/db.log";
 
-// getCommunityById
+export const getCommunityDetails = async (id, banned = false) => {
+  try {
+    if (id <= 0) {
+      throw { error: null, msg: "Invalid id" };
+    }
+    const community = await Community.findOne({
+      attributes: ["name", "description"],
+      where: {
+        id: id,
+        is_banned: banned,
+        status: "active",
+      },
+    });
 
+    // logging the community
+    fs.appendFileSync(filename, `getCommunityById: ${community}\n`);
+    // console.log(community);
+
+    // check if community is null
+    if (community === null) {
+      throw { error: null, msg: "Community not found" };
+    }
+    return community;
+  } catch (err) {
+    console.log(err);
+    if (err.msg === "Invalid id" || err.msg === "Community not found") {
+      throw err;
+    }
+    throw { error: err, msg: "Error in getCommunityById" };
+  }
+};
+
+// getCommunityById
 export const getCommunityById = async (id, banned = false) => {
   try {
     if (id <= 0) {

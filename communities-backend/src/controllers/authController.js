@@ -24,14 +24,14 @@ export const register = async (req, res) => {
   try {
     const { username, email, password } = req.body;
     // check if user exists
-    const userExists = await AuthDB.getUserByUsername(username);
+    const userExists = await AuthDB.getUserByUsername2(username);
     if (userExists) {
       res.status(400).json({ msg: "Username already exists" });
       return;
     }
 
     // check if email exists
-    const emailExists = await AuthDB.getUserByEmail(email);
+    const emailExists = await AuthDB.getUserByEmail2(email);
     if (emailExists) {
       res.status(400).json({ msg: "Email already exists" });
       return;

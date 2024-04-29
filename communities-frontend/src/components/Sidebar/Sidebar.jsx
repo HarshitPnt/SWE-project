@@ -60,9 +60,9 @@ function Sidebar({ page = 0 }) {
     }
   };
 
-  const handlecommunityclick = () => {
-    window.location.href = "/community";
-  };
+  // const handlecommunityclick = () => {
+  //   window.location.href = "/community";
+  // };
 
   const JoinedCommunitiesClass = JoinedCommunities
     ? styles.dropdown_content
@@ -114,9 +114,9 @@ function Sidebar({ page = 0 }) {
             Joined Communities
           </button>
           <div className={JoinedCommunitiesClass}>
-            <a onClick={handlecommunityclick}>c/programming</a>
-            <a>c/AskReddit</a>
-            <a>c/learnprogramming</a>
+            <a href="/community/1"> SquaredCircle</a>
+            <a href="/community/8"> randomacts</a>
+            <a href="/community/10"> socialskills</a>
           </div>
         </div>
         <hr className={styles.hr_sidebar} />
@@ -127,9 +127,9 @@ function Sidebar({ page = 0 }) {
             Admin Communities
           </button>
           <div className={AdminCommunitiesClass}>
-            <a href="/">c/programming</a>
-            <a href="/">c/AskReddit</a>
-            <a href="/">c/learnprogramming</a>
+            <a href="/community/1"> SquaredCircle</a>
+            <a href="/community/8"> randomacts</a>
+            <a href="/community/10"> socialskills</a>
           </div>
         </div>
         <hr className={styles.hr_sidebar} />
@@ -144,9 +144,9 @@ function Sidebar({ page = 0 }) {
             Moderator communities
           </button>
           <div className={ModeratorCommunitiesClass}>
-            <a href="/">c/programming</a>
-            <a href="/">c/AskReddit</a>
-            <a href="/">c/learnprogrammingrightnow</a>
+            <a href="/community/1"> SquaredCircle</a>
+            <a href="/community/8"> randomacts</a>
+            <a href="/community/10"> socialskills</a>
           </div>
         </div>
         <hr className={styles.hr_sidebar} />

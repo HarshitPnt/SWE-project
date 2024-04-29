@@ -10,7 +10,14 @@ function SinglePost() {
       <div className={styles.body}>
         <Sidebar className={styles.Sidebar} />
         <div className={styles.content}>
-          <Post />
+          <Post
+            post={{
+              title: "Title",
+              description:
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id sapien nec purus lacinia aliquet. Sed nec nunc id neque tincidunt accumsan",
+              username: "John Doe",
+            }}
+          />
         </div>
         <div className={styles.CommentBox}>
           <div className={styles.comments}>

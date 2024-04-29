@@ -8,7 +8,7 @@ import {
   faSave,
 } from "@fortawesome/free-solid-svg-icons";
 
-function Post() {
+function Post({ post }) {
   const handlecommentClick = () => {
     window.location.href = "/post";
   };
@@ -28,9 +28,11 @@ function Post() {
             className={styles.post_header_img}
           />
           <div className={styles.post_header_info}>
-            <span className={styles.post_header_info_name}>r/programming</span>
+            <span className={styles.post_header_info_name}>
+              {post.username === undefined ? "" : post.username}
+            </span>
             <span className={styles.post_header_info_time}>
-              Posted by u/username 1 day ago
+              Posted by {post.username === undefined ? "" : post.username}
             </span>
           </div>
         </div>
@@ -40,9 +42,11 @@ function Post() {
       </div>
       <hr />
       <div className={styles.post_body}>
-        <div className={styles.post_body_title}>Title</div>
+        <div className={styles.post_body_title}>{post.title}</div>
         <div className={styles.post_body_text}>
-          Hello this is my first post on this platform named communites
+          {post.description.length > 100
+            ? post.description.slice(0, 100) + "..."
+            : post.description}
         </div>
       </div>
       <hr />

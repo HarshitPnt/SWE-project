@@ -5,6 +5,19 @@ import { Link, useNavigate } from "react-router-dom";
 // import url from "../../../url";
 import axios from "axios";
 import GoogleButton from "react-google-button";
+import Modal from "react-modal";
+
+const Incorrect = ({ isOpen, onClose, error }) => {
+  return (
+    <Modal className={styles.wrapper} isOpen={isOpen} onRequestClose={onClose}>
+      <div className={styles.popup}>
+        <h2>Incorrect Password</h2>
+        <p>{error}</p>
+        <button onClick={onClose}>Close</button>
+      </div>
+    </Modal>
+  );
+};
 
 export default function Login() {
   const [style, setStyle] = useState(styles.no_error);
@@ -13,10 +26,18 @@ export default function Login() {
   const [isRevealPwd, setIsRevealPwd] = useState(false);
   const nameRef = useRef(null);
   const passRef = useRef(null);
+  const navigate = useNavigate();
   //   const navigate = useNavigate();
 
   const handleChange = () => {
     setUsername(nameRef.current.value);
+  };
+  const [showModal, setShowModal] = useState(false);
+  const handleIncorrect = () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
 
   const handleLogin = async () => {
@@ -25,15 +46,23 @@ export default function Login() {
       password: passRef.current.value,
     };
     console.log("HERER");
-    const res = await axios.get(`http://localhost:8080/login`, {
-      data,
-    });
-    // if (res.data.outcome == "Fail" || res.data.success == false)
-    //   setStyle(styles.error);
-    // else {
-    //   document.cookie = res.data.token;
-    //   navigate(`/?login=true&uid=${username}`);
-    // }
+    const res = await axios
+      .post(`http://localhost:8080/login`, data)
+      .then((res) => {
+        console.log(res);
+        if (res.data.msg === "Login successful") {
+          console.log("Login successful");
+          document.cookie = `token=${res.data.token}`;
+          navigate("/home");
+        }
+        if (res.data.msg === "Incorrect password") {
+          setStyle(styles.error);
+        }
+      })
+      .catch((err) => {
+        console.log("HERE");
+        handleIncorrect();
+      });
   };
   return (
     <>
@@ -86,6 +115,7 @@ export default function Login() {
           >
             Log In
           </button>
+          <Incorrect isOpen={showModal} onClose={handleCloseModal} />
           <div className={style}>Invalid email or password</div>
           <h4 className={styles.h4_css}>Don't have an account ?</h4>
           <Link to="/register">

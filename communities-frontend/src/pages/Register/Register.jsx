@@ -2,7 +2,7 @@ import React from "react";
 import { useState, useRef } from "react";
 import styles from "./Register.module.css";
 import { Link } from "react-router-dom";
-// import axios from "axios";
+import axios from "axios";
 // import url from "../../../url.js";
 import GoogleButton from "react-google-button";
 import Modal from "react-modal";
@@ -29,14 +29,22 @@ export default function Register() {
   const [isRevealPwd, setIsRevealPwd] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const handleRegister = async () => {
-    // const data = {
-    //   display_name: nameRef.current.value,
-    //   password: passRef.current.value,
-    // };
-    // // let res = await axios.post(`${url.axios_url}/user`,data)
-    // setUserName("ll");
-    // setStyle(styles.error);
-    setShowModal(true);
+    const data = {
+      username: nameRef.current.value,
+      password: passRef.current.value,
+      email: emailRef.current.value,
+    };
+    let res = await axios
+      .post(`http://localhost:8080/register`, data)
+      .then(() => {
+        console.log("Register successful");
+        setStyle(styles.no_error);
+        setShowModal(false);
+        return;
+      })
+      .catch((err) => {
+        setShowModal(true);
+      });
   };
 
   const handleCloseModal = () => {

@@ -31,6 +31,28 @@ export const getPublicUser = async (req, res) => {
   }
 };
 
+export const getUserByID = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await UserDB.getUserById(userId);
+    if (user === null) {
+      res.status(404).json({ msg: "User not found" });
+      return;
+    }
+    res.status(200).json({
+      id: user.id,
+      username: user.username,
+      email: user.email,
+      profile_picture: user.profile_picture,
+      bio: user.bio,
+      location: user.location,
+    });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 // getPrivateUser
 export const getPrivateUser = async (req, res) => {
   const verification = req.verified;
