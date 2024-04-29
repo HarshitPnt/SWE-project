@@ -7,6 +7,31 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import Modal from "react-modal";
+
+const CreateCommunity = ({ isOpen, onClose }) => {
+  return (
+    <Modal className={styles.wrapper} isOpen={isOpen} onRequestClose={onClose}>
+      <div className={styles.popup}>
+        <h2>Create Post</h2>
+        <label className={styles.label_css} htmlFor="">
+          Title
+        </label>
+        <input type="text" placeholder="Title" />
+        <label className={styles.label_css} htmlFor="">
+          Description
+        </label>
+        <textarea placeholder="Description" />
+        <label className={styles.label_css} htmlFor="">
+          Community Profle Picture
+        </label>
+        <input type="text" placeholder="Media URL" />
+
+        <button onClick={onClose}>Submit</button>
+      </div>
+    </Modal>
+  );
+};
 
 function Sidebar({ page = 0 }) {
   const [JoinedCommunities, setJoinedCommunities] = useState(true);
@@ -52,6 +77,15 @@ function Sidebar({ page = 0 }) {
   const homebutton_class = page === 2 ? styles.active : styles.sidebar_btn;
   const trendingbutton_class = page === 1 ? styles.active : styles.sidebar_btn;
 
+  const [showModal, setShowModal] = useState(false);
+
+  const handleCreateComm = async () => {
+    setShowModal(true);
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   return (
     <>
       <div className={styles.Sidebar}>
@@ -68,10 +102,11 @@ function Sidebar({ page = 0 }) {
           />
           Trending
         </button>
-        <button className={styles.sidebar_btn}>
+        <button className={styles.sidebar_btn} onClick={handleCreateComm}>
           <FontAwesomeIcon icon={faPlus} className={styles.sidebar_img} />
           New Community
         </button>
+        <CreateCommunity isOpen={showModal} onClose={handleCloseModal} />
         <hr className={styles.hr_sidebar} />
         {/* Dropdown named communities */}
         <div className={styles.dropdown}>
