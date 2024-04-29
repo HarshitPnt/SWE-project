@@ -154,7 +154,8 @@ export const verify = async (req, res) => {
 // login
 export const login = async (req, res) => {
   try {
-    console.log("HERE");
+    console.log("HERER");
+    console.log(req.body);
     const { username, password } = req.body;
     const user = await AuthDB.getUserByUsername(username);
 

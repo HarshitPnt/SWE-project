@@ -21,12 +21,13 @@ export default function Login() {
 
   const handleLogin = async () => {
     const data = {
-      user_name: username,
+      username: username,
       password: passRef.current.value,
     };
-    // const res = await axios.get(`${url.axios_url}/auth`, {
-    //   params: data,
-    // });
+    console.log("HERER");
+    const res = await axios.get(`http://localhost:8080/login`, {
+      data,
+    });
     // if (res.data.outcome == "Fail" || res.data.success == false)
     //   setStyle(styles.error);
     // else {
@@ -76,7 +77,13 @@ export default function Login() {
               />
             </div>
           </form>
-          <button className={styles.button_css} onClick={() => handleLogin()}>
+          <button
+            className={styles.button_css}
+            onClick={() => {
+              console.log("HERE");
+              handleLogin();
+            }}
+          >
             Log In
           </button>
           <div className={style}>Invalid email or password</div>

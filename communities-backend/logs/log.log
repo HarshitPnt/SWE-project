@@ -560,3 +560,12 @@ Register: [object SequelizeInstance:authentication]
 2024-04-29T02:46:14.150Z - Method: PATCH, URL: /post/1319, Status Code: 200
 2024-04-29T02:46:23.481Z - Method: PATCH, URL: /post/1323, Status Code: 200
 2024-04-29T02:47:19.284Z - Method: PATCH, URL: /post/1323, Status Code: 200
+2024-04-29T10:50:54.130Z - Method: GET, URL: /login?user_name=jeorg1&password=jerog1, Status Code: 200
+2024-04-29T10:51:36.609Z - Method: GET, URL: /login?user_name=jerog1&password=jerog1, Status Code: 200
+2024-04-29T10:53:30.447Z - Method: GET, URL: /login?user_name=jerog1&password=jerog1, Status Code: 200
+2024-04-29T10:53:40.026Z - Method: GET, URL: /login?user_name=jerog1&password=jerog1, Status Code: 200
+2024-04-29T10:54:03.528Z - Method: GET, URL: /login?user_name=&password=, Status Code: 200
+2024-04-29T10:55:16.927Z - Method: OPTIONS, URL: /login, Status Code: 200
+2024-04-29T10:55:16.930Z - Method: GET, URL: /login, Status Code: 200
+2024-04-29T10:55:41.562Z - Method: OPTIONS, URL: /login, Status Code: 200
+2024-04-29T10:55:41.563Z - Method: GET, URL: /login, Status Code: 200
