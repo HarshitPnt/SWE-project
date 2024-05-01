@@ -236,7 +236,7 @@ function CommunityPage() {
   }, [communityPosts]);
 
   useEffect(() => {
-    // console.log("Logging community posts: ", communityDetails);
+    console.log("Logging community deatils: ", communityDetails);
   }, [communityDetails]);
 
   return (

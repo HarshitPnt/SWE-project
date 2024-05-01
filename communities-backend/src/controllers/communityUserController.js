@@ -68,7 +68,10 @@ export const getUserStatus = async (req, res) => {
     );
     res.status(200).json(communityUser);
   } catch (err) {
-    console.log(err);
+    if (err.status === "not-in-community") {
+      res.status(200).json({ status: err.status, type: err.type });
+      return;
+    }
     res.status(500).json({ msg: "Error in getCommunityUser" });
   }
 };

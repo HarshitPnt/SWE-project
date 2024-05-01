@@ -196,7 +196,10 @@ export const getStatusByCommunityUser = async (userId, communityId) => {
     };
   } catch (err) {
     console.log(err);
-    if (err.msg === "CommunityUser not found") {
+    if (
+      err.msg === "CommunityUser not found" ||
+      err.status === "not-in-community"
+    ) {
       throw err;
     }
     throw { error: err, msg: "Error in getStatusByCommunityUser" };
