@@ -25,6 +25,25 @@ export const getCommunityDetails = async (req, res) => {
   }
 };
 
+export const getAdminCommunities = async (req, res) => {
+  try {
+    if (req.verified === false) {
+      res.status(403).json({ msg: "Invalid Token" });
+      return;
+    }
+    const username = req.query.username;
+    const user = await UserDB.getUserByUsername(username);
+    const communities = await Community.findAll({
+      attributes: ["name", "id"],
+      where: {
+        creator_id: user.id,
+      },
+    });
+
+    res.status(200).json(communities);
+  } catch {}
+};
+
 // getCommunityByID
 export const getCommunityByID = async (req, res) => {
   try {
@@ -43,7 +62,7 @@ export const getCommunityByID = async (req, res) => {
         return;
       }
     }
-    res.status(200).json(community);
+    res.status(200).json(community[0]);
   } catch (err) {
     console.log(err);
     if (err.msg === "Invalid id" || err.msg === "Community not found") {

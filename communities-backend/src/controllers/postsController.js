@@ -4,6 +4,9 @@ import {
   getMemberPosts,
 } from "../utils/PostsFilter/filterByVisibility.js";
 import { checkFields, retainFields } from "../utils/utilities/object.js";
+import * as UserDB from "../controllers/db/user.js";
+import * as CommunityDB from "../controllers/db/community.js";
+import { Votes } from "../models/votesModel.js";
 
 // getPostById (public: tested)
 export const getPostById = async (req, res) => {
@@ -13,8 +16,23 @@ export const getPostById = async (req, res) => {
     let post = await PostDB.getPostById(id, "none");
     if (!req.verified) post = await getPublicPosts([post]);
     else post = await getMemberPosts([post], req.username);
-    console.log(post);
-    res.status(200).json(post);
+    let posts = [];
+    // iterate over each post and get votes
+    for (let i = 0; i < post.length; i++) {
+      const upvotes = await Votes.count({
+        where: { parent_id: `p_${post[i].id}`, vote_type: 0 },
+      });
+      const downvotes = await Votes.count({
+        where: { parent_id: `p_${post[i].id}`, vote_type: -1 },
+      });
+      posts.push({
+        post: post[i],
+        upvotes: upvotes,
+        downvotes: downvotes,
+      });
+    }
+    console.log(posts);
+    res.status(200).json(posts[0]);
   } catch (err) {
     console.log(err);
     if (err.msg === "Invalid id" || err.msg === "Post not found") {
@@ -29,6 +47,7 @@ export const getPostById = async (req, res) => {
 export const getPostByCreatorID = async (req, res) => {
   try {
     const creator_id = req.params.creator_id;
+    console.log(creator_id);
     let post = await PostDB.getPostByCreatorID(creator_id, "none");
     if (!req.verified) post = await getPublicPosts(post);
     else post = await getMemberPosts(post, req.username);
@@ -50,8 +69,29 @@ export const getAllPostsByCommunityID = async (req, res) => {
   try {
     const community_id = req.params.community_id;
     let post = await PostDB.getPostByCommunityID2(community_id, "none");
-    console.log(post);
-    res.status(200).json(post);
+    let posts = [];
+    // for each post get user and community details
+    for (let i = 0; i < post.length; i++) {
+      const user = await UserDB.getUserById(post[i].creator_id);
+      const upvotes = await Votes.count({
+        where: { parent_id: `p_${post[i].id}`, vote_type: 0 },
+      });
+      const downvotes = await Votes.count({
+        where: { parent_id: `p_${post[i].id}`, vote_type: -1 },
+      });
+      const community = await CommunityDB.getCommunityById(
+        post[i].community_id
+      );
+      posts.push({
+        post: post[i],
+        user: user,
+        community: community,
+        upvotes: upvotes,
+        downvotes: downvotes,
+      });
+    }
+    console.log(posts);
+    res.status(200).json(posts);
   } catch (err) {
     console.log(err);
     if (err.msg === "Invalid banned value") {

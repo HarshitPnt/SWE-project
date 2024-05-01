@@ -94,6 +94,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 800px;
 }
 
 .Header img {
@@ -104,10 +105,11 @@
 }
 
 .userText {
-  display: flex;
-  flex-direction: column;
+  /* display: flex; */
+  /* flex-direction: column; */
   margin-left: 20px;
   padding: 0;
+  width: 800px;
 }
 
 .userText h2 {
@@ -115,6 +117,7 @@
   font-weight: 500;
   padding: 0;
   margin: 0;
+  padding-bottom: 10px;
 }
 
 .userText h4 {
@@ -127,8 +130,8 @@
 .headerbtns {
   display: flex;
   flex-direction: column;
-  margin-left: 430px;
-  justify-content: center;
+  padding-left: 10px;
+  justify-content: space-between;
 }
 
 .headerbtns button {
@@ -143,4 +146,9 @@
   border-radius: 15px;
   cursor: pointer;
   align-items: center;
+  margin-top: 10px;
+}
+
+.spinner {
+  padding-top: 10px;
 }

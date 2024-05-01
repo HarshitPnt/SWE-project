@@ -8,6 +8,7 @@ import Chat from "./pages/Chat/Chat";
 import SinglePost from "./pages/SinglePost/SinglePost";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Trending from "./pages/Trending/Trending";
+import SavedPosts from "./pages/SavedPosts/Saved";
 
 function App() {
   return (
@@ -18,10 +19,11 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/register" element={<Register />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/user" element={<UserProfile />} />
+          <Route path="/user/:id" element={<UserProfile />} />
           <Route path="/community/:id" element={<CommunityPage />} />
           <Route path="/chat" element={<Chat />} />
-          <Route path="/post" element={<SinglePost />} />
+          <Route path="/post/:id" element={<SinglePost />} />
+          <Route path="/user/:id/saved" element={<SavedPosts />} />
           <Route path="*" element={<Navigate to="/" />} />
         </Routes>
       </BrowserRouter>

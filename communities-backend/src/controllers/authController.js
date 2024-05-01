@@ -12,6 +12,7 @@ import { sendForgotPassword } from "../utils/Mailer/forgot.js";
 
 dotenv.config();
 const password_salt = process.env.SHA_SALT;
+const token_salt = process.env.JWT_SALT;
 
 let unverifiedUsers = [];
 let googleUsers;
@@ -118,6 +119,29 @@ export const insertUserAuth = async (username, email, password) => {
     console.log(err);
     fs.appendFileSync(filename, `Register: ${err}\n`);
     throw { error: err, msg: "Error in register" };
+  }
+};
+
+export const verifyTokenPath = async (req, res) => {
+  try {
+    const token = req.query.token;
+    const username = req.query.username;
+    if (!token || !username) {
+      res.status(400).json({ msg: "Invalid token" });
+      return;
+    }
+    console.log(token, username);
+    const decoded = jwt.verify(token, token_salt);
+    if (decoded.username === username) {
+      const user = await AuthDB.getUserByUsername(username);
+      res.status(200).json({ msg: "Token verified", id: user.id });
+      // getUser
+    } else {
+      res.status(400).json({ msg: "Invalid token" });
+    }
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in verifyToken" });
   }
 };
 
@@ -247,7 +271,7 @@ export const google_R = async (req, res) => {
 // forgot password
 export const forgot = async (req, res) => {
   try {
-    const username = req.body.username;
+    const username = req.query.username;
     const user = await AuthDB.getUserByUsername(username);
     if (!user) {
       res.status(400).json({ msg: "User is not in Auth" });

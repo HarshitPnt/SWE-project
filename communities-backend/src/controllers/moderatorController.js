@@ -4,6 +4,9 @@ import * as UserDB from "./db/user.js";
 import { getActiveUsers } from "../utils/UserFilter/filterByDeleted.js";
 import * as CommunityUserDB from "./db/communityUser.js";
 import { CommunityUser } from "../models/communityUserModel.js";
+import { Moderators } from "../models/moderatorsModel.js";
+import { User } from "../models/userModel.js";
+import { Community } from "../models/communityModel.js";
 import { where } from "sequelize";
 
 // getModeratorByUserID
@@ -135,5 +138,41 @@ export const deleteModerator = async (req, res) => {
       return;
     }
     res.status(500).json({ msg: "Error in deleteModerator" });
+  }
+};
+
+//getCommunities
+
+export const getModeratorCommunities = async (req, res) => {
+  try {
+    if (req.verified === false) {
+      res.status(401).json({ msg: "Invalid Token" });
+      return;
+    }
+    const user = await User.findOne({
+      where: { username: req.query.username },
+    });
+    const communities = await Moderators.findAll({
+      attributes: ["community_id", "privileges"],
+      where: { user_id: user.id },
+    });
+
+    // get community names
+    const comms = [];
+    for (let i = 0; i < communities.length; i++) {
+      const community = await Community.find({
+        attributes: ["name"],
+        where: { id: communities[i].community_id },
+      });
+      comms.push({
+        name: community.name,
+        privileges: communities[i].privileges,
+        id: communities[i].community_id,
+      });
+    }
+    res.status(200).json(comms);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in getCommunities" });
   }
 };

@@ -1,6 +1,26 @@
 import { User } from "../models/userModel.js";
 import * as UserDB from "../controllers/db/user.js";
 
+//getUserByUsername
+export const getUserByUsername = async (req, res) => {
+  try {
+    const username = req.params.name;
+    if (username == undefined) {
+      res.status(404).json({ msg: "Missing username", id: 0 });
+      return;
+    }
+    const user = await UserDB.getUserByUsername(username);
+    if (user === null) {
+      res.status(404).json({ msg: "User not found" });
+      return;
+    }
+    res.status(200).json(user);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json(err);
+  }
+};
+
 // getUser
 export const getPublicUser = async (req, res) => {
   try {

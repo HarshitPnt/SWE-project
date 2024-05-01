@@ -5,14 +5,14 @@ dotenv.config();
 let salt = process.env.JWT_SALT;
 let salt_refresh = process.env.JWT_SALT_REFRESH;
 let refreshTokens = [];
-const expiry_time = "1h";
+const expiry_time = "10h";
 
 export const generateToken = (user) => {
   const payload = {
     username: user.username,
     time: Date.now(),
   };
-  const token = jwt.sign(payload, salt, { expiresIn: expiry_time });
+  const token = jwt.sign(payload, salt);
   const jwtoken = {
     username: user.username,
     token: token,

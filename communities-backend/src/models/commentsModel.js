@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Comments = db.define(
+export const Comments = db.define(
   "comments",
   {
     id: {
@@ -70,8 +70,7 @@ const Comments = db.define(
     },
   },
   {
+    tableName: "comments",
     timestamps: false,
   }
 );
-
-export default Comments;

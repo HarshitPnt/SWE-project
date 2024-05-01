@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import GoogleButton from "react-google-button";
 import Modal from "react-modal";
+import { getToken } from "../../utils/Cookies/getToken";
 
 const Incorrect = ({ isOpen, onClose, error }) => {
   return (
@@ -52,7 +53,11 @@ export default function Login() {
         console.log(res);
         if (res.data.msg === "Login successful") {
           console.log("Login successful");
-          document.cookie = `token=${res.data.token}`;
+          // console.log(res.data.token.token);
+          document.cookie = `token=${res.data.token.token}`;
+          document.cookie = `username=${res.data.token.username}`;
+          const { username, token } = getToken();
+          // console.log(username, token);
           navigate("/home");
         }
         if (res.data.msg === "Incorrect password") {
@@ -60,7 +65,6 @@ export default function Login() {
         }
       })
       .catch((err) => {
-        console.log("HERE");
         handleIncorrect();
       });
   };

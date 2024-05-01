@@ -17,12 +17,7 @@
 
 .box1 {
   margin-left: 355px;
-  width: 52%;
-  margin-right: 0;
-  padding-right: 0;
-  height: 867px;
-  overflow-y: auto;
-  padding-right: 5px;
+  width: 58%;
 }
 
 .Sidebar {
@@ -37,6 +32,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+  width: 800px
 }
 
 .Header img {
@@ -51,6 +47,7 @@
   flex-direction: column;
   margin-left: 20px;
   padding: 0;
+  width: 800px;
 }
 
 .userText h2 {
@@ -69,8 +66,8 @@
 
 .headerbtns {
   display: flex;
-  flex-direction: column;
-  margin-left: 500px;
+  flex-direction: row;
+  margin-left: 400px;
 }
 
 .headerbtns button {
@@ -84,6 +81,7 @@
   font-weight: 500;
   border-radius: 15px;
   cursor: pointer;
+  margin-left: 10px;
 }
 
 .box2 {
@@ -92,20 +90,21 @@
   overflow-y: auto;
   height: 867px;
   overflow-y: auto;
-  padding-right: 5px;
+  padding-right: 2px;
 }
 
 .box3 {
   width: 200px;
   margin-left: 20px;
+  padding-right: 20px;
   overflow-y: auto;
   height: 867px;
   padding-right: 5px;
 }
 
 .singleuserbximg {
-  height: 40px;
-  width: 40px;
+  height: 30px;
+  width: 30px;
   border-radius: 40px;
   padding: 0;
   margin: 0;
@@ -113,14 +112,10 @@
 }
 
 .rightheader {
-  margin-top: 20px;
   align-items: center;
   border: solid 1px #ccc;
-  margin-bottom: 10px;
-  padding-top: 2px;
-  padding-bottom: 2px;
-  padding-left: 45px;
   justify-content: center;
+  text-align: center;
 }
 
 .userList {
@@ -134,6 +129,7 @@
   align-items: center;
   margin-bottom: 8px;
   border: solid 1px #ccc;
+  height: 50px;
 }
 
 .singleuserbxinfo {

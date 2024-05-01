@@ -108,10 +108,10 @@ export const getAllUsersByCommunityID = async (communityId) => {
 
 // getCommunityIDByUserID
 
-export const getCommunityIDByUserID = async (userId) => {
+export const getJoinedCommunities = async (userId) => {
   try {
     const communities = await CommunityUser.findAll({
-      attributes: ["id", "status", "privileges"],
+      attributes: ["id", "status", "privileges", "community_id"],
       where: { userId: userId, status: "active" },
     });
     return communities;
@@ -123,10 +123,10 @@ export const getCommunityIDByUserID = async (userId) => {
 
 // getRequestedCommunitiesByUserID
 
-export const getRequestedCommunitiesByUserID = async (userId) => {
+export const getRequestedCommunities = async (userId) => {
   try {
     const communities = await CommunityUser.findAll({
-      attributes: ["id", "status", "privileges"],
+      attributes: ["id", "status", "privileges", "community_id"],
       where: { userId: userId, status: "requested" },
     });
     return communities;
@@ -138,10 +138,10 @@ export const getRequestedCommunitiesByUserID = async (userId) => {
 
 // getInvitedCommunitiesByUserID
 
-export const getInvitedCommunitiesByUserID = async (userId) => {
+export const getInvitedCommunities = async (userId) => {
   try {
     const communities = await CommunityUser.findAll({
-      attributes: ["id", "status", "privileges"],
+      attributes: ["id", "status", "privileges", "community_id"],
       where: { userId: userId, status: "invited" },
     });
     return communities;
@@ -170,16 +170,30 @@ export const getBannedCommunitiesByUserID = async (userId) => {
 
 export const getStatusByCommunityUser = async (userId, communityId) => {
   try {
+    const community = await Community.findOne({
+      attributes: ["visibility"],
+      where: { id: communityId },
+    });
+    if (community === null) {
+      throw { error: null, msg: "Community not found" };
+    }
+    if (!userId) {
+      return { status: "not-in-community", type: community.visibility };
+    }
     const communityUser = await CommunityUser.findOne({
-      where: { userId: userId, communityId: communityId },
+      attributes: ["status", "privileges"],
+      where: { user_id: userId, community_id: communityId },
     });
 
     // logging the communityUser
-    fs.appendFileSync(filename, `getStatusByCommunityUser: ${communityUser}\n`);
     if (communityUser === null) {
-      throw { error: null, msg: "CommunityUser not found" };
+      throw { status: "not-in-community", type: community.visibility };
     }
-    return communityUser;
+    return {
+      status: communityUser.status,
+      privileges: communityUser.privileges,
+      type: community.visibility,
+    };
   } catch (err) {
     console.log(err);
     if (err.msg === "CommunityUser not found") {
@@ -198,10 +212,7 @@ export const getPrivilegesByCommunityUser = async (userId, communityId) => {
     });
 
     // logging the communityUser
-    fs.appendFileSync(
-      filename,
-      `getPrivilegesByCommunityUser: ${communityUser}\n`
-    );
+
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -242,7 +253,6 @@ export const addCommunityUser = async (userId, communityId, status) => {
     });
 
     // logging the communityUser
-    fs.appendFileSync(filename, `addCommunityUser: ${communityUser}\n`);
     return communityUser;
   } catch (err) {
     console.log(err);
@@ -266,7 +276,6 @@ export const updateCommunityUser = async (userId, communityId, update) => {
       "post privilege",
       "comment privilege",
     ]);
-    fs.appendFileSync(filename, `updateCommunityUser: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -294,7 +303,6 @@ export const leaveCommunity = async (userId, communityId) => {
       { where: { userId: userId, communityId: communityId } }
     );
     // logging the communityUser
-    fs.appendFileSync(filename, `leaveCommunity: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -327,7 +335,6 @@ export const changePrivileges = async (userId, communityId, privileges) => {
       { where: { userId: userId, communityId: communityId } }
     );
     // logging the communityUser
-    fs.appendFileSync(filename, `changePrivileges: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -360,7 +367,6 @@ export const banUser = async (userId, communityId, reason, bannedBy) => {
       { where: { userId: userId, communityId: communityId } }
     );
     // logging the communityUser
-    fs.appendFileSync(filename, `banUser: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -388,7 +394,6 @@ export const unbanUser = async (userId, communityId) => {
       { where: { userId: userId, communityId: communityId } }
     );
     // logging the communityUser
-    fs.appendFileSync(filename, `unbanUser: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }
@@ -411,7 +416,6 @@ export const rejectRequest = async (userId, communityId) => {
       { where: { userId: userId, communityId: communityId } }
     );
     // logging the communityUser
-    fs.appendFileSync(filename, `rejectRequest: ${communityUser}\n`);
     if (communityUser === null) {
       throw { error: null, msg: "CommunityUser not found" };
     }

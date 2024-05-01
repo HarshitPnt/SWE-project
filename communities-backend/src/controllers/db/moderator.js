@@ -4,13 +4,28 @@ import { Moderators } from "../../models/moderatorsModel.js";
 // getModByUserId
 export const getModByUserId = async (userId) => {
   try {
+    let data = [];
     const mod = await Moderators.findAll({
       attributes: ["community_id", "privileges"],
       where: {
         user_id: userId,
       },
     });
-    return mod;
+    // get community name for each community id
+    for (let i = 0; i < mod.length; i++) {
+      const community = await Community.findOne({
+        attributes: ["name"],
+        where: {
+          id: mod[i].community_id,
+        },
+      });
+      data.push({
+        community_id: mod[i].community_id,
+        name: community.name,
+        privileges: mod[i].privileges,
+      });
+    }
+    return data;
   } catch (err) {
     console.log(err);
     throw { error: err, msg: "Error in getModByUserId" };

@@ -25,15 +25,24 @@ function Trending() {
     <div className={styles.Home}>
       <Header className={styles.navbar} loggedIn={logged} />
       <div className={styles.body}>
-        <Sidebar page={1} className={styles.Sidebar} />
+        <Sidebar page={1} className={styles.Sidebar} loggedIn={logged} />
         <div className={styles.content}>
           {trending.map((post) => (
             <Post
-              key={post.id}
+              key={post.post.id}
               post={{
-                title: post.title,
-                description: post.content,
-                username: "",
+                title:
+                  post.post && post.post.post.title
+                    ? post.post.post.title
+                    : "No Title",
+                description:
+                  post.post && post.post.post.content
+                    ? post.post.post.content
+                    : "No Content",
+                username: post.user.username,
+                community: post.community.name,
+                upvotes: post.post.upvotes,
+                downvotes: post.post.downvotes,
               }}
             />
           ))}

@@ -6,6 +6,7 @@
   margin-left: 200px;
   display: flex;
   flex-direction: column;
+  width: 800px;
 }
 
 .post_header {
@@ -52,6 +53,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 10px;
+  width: 200px
 }
 
 .post_header_info span {
@@ -66,13 +68,13 @@
 }
 
 .post_body_title {
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 500;
   padding-bottom: 3px;
 }
 
 .post_body_text {
-  font-size: 14px;
+  font-size: 20px;
   padding-bottom: 8px;
   padding-top: 4px;
 }
@@ -108,4 +110,153 @@
   font-weight: 500;
   border-radius: 15px;
   cursor: pointer;
+}
+
+.post_footer_right button:hover {
+  background-color: #bda8a8;
+}
+
+.post_footer_left button:hover {
+  background-color: #bda8a8;
+}
+
+.Join {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  margin-top: 10px;
+}
+
+.Join_header {
+  display: flex;
+  flex-direction: row;
+  margin-left: 400px;
+  align-items: center;
+}
+
+.Join_header button {
+
+  background-color: #211b77;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 15px;
+  cursor: pointer;
+}
+
+.video {
+  height: 500px;
+  width: 800px;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #333;
+  /* Change this to the color you want for the spinner */
+  border-radius: 50%;
+  width: 36px;
+  height: 36px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.popupimage {
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+}
+
+.popupcontainer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  /* Transparent background initially */
+  display: flex;
+  justify-content: center;
+  /* Center horizontally */
+  align-items: center;
+  /* Center vertically */
+  opacity: 0;
+  /* Initially invisible */
+  transition: background-color 0.5s, opacity 0.5s, transform 0.5s;
+  /* Smooth transition effect */
+  transform: scale(0);
+  /* Initially scaled down */
+}
+
+.popup {
+  max-width: 80%;
+  /* Limit the maximum width of the enlarged image */
+  max-height: 80%;
+  /* Limit the maximum height of the enlarged image */
+}
+
+/* Style for the popup image inside the popup content */
+.popup img {
+  width: 100%;
+  /* Make the image fill the popup */
+  height: auto;
+}
+
+.open {
+  background-color: rgba(0, 0, 0, 0.8);
+  /* Dark background when popup is open */
+  opacity: 1;
+  /* Fully visible */
+  transform: scale(1);
+  /* Scale up to full size */
+}
+
+.wrapper {
+  width: 40%;
+  margin: 0 auto;
+  margin-top: 80px;
+
+  display: flex;
+  flex-direction: column;
+  height: 350px;
+  background-color: white;
+  align-items: center;
+  border: 1px solid #ccc;
+}
+
+.report {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  outline: none;
+}
+
+.report:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+}
+
+.button {
+  background-color: #211b77;
+  color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  font-size: 17px;
+  font-weight: 500;
+  border-radius: 15px;
+  cursor: pointer;
+  margin-top: 30px;
+  width: 40%;
 }

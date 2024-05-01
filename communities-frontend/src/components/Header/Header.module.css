@@ -81,7 +81,7 @@ h1 {
 }
 
 .chat_btn {
-    margin-left: 520px;
+    margin-left: 420px;
 }
 
 .chat_img {
@@ -105,6 +105,17 @@ h1 {
 .profile_btn {
     display: flex;
     margin-left: 5px;
+}
+
+.profile_img {
+    border-radius: 50%;
+    width: 55px;
+    height: 55px;
+}
+
+
+.profile_btn:wrapper .dropdowncontent {
+    display: block;
 }
 
 .profile_img {
@@ -136,4 +147,22 @@ h1 {
     &:hover {
         background-color: rgb(33, 81, 160);
     }
+}
+
+.dropdowncontent {
+    float: none;
+    display: none;
+    position: absolute;
+    width: 300%;
+}
+
+.picwrapper:hover .dropdowncontent {
+    display: block;
+}
+
+.dropdownlist {
+    padding-top: 10%;
+    list-style: none;
+    padding-left: 0;
+    font-size: 20px;
 }

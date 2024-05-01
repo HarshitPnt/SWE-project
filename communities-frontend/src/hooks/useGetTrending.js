@@ -10,20 +10,28 @@ function useGetTrending() {
     let users = {};
     const fetchTrending = async () => {
       try {
-        let response = await axios.get("http://localhost:8080/trending");
-        console.log(response);
-        // for each post in response get userdeatils of creator_id
-        response.data.forEach(async (res) => {
-          const resp = await axios.get(
-            `http://localhost:8080/user/${res.creator_id}`
-          );
-          // add res.creator_id to users object
-          users[res.creator_id] = resp.data;
+        const posts = [];
+        await axios.get("http://localhost:8080/trending").then(async (res) => {
+          // get the post details
+          for (const post of res.data) {
+            const resp_post = await axios.get(
+              `http://localhost:8080/user/${post.post.creator_id}`
+            );
+
+            // get community details
+            const resp_community = await axios.get(
+              `http://localhost:8080/community/${post.post.community_id}`
+            );
+
+            // add all the details to the post object
+            posts.push({
+              post: post,
+              user: resp_post.data,
+              community: resp_community.data,
+            });
+          }
         });
-        setTrending(response.data);
-        setUserDetails(users);
-        // console.log(userDetails);
-        console.log(trending);
+        setTrending(posts);
         setLoading(false);
       } catch (error) {
         console.error(error);

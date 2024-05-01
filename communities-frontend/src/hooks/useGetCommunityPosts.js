@@ -16,7 +16,6 @@ function useGetCommunityPosts() {
           `http://localhost:8080/post/community/${id}/all`
         );
         setCommunityPosts(response.data);
-        // console.log(response.data);
         setLoading(false);
       } catch (error) {
         console.error(error);

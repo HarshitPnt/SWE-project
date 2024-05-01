@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Chat.module.css"; // Import CSS module
 import Header from "../../components/Header/Header"; // Import Header component
 import Sidebar from "../../components/Sidebar/Sidebar"; // Import Sidebar component
@@ -7,6 +7,13 @@ import InfiniteScroll from "react-infinite-scroll-component"; // Import Infinite
 const Chat = () => {
   const [selectedUser, setSelectedUser] = useState(null);
   const [chatMessages, setChatMessages] = useState({});
+  const [logged, setLogged] = useState(true);
+  useEffect(() => {
+    console.log(document.cookie);
+    if (!document.cookie.includes("token")) {
+      setLogged(false);
+    }
+  }, []);
 
   const userID = 1;
   let chatClass = "";
@@ -39,9 +46,9 @@ const Chat = () => {
 
   return (
     <div className={styles.CommunityPage}>
-      <Header className={styles.navbar} />
+      <Header className={styles.navbar} loggedIn={logged} />
       <div className={styles.body}>
-        <Sidebar className={styles.Sidebar} />
+        <Sidebar className={styles.Sidebar} loggedIn={logged} />
         <div className={styles.box1}>
           <div className={styles["chat-app-container"]}>
             <div className={styles["user-list"]}>

@@ -19,6 +19,7 @@ export const getPostById = async (id, banned = "none") => {
         where: {
           id: id,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (banned == "none") {
@@ -27,6 +28,7 @@ export const getPostById = async (id, banned = "none") => {
           id: id,
           is_banned: false,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else {
@@ -59,17 +61,31 @@ export const getPostByCreatorID = async (creator_id, banned = "none") => {
     if (banned == "all") {
       post = await Post.findAll({
         attributes: ["id", "creator_id", "community_id"],
-        where: { creator_id: creator_id, deleted_at: null },
+        where: {
+          creator_id: creator_id,
+          deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
+        },
       });
     } else if (banned == "none") {
       post = await Post.findAll({
         attributes: ["id", "creator_id", "community_id"],
-        where: { creator_id: creator_id, is_banned: false, deleted_at: null },
+        where: {
+          creator_id: creator_id,
+          is_banned: false,
+          deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
+        },
       });
     } else if (banned == "only") {
       post = await Post.findAll({
         attributes: ["id", "creator_id", "community_id"],
-        where: { creator_id: creator_id, is_banned: true, deleted_at: null },
+        where: {
+          creator_id: creator_id,
+          is_banned: true,
+          deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
+        },
       });
     } else {
       throw { error: null, msg: "Invalid banned value" };
@@ -92,7 +108,11 @@ export const getPostByCommunityID2 = async (community_id, banned = "none") => {
     if (banned == "all") {
       post = await Post.findAll({
         attributes: ["id", "creator_id", "community_id"],
-        where: { community_id: community_id, deleted_at: null },
+        where: {
+          community_id: community_id,
+          deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
+        },
       });
     } else if (banned == "none") {
       post = await Post.findAll({
@@ -101,6 +121,7 @@ export const getPostByCommunityID2 = async (community_id, banned = "none") => {
           community_id: community_id,
           is_banned: false,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (banned == "only") {
@@ -110,6 +131,7 @@ export const getPostByCommunityID2 = async (community_id, banned = "none") => {
           community_id: community_id,
           is_banned: true,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else {
@@ -135,7 +157,11 @@ export const getPostByCommunityID = async (community_id, banned = "none") => {
     if (banned == "all") {
       post = await Post.findAll({
         attributes: ["id", "creator_id", "community_id"],
-        where: { community_id: community_id, deleted_at: null },
+        where: {
+          community_id: community_id,
+          deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
+        },
       });
     } else if (banned == "none") {
       post = await Post.findAll({
@@ -144,6 +170,7 @@ export const getPostByCommunityID = async (community_id, banned = "none") => {
           community_id: community_id,
           is_banned: false,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (banned == "only") {
@@ -153,6 +180,7 @@ export const getPostByCommunityID = async (community_id, banned = "none") => {
           community_id: community_id,
           is_banned: true,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else {
@@ -186,6 +214,7 @@ export const getPostByCommunityAndCreatorID = async (
           community_id: community_id,
           creator_id: creator_id,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (banned == "none") {
@@ -196,6 +225,7 @@ export const getPostByCommunityAndCreatorID = async (
           creator_id: creator_id,
           is_banned: false,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (banned == "only") {
@@ -206,6 +236,7 @@ export const getPostByCommunityAndCreatorID = async (
           creator_id: creator_id,
           is_banned: true,
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else {
@@ -244,6 +275,7 @@ export const searchPost = async (user, community, content) => {
             { title: { [Op.iLike]: "% " + content + " %" } },
           ],
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (user && community) {
@@ -255,6 +287,7 @@ export const searchPost = async (user, community, content) => {
           creator_id: users.map((user) => user.id),
           community_id: communities.map((community) => community.id),
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (user && content) {
@@ -268,6 +301,7 @@ export const searchPost = async (user, community, content) => {
             { title: { [Op.iLike]: "%" + content + "%" } },
           ],
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (community && content) {
@@ -281,6 +315,7 @@ export const searchPost = async (user, community, content) => {
             { title: { [Op.iLike]: "%" + content + "%" } },
           ],
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (user) {
@@ -290,6 +325,7 @@ export const searchPost = async (user, community, content) => {
         where: {
           creator_id: users.map((user) => user.id),
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (community) {
@@ -299,6 +335,7 @@ export const searchPost = async (user, community, content) => {
         where: {
           community_id: communities.map((community) => community.id),
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else if (content) {
@@ -310,6 +347,7 @@ export const searchPost = async (user, community, content) => {
             { title: { [Op.iLike]: "%" + content + "%" } },
           ],
           deleted_at: null,
+          content: { [Op.ne]: "[removed]" },
         },
       });
     } else {

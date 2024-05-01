@@ -15,12 +15,15 @@ import { checkPostCreator } from "../middleware/posts/checkPrivileges.js";
 import * as Moderator_Controller from "../controllers/moderatorController.js";
 import * as CommunityUser_Controller from "../controllers/communityUserController.js";
 import { getTrendingPosts } from "../controllers/trending.js";
+import * as Votes_Controller from "../controllers/votesController.js";
+import * as Comment_Controller from "../controllers/commentController.js";
 
 const router = express.Router();
 
 // auth routes
 router.post("/register", Auth_Controller.register);
 router.get("/verify/:token", Auth_Controller.verify);
+router.get("/verifyToken", Auth_Controller.verifyTokenPath);
 router.post("/login", Auth_Controller.login);
 router.get(
   "/google",
@@ -31,7 +34,7 @@ router.get(
   })
 );
 
-router.get("/user/:id", User_Controller.getUserByID); // tested
+// router.get("/user/:id", User_Controller.getUserByID); // tested
 
 router.get(
   "/google/redirect",
@@ -50,6 +53,8 @@ router.get("/user/public/:id", User_Controller.getPublicUser);
 
 // token verification
 router.use(verify);
+router.get("/user/username/:name", User_Controller.getUserByUsername); // tested
+router.get("/user/:id", User_Controller.getUserByID); // tested
 router.get("/user/private/:id", User_Controller.getPrivateUser);
 router.patch("/user/update", User_Controller.updateUser);
 
@@ -139,7 +144,6 @@ router.patch("/post/:id", checkPostCreator, Post_Controller.updatePost);
 router.delete("/post/:id", checkPostCreator, Post_Controller.deletePost);
 
 // moderator routes
-
 router.get("/moderator/user/:id", Moderator_Controller.getModeratorByUserID); // tested
 router.get(
   "/moderator/community/:id",
@@ -181,5 +185,43 @@ router.get(
   checkCommunityAdmin,
   CommunityUser_Controller.getInvited
 );
+
+router.get(
+  "/community/user/status/:community_id/:username",
+  CommunityUser_Controller.getUserStatus
+);
+
+router.get(
+  "/community/list/joined",
+  CommunityUser_Controller.getJoinedCommunities
+);
+
+router.get(
+  "/community/list/invited",
+  CommunityUser_Controller.getInvitedCommunities
+);
+
+router.get(
+  "/community/list/requested",
+  CommunityUser_Controller.getRequestedCommunities
+);
+
+router.get("/community/list/admin", Community_Controller.getAdminCommunities);
+
+router.get(
+  "/community/list/moderator",
+  Moderator_Controller.getModeratorCommunities
+);
+
+router.get("/vote/post/:post_id", Votes_Controller.getVotesByPostId);
+
+router.get("/vote/poll/:poll_id", Votes_Controller.getVotesByPollId);
+
+router.post("/vote/post/:post_id", Votes_Controller.createVoteByPostId);
+
+router.post("/vote/poll/:poll_id", Votes_Controller.createVoteByPollId);
+
+// comment routes
+router.get("/comment/:id", Comment_Controller.getCommentsByPostId);
 
 export default router;

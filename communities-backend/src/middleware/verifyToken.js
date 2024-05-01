@@ -3,16 +3,17 @@ import { verifyToken } from "../utils/Authenticaion/JWT.js";
 export const verify = async (req, res, next) => {
   try {
     // token from request
-    console.log("HERE");
-    let token = req.body.token;
+    let token = req.query.token;
+    let username = req.query.username;
     // verify token
-    if (!token) {
+    if (!token || !username || username == undefined || token == undefined) {
+      console.log("Unverified");
       req.verified = false;
       next(); // Add this line to move to the next middleware
     } else {
       const decoded = verifyToken({
-        username: token.username,
-        token: token.token,
+        username: username,
+        token: token,
       });
       if (decoded === false) {
         req.verified = false;

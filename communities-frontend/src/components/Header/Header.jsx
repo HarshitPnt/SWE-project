@@ -1,8 +1,16 @@
 import styles from "./Header.module.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBell, faMessage, faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useState } from "react";
+import {
+  faBell,
+  faMessage,
+  faRightFromBracket,
+  faSearch,
+  faHouse,
+} from "@fortawesome/free-solid-svg-icons";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { getToken } from "../../utils/Cookies/getToken";
 
 function Header({ loggedIn }) {
   const [isInputClicked, setIsInputClicked] = useState(false);
@@ -10,6 +18,58 @@ function Header({ loggedIn }) {
   const handleInputClick = () => {
     setIsInputClicked(!isInputClicked);
   };
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [user, setUser] = useState({});
+
+  const toggleDropdown = () => {
+    console.log("toggleDropdown");
+    setIsOpen(!isOpen);
+    console.log(isOpen);
+  };
+
+  useEffect(() => {
+    if (loggedIn) {
+      let { username, token } = getToken();
+      console.log(loggedIn);
+      if (token === undefined || username === undefined) {
+        // window.location.href = "/login";
+        return;
+      }
+      // verify token
+      axios
+        .get(`http://localhost:8080/verifyToken`, {
+          params: {
+            token: token,
+            username: username,
+          },
+        })
+        .then((res) => {
+          console.log(res);
+          if (res.data.msg === "Token verified") {
+            // console.log("Token is valid");
+
+            // get user details
+            axios
+              .get(`http://localhost:8080/user/username/${username}`)
+              .then((res) => {
+                console.log(res.data);
+                setUser(res.data);
+              })
+              .catch((err) => {
+                console.log(err);
+              });
+          } else {
+            console.log("Token is invalid");
+            // window.location.href = "/login";
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          // window.location.href = "/login";
+        });
+    }
+  }, []);
 
   const inputClass = isInputClicked ? styles.hidden : styles.search_input;
 
@@ -19,7 +79,9 @@ function Header({ loggedIn }) {
         <div className={styles.Navbar}>
           <div className={styles.name}>
             <img src="/logo.png" alt="logo" className={styles.icon} />
-            <h1>Communities</h1>
+            <Link to="/">
+              <h1>Communities</h1>
+            </Link>
           </div>
           <div className={styles.search_bar}>
             <FontAwesomeIcon icon={faSearch} className={styles.search_img} />
@@ -33,13 +95,37 @@ function Header({ loggedIn }) {
           {loggedIn && (
             <>
               <div className={styles.chat_btn}>
-                <FontAwesomeIcon icon={faBell} className={styles.chat_img} />
+                <FontAwesomeIcon
+                  icon={faRightFromBracket}
+                  className={styles.chat_img}
+                />
               </div>
               <div className={styles.not_btn}>
-                <FontAwesomeIcon icon={faMessage} className={styles.not_img} />
+                <Link to={`/user/${user.id}`}>
+                  <FontAwesomeIcon icon={faHouse} className={styles.not_img} />
+                </Link>
+              </div>
+              <div className={styles.not_btn}>
+                <FontAwesomeIcon icon={faBell} className={styles.not_img} />
+              </div>
+              <div className={styles.not_btn}>
+                <Link to="/chat">
+                  <FontAwesomeIcon
+                    icon={faMessage}
+                    className={styles.not_img}
+                  />
+                </Link>
               </div>
               <div className={styles.profile_btn}>
-                <img src="/logo.png" alt="" className={styles.profile_img} />
+                <img
+                  src={
+                    !user.profile_picture
+                      ? "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+                      : user.profile_picture
+                  }
+                  alt="pic"
+                  className={styles.profile_img}
+                />
               </div>
             </>
           )}

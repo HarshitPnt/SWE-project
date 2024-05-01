@@ -2,7 +2,7 @@ import { DataTypes } from "sequelize";
 
 import db from "../../config/database.js";
 
-const Votes = db.define(
+export const Votes = db.define(
   "votes",
   {
     id: {
@@ -45,5 +45,3 @@ const Votes = db.define(
     tableName: "votes",
   }
 );
-
-export default Votes;
