@@ -60,7 +60,15 @@ export const getPostByCreatorID = async (creator_id, banned = "none") => {
     let post;
     if (banned == "all") {
       post = await Post.findAll({
-        attributes: ["id", "creator_id", "community_id"],
+        attributes: [
+          "id",
+          "creator_id",
+          "community_id",
+          "content",
+          "post_type",
+          "image",
+          "video",
+        ],
         where: {
           creator_id: creator_id,
           deleted_at: null,
@@ -69,7 +77,15 @@ export const getPostByCreatorID = async (creator_id, banned = "none") => {
       });
     } else if (banned == "none") {
       post = await Post.findAll({
-        attributes: ["id", "creator_id", "community_id"],
+        attributes: [
+          "id",
+          "creator_id",
+          "community_id",
+          "content",
+          "post_type",
+          "image",
+          "video",
+        ],
         where: {
           creator_id: creator_id,
           is_banned: false,
@@ -107,7 +123,15 @@ export const getPostByCommunityID2 = async (community_id, banned = "none") => {
     let post;
     if (banned == "all") {
       post = await Post.findAll({
-        attributes: ["id", "creator_id", "community_id"],
+        attributes: [
+          "id",
+          "creator_id",
+          "community_id",
+          "content",
+          "post_type",
+          "image",
+          "video",
+        ],
         where: {
           community_id: community_id,
           deleted_at: null,
@@ -116,7 +140,16 @@ export const getPostByCommunityID2 = async (community_id, banned = "none") => {
       });
     } else if (banned == "none") {
       post = await Post.findAll({
-        attributes: ["id", "creator_id", "community_id", "content", "title"],
+        attributes: [
+          "id",
+          "creator_id",
+          "community_id",
+          "content",
+          "title",
+          "image",
+          "video",
+          "post_type",
+        ],
         where: {
           community_id: community_id,
           is_banned: false,
@@ -388,19 +421,25 @@ export const createPost = async (data) => {
 export const updatePost = async (id, data) => {
   try {
     // check if data contains the following fields
-    data = retainFields(data, ["title", "content"]);
+    console.log(data);
+    data = retainFields(data, [
+      "title",
+      "content",
+      "post_type",
+      "video",
+      "image",
+    ]);
     if (!data) {
       throw { error: null, msg: "Missing data" };
     }
+    console.log(id);
     const post = await Post.update(data, {
       where: {
         id: id,
         deleted_at: null,
       },
     });
-    if (post[0] === 0) {
-      throw { error: null, msg: "Post not found" };
-    }
+    console.log(post);
     // logging the post
     fs.appendFileSync(filename, `updatePost: ${post}\n`);
     return post;

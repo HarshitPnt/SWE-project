@@ -91,18 +91,20 @@ export const getJoinedCommunities = async (req, res) => {
       attributes: ["community_id", "privileges"],
       where: { user_id: user_id, status: "active" },
     });
+    console.log(communities);
     // console.log(communities);
     // get community names
     const comms = [];
     for (let i = 0; i < communities.length; i++) {
-      const community = await Community.find({
+      // console.log("Community ID: ");
+      const community = await Community.findOne({
         attributes: ["name"],
-        where: { id: communities[i].community_id },
+        where: { id: communities[i].dataValues.community_id },
       });
       comms.push({
         name: community.name,
-        privileges: communities[i].privileges,
-        id: communities[i].community_id,
+        privileges: communities[i].dataValues.privileges,
+        id: communities[i].dataValues.community_id,
       });
     }
     res.status(200).json(comms);
@@ -130,13 +132,14 @@ export const getInvitedCommunities = async (req, res) => {
     // get community names
     const comms = [];
     for (let i = 0; i < communities.length; i++) {
-      const community = await Community.find({
+      console.log("Community ID: " + communities[i].community_id);
+      const community = await Community.findOne({
         attributes: ["name"],
-        where: { id: communities[i].community_id },
+        where: { id: communities[i].dataValues.community_id },
       });
       comms.push({
         name: community.name,
-        id: communities[i].community_id,
+        id: communities[i].dataValues.community_id,
       });
     }
     res.status(200).json(comms);
@@ -165,18 +168,75 @@ export const getRequestedCommunities = async (req, res) => {
     // get community names
     const comms = [];
     for (let i = 0; i < communities.length; i++) {
-      const community = await Community.find({
+      const community = await Community.findOne({
         attributes: ["name"],
-        where: { id: communities[i].community_id },
+        where: { id: communities[i].dataValues.community_id },
       });
       comms.push({
         name: community.name,
-        id: communities[i].community_id,
+        id: communities[i].dataValues.community_id,
       });
     }
     res.status(200).json(comms);
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "Error in getRequestedCommunities" });
+  }
+};
+
+// insert into community_user
+
+export const insertCommunityUser = async (req, res) => {
+  try {
+    const community_id = req.parmas.id;
+    const user_id = req.body.data.user_id;
+
+    // get default privileges
+    const community = await Community.findOne({
+      attributes: ["post_privilege", "comment_privilege"],
+      where: { id: community_id },
+    });
+
+    if (community === null) {
+      res.status(404).json({ msg: "Community not found" });
+      return;
+    }
+    const privileges = `${community.post_privilege ? 1 : 0} ${
+      community.comment_privilege ? 1 : 0
+    }`;
+    const communityUser = await CommunityUser.create({
+      user_id: user_id,
+      community_id: community_id,
+      privileges: privileges,
+      status: "active",
+    });
+    res.status(200).json({ msg: "Success" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in insertCommunityUser" });
+  }
+};
+
+export const insertAdmin = async (req, res) => {
+  try {
+    const community_id = req.params.id;
+    const username = req.body.data.username;
+    const user = await UserDB.getUserByUsername(username);
+    if (user === null) {
+      res.status(404).json({ msg: "User not found" });
+      return;
+    }
+    const user_id = user.id;
+    console.log("Am i here", user_id);
+    const communityUser = await CommunityUser.create({
+      user_id: user_id,
+      community_id: community_id,
+      privileges: "11",
+      status: "active",
+    });
+    res.status(200).json({ msg: "Success" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in insertAdmin" });
   }
 };

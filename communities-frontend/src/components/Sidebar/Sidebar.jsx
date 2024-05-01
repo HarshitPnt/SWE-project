@@ -16,6 +16,7 @@ import axios from "axios";
 import { getToken } from "../../utils/Cookies/getToken";
 
 const CreateCommunity = ({ isOpen, onClose }) => {
+  const [URL, setUrl] = useState("");
   const uploadImage = async () => {
     if (img == null) {
       return;
@@ -27,7 +28,9 @@ const CreateCommunity = ({ isOpen, onClose }) => {
 
       getDownloadURL(imageRef)
         .then((url) => {
-          console.log("File available at", url);
+          console.log(url);
+          setUrl(url);
+          console.log(URL);
         })
         .catch((error) => {
           console.error("Error getting download URL", error);
@@ -39,21 +42,113 @@ const CreateCommunity = ({ isOpen, onClose }) => {
   };
 
   const [text, setText] = useState("");
-  const [data, setData] = useState([]);
+  const [datas, setData] = useState("");
   const [error, setError] = useState("success");
   const [img, setImg] = useState(null);
+  const { username, token } = getToken();
+  const [id, setId] = useState("");
+
+  useEffect(() => {
+    const updateURL = async () => {
+      if (URL) {
+        // update the URL
+        const resp = axios.patch(
+          `http://localhost:8080/community/${id}`,
+          {
+            data: {
+              banner_image: URL,
+            },
+          },
+          {
+            params: {
+              token: token,
+              username: username,
+            },
+          }
+        );
+      }
+    };
+    updateURL();
+  }, [URL]);
 
   const handleSubmit = async () => {
     const formData = new FormData();
+    setText(nameRef.current.value);
+    setData(descRef.current.value);
+    if (text == "") {
+      setError("error-no-name");
+      return;
+    }
+    if (datas == "") {
+      setError("error-no-desc");
+      return;
+    }
     formData.append("name", text);
     formData.append("description", text);
-    if (error == "success") {
-      await uploadImage();
+    // check if community name exists
+    const res = await axios.get(
+      `http://localhost:8080/community/create/uniqueName`,
+      {
+        params: {
+          name: text,
+          token: token,
+          username: username,
+        },
+      }
+    );
+    console.log(res.data);
+    if (res.data.msg === "OK") {
+      console.log("Creating community");
+      setError("success");
+      const url = await uploadImage();
+      console.log(URL);
+      const resp = await axios.post(
+        `http://localhost:8080/community`,
+        {
+          data: {
+            name: text,
+            description: datas,
+            visibility: visibility,
+            banner_image: url,
+            post_privilege: postPrivilege === "post" ? true : false,
+            comment_privilege: commentPrivilege === "comment" ? true : false,
+          },
+        },
+        {
+          params: {
+            token: token,
+            username: username,
+          },
+        }
+      );
+      console.log(resp.data);
+      setId(resp.data.id);
 
+      // add user to community
+      const params = {
+        token: token,
+        username: username,
+      };
+      console.log(params);
+
+      const res = await axios.post(
+        `http://localhost:8080/community/add/admin/${id}`,
+        {
+          data: {
+            username: username,
+          },
+        }
+      );
+      console.log(res.data);
+    } else {
+      setError("error-name-exists");
+    }
+    if (error == "success") {
       // setError("");
     }
   };
   const descRef = useRef();
+  const nameRef = useRef();
   const [visibility, setVisibility] = useState("public");
   const handleOptionChange = (e) => {
     setVisibility(e.target.value);
@@ -80,8 +175,8 @@ const CreateCommunity = ({ isOpen, onClose }) => {
         <label className={styles.label_css} htmlFor="">
           Community Name
         </label>
-        <input type="text" placeholder="Name" />
-        <label className={styles.label_css} htmlFor="">
+        <input type="text" placeholder="Name" ref={nameRef} />
+        <label className={styles.label_css} htmlFor="" ref={descRef}>
           Description
         </label>
         <textarea name="Description" placeholder="Description"></textarea>
@@ -98,7 +193,6 @@ const CreateCommunity = ({ isOpen, onClose }) => {
           type="file"
           accept="image/*"
           placeholder="Media URL"
-          ref={descRef}
           onChange={(e) => {
             setImg(e.target.files[0]);
           }}
@@ -213,7 +307,11 @@ function Sidebar({ page = 0, loggedIn }) {
     }
   };
 
-  const [communities, setCommunities] = useState([]);
+  const [communities, setCommunities] = useState({
+    joined: [],
+    moderator: [],
+    admin: [],
+  });
 
   useEffect(() => {
     const fetchCommunities = async () => {
@@ -251,9 +349,18 @@ function Sidebar({ page = 0, loggedIn }) {
           },
         }
       );
+      setCommunities({
+        joined: res.data,
+        moderator: res_mod.data,
+        admin: res_admin.data,
+      });
     };
     fetchCommunities();
   }, []);
+
+  useEffect(() => {
+    console.log(communities);
+  }, [communities]);
 
   // const handlecommunityclick = () => {
   //   window.location.href = "/community";
@@ -322,9 +429,13 @@ function Sidebar({ page = 0, loggedIn }) {
                 Joined Communities
               </button>
               <div className={JoinedCommunitiesClass}>
-                <a href="/community/1"> SquaredCircle</a>
-                <a href="/community/8"> randomacts</a>
-                <a href="/community/10"> socialskills</a>
+                {communities.joined.map((community) => (
+                  <>
+                    <a href={`/community/${community.id}`} key={community.id}>
+                      {community.name}
+                    </a>
+                  </>
+                ))}
               </div>
             </div>
             <hr className={styles.hr_sidebar} />
@@ -338,9 +449,13 @@ function Sidebar({ page = 0, loggedIn }) {
                 Admin Communities
               </button>
               <div className={AdminCommunitiesClass}>
-                <a href="/community/1"> SquaredCircle</a>
-                <a href="/community/8"> randomacts</a>
-                <a href="/community/10"> socialskills</a>
+                {communities.admin.map((community) => (
+                  <>
+                    <a href={`/community/${community.id}`} key={community.id}>
+                      {community.name}
+                    </a>
+                  </>
+                ))}
               </div>
             </div>
             <hr className={styles.hr_sidebar} />
@@ -355,9 +470,13 @@ function Sidebar({ page = 0, loggedIn }) {
                 Moderator communities
               </button>
               <div className={ModeratorCommunitiesClass}>
-                <a href="/community/1"> SquaredCircle</a>
-                <a href="/community/8"> randomacts</a>
-                <a href="/community/10"> socialskills</a>
+                {communities.moderator.map((community) => (
+                  <>
+                    <a href={`/community/${community.id}`} key={community.id}>
+                      {community.name}
+                    </a>
+                  </>
+                ))}
               </div>
             </div>
             <hr className={styles.hr_sidebar} />

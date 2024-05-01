@@ -6,6 +6,7 @@ import {
 import { checkFields, retainFields } from "../utils/utilities/object.js";
 import * as UserDB from "../controllers/db/user.js";
 import * as CommunityDB from "../controllers/db/community.js";
+import { CommunityUser } from "../models/communityUserModel.js";
 import { Votes } from "../models/votesModel.js";
 
 // getPostById (public: tested)
@@ -152,7 +153,7 @@ export const searchPosts = async (req, res) => {
 // createPost
 export const createPost = async (req, res) => {
   try {
-    const data = req.body.data;
+    let data = req.body.data;
     if (!req.body.data) {
       res.status(400).json({ msg: "Missing data" });
       return;
@@ -162,16 +163,45 @@ export const createPost = async (req, res) => {
       "title",
       "content",
       "community_id",
-      "creator_id",
+      "username",
       "post_type",
     ];
+    // get id
+
     // from post_type check others also (TODO)
     if (checkFields(data, requiredFields) === false) {
       res.status(400).json({ msg: "Missing fields" });
       return;
     }
-    const post = await PostDB.createPost(data);
-    res.status(201).json({ msg: "Post created" });
+    let user = await UserDB.getUserByUsername(data.username);
+    if (user.is_banned === true) {
+      res.status(400).json({ msg: "User is banned" });
+      return;
+    }
+    // check if user is active in community
+    const comm = await CommunityUser.findOne({
+      where: { user_id: user.id, community_id: data.community_id },
+    });
+    console.log("HEERERE");
+    if (comm.status !== "active" || comm.privileges[0] != 1) {
+      res.status(403).json({ msg: "User not in community" });
+      return;
+    }
+    console.log(data, user.id);
+    const post = await PostDB.createPost({
+      creator_id: user.id,
+      title: data.title,
+      content: data.content,
+      community_id: data.community_id,
+      post_type: data.post_type,
+      created_at: new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      }),
+      updated_at: new Date().toLocaleString("en-US", {
+        timeZone: "Asia/Kolkata",
+      }),
+    });
+    res.status(201).json({ msg: "Post created", id: post.id });
   } catch (err) {
     console.log(err);
     res.status(500).json({ msg: "Error in createPost" });
@@ -181,13 +211,13 @@ export const createPost = async (req, res) => {
 // updatePost
 export const updatePost = async (req, res) => {
   try {
+    console.log("HERE");
     const id = req.params.id;
     let data = req.body.data;
     if (!req.body.data) {
       res.status(400).json({ msg: "Missing data" });
       return;
     }
-    data = retainFields(data, ["title", "content"]);
     data.updated_at = new Date().toLocaleString("en-US", {
       timeZone: "Asia/Kolkata",
     });

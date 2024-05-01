@@ -17,6 +17,9 @@ import { ref, uploadBytes } from "firebase/storage";
 import { v4 } from "uuid";
 import { getDownloadURL } from "firebase/storage";
 import Spinner from "../../components/Spinner/Spinner";
+import { getToken } from "../../utils/Cookies/getToken.js";
+import axios from "axios";
+import { useParams } from "react-router-dom";
 
 const CreatePoll = ({ isOpen, onClose }) => {
   const [options, setOptions] = useState(["", ""]); // Initial state with two empty options
@@ -74,11 +77,18 @@ const CreatePoll = ({ isOpen, onClose }) => {
 };
 
 const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
+  const params = useParams();
+  const id = params.id;
   const [spinnerState, setSpinnerState] = useState(false);
   const [media, setMedia] = useState(null);
   const [image, setImage] = useState(null);
   const [video, setVideo] = useState(null);
   const [imgError, setImgError] = useState("");
+  const titleRef = useRef();
+  const descriptionRef = useRef();
+  const [URL, setURL] = useState("");
+
+  const { username, token } = getToken();
 
   const uploadVideo = async () => {
     if (media == null) {
@@ -98,6 +108,7 @@ const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
         .then((url) => {
           console.log("File available at", url);
           setSpinnerState(false);
+          setURL({ type: "video", url: url });
         })
         .catch((error) => {
           console.error("Error getting download URL", error);
@@ -127,6 +138,7 @@ const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
         .then((url) => {
           console.log("File available at", url);
           setSpinnerState(false);
+          setURL({ type: "image", url: url });
         })
         .catch((error) => {
           console.error("Error getting download URL", error);
@@ -137,10 +149,74 @@ const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
     });
   };
 
+  const [postid, setId] = useState("");
+
+  useEffect(() => {
+    const update = async () => {
+      if (URL && URL.type) {
+        if (URL.type == "image") {
+          const resp = await axios.patch(
+            `http://localhost:8080/post/${postid}`,
+            {
+              data: {
+                post_type: "image",
+                image: URL.url,
+              },
+            }
+          );
+        } else {
+          const resp = await axios.patch(
+            `http://localhost:8080/post/${postid}`,
+            {
+              data: {
+                post_type: "video",
+                video: URL.url,
+              },
+            }
+          );
+        }
+      }
+    };
+    update();
+  }, [URL]);
+
+  const [text, setText] = useState("");
+  const [title, setTitle] = useState("");
+
+  const handleTextChange = (e) => {
+    setText(e.target.value);
+    console.log(text);
+  };
+
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+    console.log(title);
+  };
+
   const handleSubmit = async () => {
     // check if media
     console.log(media);
     console.log(spinnerState);
+    console.log(title, text, media, spinnerState);
+    if (title === "" || text === "") {
+      return;
+    }
+    // send data to backend
+    let postType = "text";
+    if (media && media.type.includes("image")) {
+      postType = "image";
+    } else if (media && media.type.includes("video")) {
+      postType = "video";
+    }
+    const resp = await axios.post("http://localhost:8080/post", {
+      data: {
+        title: title,
+        content: text,
+        username: username,
+        community_id: id,
+        post_type: postType,
+      },
+    });
     if (media) {
       if (media.type.includes("image")) {
         await uploadImage();
@@ -148,7 +224,12 @@ const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
         await uploadVideo();
       }
     }
+    console.log(resp);
+    setId(resp.data.id);
     setSpinnerState(true);
+    while (spinnerState) {
+      console.log("Waiting");
+    }
   };
 
   const mediaRef = useRef();
@@ -159,11 +240,12 @@ const WritePost = ({ isOpen, onClose, img_option, video_option }) => {
         <label className={styles.label_css} htmlFor="">
           Title
         </label>
-        <input type="text" placeholder="Title" />
+
+        <input type="text" placeholder="Title" onChange={handleTitleChange} />
         <label className={styles.label_css} htmlFor="">
           Description
         </label>
-        <textarea placeholder="Description" />
+        <textarea placeholder="Description" onChange={handleTextChange} />
         <label className={styles.label_css} htmlFor="">
           Video/Image
         </label>
@@ -215,6 +297,9 @@ function CommunityPage() {
   }, []);
   const [showModal, setShowModal] = useState(false);
   const [pollModal, setPollModal] = useState(false);
+  const [image, setImage] = useState(
+    "https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
+  );
 
   const handlePost = async () => {
     setShowModal(true);
@@ -237,6 +322,13 @@ function CommunityPage() {
 
   useEffect(() => {
     console.log("Logging community deatils: ", communityDetails);
+    if (
+      communityDetails.details &&
+      communityDetails.details.banner_image &&
+      communityDetails.banner_image !== ""
+    ) {
+      setImage(communityDetails.details.banner_image);
+    }
   }, [communityDetails]);
 
   return (
@@ -246,11 +338,7 @@ function CommunityPage() {
         <Sidebar page={0} className={styles.Sidebar} loggedIn={logged} />
         <div className={styles.box1}>
           <div className={styles.Header}>
-            <img
-              src="https://www.redditstatic.com/avatars/avatar_default_03_24A0ED.png"
-              alt="user"
-              className={styles.HeaderImg}
-            />
+            <img src={image} alt="user" className={styles.HeaderImg} />
             <div className={styles.userText}>
               <h2>
                 {communityDetails.details
@@ -316,6 +404,9 @@ function CommunityPage() {
                         join: false,
                         id: post.user.id,
                       }}
+                      type={post.post.post_type}
+                      video={post.post.video}
+                      image={post.post.image}
                       report={logged}
                       save={logged}
                     />

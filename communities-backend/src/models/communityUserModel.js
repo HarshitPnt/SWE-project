@@ -5,7 +5,7 @@ import db from "../../config/database.js";
 export const CommunityUser = db.define(
   "CommunityUser",
   {
-    userId: {
+    user_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "users",
@@ -13,7 +13,7 @@ export const CommunityUser = db.define(
       },
       primaryKey: true,
     },
-    communityId: {
+    community_id: {
       type: DataTypes.INTEGER,
       references: {
         model: "communities",
@@ -38,21 +38,21 @@ export const CommunityUser = db.define(
         ],
       },
     },
-    joinedAt: {
+    joined_at: {
       type: DataTypes.DATE,
       defaultValue: DataTypes.NOW,
     },
-    leftAt: {
+    left_at: {
       type: DataTypes.DATE,
     },
-    bannedAt: {
+    banned_at: {
       type: DataTypes.DATE,
     },
-    bannedReason: {
+    banned_reason: {
       type: DataTypes.TEXT,
       defaultValue: "",
     },
-    bannedBy: {
+    banned_by: {
       type: DataTypes.INTEGER,
       references: {
         model: "users",

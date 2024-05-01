@@ -137,9 +137,9 @@ router.get(
 router.get("/search/post", Post_Controller.searchPosts);
 
 // TODO: checkPrivileges middleware
-// router.post("/post", Post_Controller.createPost);
+router.post("/post", Post_Controller.createPost);
 
-router.patch("/post/:id", checkPostCreator, Post_Controller.updatePost);
+router.patch("/post/:id", Post_Controller.updatePost);
 
 router.delete("/post/:id", checkPostCreator, Post_Controller.deletePost);
 
@@ -223,5 +223,16 @@ router.post("/vote/poll/:poll_id", Votes_Controller.createVoteByPollId);
 
 // comment routes
 router.get("/comment/:id", Comment_Controller.getCommentsByPostId);
+
+router.get(
+  "/community/create/uniqueName",
+  Community_Controller.verifyUniqueness
+);
+
+router.post(
+  "/community/add/user/:id",
+  CommunityUser_Controller.insertCommunityUser
+);
+router.post("/community/add/admin/:id", CommunityUser_Controller.insertAdmin);
 
 export default router;

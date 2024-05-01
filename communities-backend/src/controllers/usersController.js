@@ -76,7 +76,7 @@ export const getUserByID = async (req, res) => {
 // getPrivateUser
 export const getPrivateUser = async (req, res) => {
   const verification = req.verified;
-  const username = req.username;
+  const username = req.query.username;
 
   const userId = req.params.id;
 

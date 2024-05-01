@@ -20,7 +20,7 @@ export const verify = async (req, res, next) => {
         next(); // Add this line to move to the next middleware
       } else {
         req.verified = true;
-        req.username = token.username;
+        req.username = req.query.username;
         next(); // Add this line to move to the next middleware
       }
     }

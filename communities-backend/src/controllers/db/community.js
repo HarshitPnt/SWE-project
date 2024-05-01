@@ -11,7 +11,6 @@ export const getCommunityDetails = async (id, banned = false) => {
       throw { error: null, msg: "Invalid id" };
     }
     const community = await Community.findOne({
-      attributes: ["name", "description"],
       where: {
         id: id,
         is_banned: banned,
@@ -141,11 +140,15 @@ export const getCommunityPrivilegesById = async (id, banned = false) => {
 };
 
 // createCommunity
-export const createCommunity = async (name, creater_id) => {
+export const createCommunity = async (data, creater_id) => {
   try {
     const community = await Community.create({
-      name: name,
-      creater_id: creater_id,
+      name: data.name,
+      description: data.description,
+      visibility: data.visibility,
+      post_privileges: data.post_privileges,
+      comment_privileges: data.comment_privileges,
+      creator_id: creater_id,
     });
 
     // logging the community

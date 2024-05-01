@@ -8,7 +8,16 @@ export const getTrendingPosts = async (req, res) => {
   try {
     // get random public posts
     let posts = await Post.findAll({
-      attributes: ["id", "creator_id", "community_id", "title", "content"],
+      attributes: [
+        "id",
+        "creator_id",
+        "community_id",
+        "title",
+        "content",
+        "post_type",
+        "image",
+        "video",
+      ],
       limit: 100,
       where: {
         id: {

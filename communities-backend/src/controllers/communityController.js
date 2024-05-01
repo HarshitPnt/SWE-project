@@ -44,6 +44,25 @@ export const getAdminCommunities = async (req, res) => {
   } catch {}
 };
 
+export const verifyUniqueness = async (req, res) => {
+  try {
+    const name = req.query.name;
+    if (!req.verified) {
+      res.status(403).json({ msg: "Invalid Token" });
+      return;
+    }
+    const community = await Community.findOne({ where: { name: name } });
+    if (!community) {
+      res.status(200).json({ msg: "OK" });
+      return;
+    }
+    res.status(200).json({ msg: "NOK" });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ msg: "Error in verifyUniqueness" });
+  }
+};
+
 // getCommunityByID
 export const getCommunityByID = async (req, res) => {
   try {
@@ -199,8 +218,10 @@ export const createCommunity = async (req, res) => {
       res.status(403).json({ msg: "Invalid Token" });
       return;
     }
-    const username = req.username;
+    console.log("HERE");
+    const username = req.query.username;
     const user = await UserDB.getUserByUsername(username);
+    console.log(req.body);
     if (!req.body.data) {
       res.status(400).json({ msg: "Community name is requied" });
       return;
@@ -217,7 +238,8 @@ export const createCommunity = async (req, res) => {
       "comment_privilege",
       "allowed_posts",
     ]);
-    const community = await CommunityDB.createCommunity(username, req.body);
+    console.log(req.body.data);
+    const community = await CommunityDB.createCommunity(req.body.data, user.id);
     res.status(200).json(community);
   } catch (err) {
     console.log(err);

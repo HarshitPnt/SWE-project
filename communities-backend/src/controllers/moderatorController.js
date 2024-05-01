@@ -160,14 +160,14 @@ export const getModeratorCommunities = async (req, res) => {
     // get community names
     const comms = [];
     for (let i = 0; i < communities.length; i++) {
-      const community = await Community.find({
+      const community = await Community.findOne({
         attributes: ["name"],
-        where: { id: communities[i].community_id },
+        where: { id: communities[i].dataValues.community_id },
       });
       comms.push({
         name: community.name,
-        privileges: communities[i].privileges,
-        id: communities[i].community_id,
+        privileges: communities[i].dataValues.privileges,
+        id: communities[i].dataValues.community_id,
       });
     }
     res.status(200).json(comms);
